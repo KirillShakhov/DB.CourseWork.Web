@@ -4,7 +4,7 @@ let window_create_task = "methods";
 let update_interval = null;
 let tasks_count = 0;
 
-let windows_name = "general";
+let windows_name = "car";
 
 
 delete_task_selected_button.onclick = () => {
@@ -248,87 +248,74 @@ create_tasks_button.onclick = () => {
     create_profile_window.innerHTML = "<div class=\"blur-window create-profile\" id=\"create-profile-window\">\n" +
         "        <div class=\"container top-container\">\n" +
         "            <div class=\"menu-slider unselectable\">\n" +
-        "                <div class=\"menu-slider-item\" id=\"profile-general-button\" onclick='windows_name = \"general\";updateProfileWindow();'>General</div>\n" +
-        "                <div class=\"menu-slider-item\" id=\"profile-delivery-button\" onclick='windows_name = \"delivery\";updateProfileWindow();'>Delivery</div>\n" +
-        "                <div class=\"menu-slider-item\" id=\"profile-payment-button\" onclick='windows_name = \"payment\";updateProfileWindow();'>Payment</div>\n" +
+        "                <div class=\"menu-slider-item\" id=\"profile-general-button\" onclick='windows_name = \"car\";updateProfileWindow();'>Машинка</div>\n" +
+        "                <div class=\"menu-slider-item\" id=\"profile-delivery-button\" onclick='windows_name = \"bumper\";updateProfileWindow();'>Бампер</div>\n" +
+        "                <div class=\"menu-slider-item\" id=\"profile-payment-button\" onclick='windows_name = \"wheels\";updateProfileWindow();'>Колеса</div>\n" +
         "            </div>\n" +
         "            <div class=\"border-b-line\"></div>\n" +
         "        </div>\n" +
         "\n" +
         "        <div>\n" +
         "            <div class=\"container profile-container\" id=\"general-container\" hidden>\n" +
-        "                <div class=\"middle-container-text\">Profile Name</div>\n" +
-        "                <div class=\"middle-container-text\" style=\"margin-top: 70px\">Email Address</div>\n" +
-        "                <div class=\"middle-container-text\" style=\"margin-top: 145px\">Phone Number</div>\n" +
-        "                <input type=\"text\" id=\"GeneralProfileNameInput\" placeholder=\"Sample\" value=\"\"\n" +
-        "                       style=\"position: absolute;margin-left: 10px;margin-top: 30px; width:220px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 250px;top: 55px;\"></div>\n" +
-        "                <input type=\"text\" id=\"GeneralEmailAddressInput\" placeholder=\"emailaddress@gmail.com\" value=\"\"\n" +
+        "                <div class=\"middle-container-text\">Выберите машинку:</div>\n" +
+        "                <div class=\"middle-container-text\" style=\"margin-top: 70px\">Описание:</div>\n" +
+        "                <div class=\"middle-container-text\" style=\"margin-top: 145px\">Фото:</div>\n" +
+        "                  <select class=\"group-selector\" id=\"wheels-selector\" onchange=\"\"" +
+        "                       style=\"position: absolute;margin-left: 10px;margin-top: 30px; width:160px;\">\n" +
+        "                       <option value='null'>Выберите серию...</option>" +
+        "                  </select>" +
+        "                  <select class=\"group-selector\" id=\"wheels-selector\" onchange=\"\"" +
+        "                       style=\"position: absolute;margin-left: 190px;margin-top: 30px; width:180px;\">\n" +
+        "                       <option value='null'><--</option>" +
+        "                  </select>" +
+        "                <input type=\"text\" id=\"GeneralEmailAddressInput\" placeholder=\"Не бита, не крашена\" value=\"\"\n" +
         "                       style=\"position: absolute;margin-left: 10px;margin-top: 100px; width:220px;\">\n" +
         "                <div class=\"border-b-line\" style=\"width: 250px;top: 125px;\"></div>\n" +
-        "                <input type=\"text\" id=\"GeneralPhoneNumberInput\" placeholder=\"7(911)001-01-01\" value=\"\"\n" +
+        "                <input type=\"text\" id=\"GeneralPhoneNumberInput\" placeholder=\"https://www.google.com/url...\" value=\"\"\n" +
         "                       style=\"position: absolute;margin-left: 10px;margin-top: 175px; width:220px;\">\n" +
         "                <div class=\"border-b-line\" style=\"width: 250px;top: 200px;\"></div>\n" +
         "            </div>\n" +
         "\n" +
         "            <div class=\"container profile-container\" id=\"delivery-container\" hidden>\n" +
-        "                <div class=\"middle-container-text\">Name</div>\n" +
-        "                <div class=\"middle-container-text\" style=\"margin-top: 70px\">City</div>\n" +
-        "                <div class=\"middle-container-text\" style=\"margin-top: 145px\">Address</div>\n" +
-        "                <input type=\"text\" id=\"DeliveryFirstNameInput\" placeholder=\"First name\" value=\"\"\n" +
-        "                       style=\"position: absolute;margin-left: 10px;margin-top: 30px; width: 145px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 170px;top: 55px;\"></div>\n" +
-        "                <input type=\"text\" id=\"DeliveryLastNameInput\" placeholder=\"Last name\" value=\"\"\n" +
-        "                       style=\"position: absolute;margin-left: 210px;margin-top: 30px; width: 145px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 170px;left: 200px;top: 55px;\"></div>\n" +
-        "                <input type=\"text\" id=\"DeliveryCityInput\" placeholder=\"City\" value=\"\"\n" +
-        "                       style=\"position: absolute;margin-left: 10px;margin-top: 100px; width: 145px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 170px;top: 125px;\"></div>\n" +
-        "                <input type=\"text\" id=\"DeliveryZipCodeInput\" placeholder=\"Zipcode/Index\" value=\"\"\n" +
-        "                       style=\"position: absolute;margin-left: 210px;margin-top: 100px; width: 145px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 170px;left: 200px;top: 125px;\"></div>\n" +
-        "                <input type=\"text\" id=\"DeliveryStreetInput\" placeholder=\"Street\" value=\"\"\n" +
-        "                       style=\"position: absolute;margin-left: 10px;margin-top: 175px; width: 340px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 374px;top: 200px;\"></div>\n" +
-        "                <input type=\"text\" id=\"DeliveryHouseInput\" placeholder=\"House\" value=\"\"\n" +
-        "                       style=\"position: absolute;margin-left: 10px;margin-top: 230px; width: 145px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 170px;top: 255px;\"></div>\n" +
-        "                <input type=\"text\" id=\"DeliveryApartmentInput\" placeholder=\"Apartment\" value=\"\"\n" +
-        "                       style=\"position: absolute;margin-left: 210px;margin-top: 230px; width: 145px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 170px;left: 200px;top: 255px;\"></div>\n" +
+        "                <div class=\"middle-container-text\">Выберите бампер:</div>\n" +
+        "                <div class=\"middle-container-text\" style=\"margin-top: 70px\">Описание:</div>\n" +
+        "                <div class=\"middle-container-text\" style=\"margin-top: 145px\">Фото:</div>\n" +
+        "                  <select class=\"group-selector\" id=\"wheels-selector\" onchange=\"\"" +
+        "                       style=\"position: absolute;margin-left: 10px;margin-top: 30px; width:220px;\">\n" +
+        "                       <option value='null'>Выберите бампер...</option>" +
+        "                  </select>" +
+        "                <input type=\"text\" id=\"GeneralEmailAddressInput\" placeholder=\"Куплен на алике\" value=\"\"\n" +
+        "                       style=\"position: absolute;margin-left: 10px;margin-top: 100px; width:220px;\">\n" +
+        "                <div class=\"border-b-line\" style=\"width: 250px;top: 125px;\"></div>\n" +
+        "                <input type=\"text\" id=\"GeneralPhoneNumberInput\" placeholder=\"https://www.google.com/url...\" value=\"\"\n" +
+        "                       style=\"position: absolute;margin-left: 10px;margin-top: 175px; width:220px;\">\n" +
+        "                <div class=\"border-b-line\" style=\"width: 250px;top: 200px;\"></div>\n" +
         "            </div>\n" +
         "\n" +
         "            <div class=\"container profile-container\" id=\"payment-container\" hidden>\n" +
-        "                <div class=\"middle-container-text\">Name</div>\n" +
-        "                <div class=\"middle-container-text\" style=\"margin-top: 70px\">Card</div>\n" +
-        "                <input type=\"text\" id=\"PaymentFirstNameInput\" placeholder=\"First name\" value=\"\"\n" +
-        "                       style=\"position: absolute;margin-left: 10px;margin-top: 30px; width: 145px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 170px;top: 55px;\"></div>\n" +
-        "                <input type=\"text\" id=\"PaymentLastNameInput\" placeholder=\"Last name\" value=\"\"\n" +
-        "                       style=\"position: absolute;margin-left: 210px;margin-top: 30px; width: 145px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 170px;left: 200px;top: 55px;\"></div>\n" +
-        "                <input type=\"text\" id=\"PaymentNumberInput\" name=\"NumberInput\" placeholder=\"Number\" value=\"\"\n" +
-        "                       style=\"position: absolute;margin-left: 10px;margin-top: 100px; width: 340px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 370px;top: 125px;\"></div>\n" +
-        "                <input type=\"text\" id=\"PaymentMonthInput\" name=\"MonthInput\" placeholder=\"Month\" value=\"\"\n" +
-        "                       style=\"position: absolute;margin-left: 10px;margin-top: 145px; width: 145px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 170px;top: 170px;\"></div>\n" +
-        "                <input type=\"text\" id=\"PaymentYearInput\" name=\"YearInput\" placeholder=\"Year\" value=\"\"\n" +
-        "                       style=\"position: absolute;margin-left: 210px;margin-top: 145px; width: 145px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 170px;left: 200px;top: 170px;\"></div>\n" +
-        "                <input type=\"text\" id=\"PaymentCVCInput\" name=\"CVCInput\" placeholder=\"CVC\" value=\"\"\n" +
-        "                       style=\"position: absolute;margin-left: 10px;margin-top: 200px; width: 145px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 170px;top: 224px;\"></div>\n" +
+         "                <div class=\"middle-container-text\">Выберите колеса:</div>\n" +
+        "                <div class=\"middle-container-text\" style=\"margin-top: 70px\">Описание:</div>\n" +
+        "                <div class=\"middle-container-text\" style=\"margin-top: 145px\">Фото:</div>\n" +
+        "                  <select class=\"group-selector\" id=\"wheels-selector\" onchange=\"\"" +
+        "                       style=\"position: absolute;margin-left: 10px;margin-top: 30px; width:220px;\">\n" +
+        "                       <option value='null'>Выберите колеса...</option>" +
+        "                  </select>" +
+        "                <input type=\"text\" id=\"GeneralEmailAddressInput\" placeholder=\"Снял с соседсой машины\" value=\"\"\n" +
+        "                       style=\"position: absolute;margin-left: 10px;margin-top: 100px; width:220px;\">\n" +
+        "                <div class=\"border-b-line\" style=\"width: 250px;top: 125px;\"></div>\n" +
+        "                <input type=\"text\" id=\"GeneralPhoneNumberInput\" placeholder=\"https://www.google.com/url...\" value=\"\"\n" +
+        "                       style=\"position: absolute;margin-left: 10px;margin-top: 175px; width:220px;\">\n" +
+        "                <div class=\"border-b-line\" style=\"width: 250px;top: 200px;\"></div>\n" +
         "            </div>\n" +
         "        </div>\n" +
-        "        <button class='grey-border-button' id='create-profile-back-button' onclick='backProfileButton()' hidden>Back</button>" +
+        // "        <button class='grey-border-button' id='create-profile-back-button' onclick='backProfileButton()' hidden>Back</button>" +
         "        <span style=\"position: absolute; left: 180px;\">" +
-        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
-        "           <button type=\"submit\" class=\"red-button\" id='create-profile-next-button' onclick='createProfile();'>Next</button>\n" +
+        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Закрыть</button>\n" +
+        "           <button type=\"submit\" class=\"red-button\" id='create-profile-next-button' onclick='createItem();'>Добавить</button>\n" +
         "        </span>" +
         "    </div>";
     home.appendChild(create_profile_window);
-    windows_name = "general";
+    windows_name = "car";
     updateProfileWindow();
 };
 
@@ -663,16 +650,16 @@ function backProfileButton() {
     }
 }
 
-function createProfile() {
-    if (windows_name === "general") {
-        windows_name = "delivery";
-        updateProfileWindow();
-    } else if (windows_name === "delivery") {
-        windows_name = "payment";
-        updateProfileWindow();
-    } else if (windows_name === "payment") {
+function createItem() {
+    // if (windows_name === "car") {
+    //     windows_name = "delivery";
+    //     updateProfileWindow();
+    // } else if (windows_name === "delivery") {
+    //     windows_name = "payment";
+    //     updateProfileWindow();
+    // } else if (windows_name === "payment") {
         // saveProfile();
-    }
+
 }
 
 function updateProfileWindow() {
@@ -693,20 +680,14 @@ function updateProfileWindow() {
     profile_general_button.className = "menu-slider-item unselectable";
     profile_delivery_button.className = "menu-slider-item unselectable";
     profile_payment_button.className = "menu-slider-item unselectable";
-    if (windows_name === "general") {
+    if (windows_name === "car") {
         profile_general_button.className = "menu-slider-item unselectable active";
         general_container.hidden = false;
-        create_profile_back_button.hidden = true;
-        create_profile_next_button.textContent = "Next";
-    } else if (windows_name === "delivery") {
+    } else if (windows_name === "bumper") {
         profile_delivery_button.className = "menu-slider-item unselectable active";
         delivery_container.hidden = false;
-        create_profile_back_button.hidden = false;
-        create_profile_next_button.textContent = "Next";
-    } else if (windows_name === "payment") {
+    } else if (windows_name === "wheels") {
         profile_payment_button.className = "menu-slider-item unselectable active";
         payment_container.hidden = false;
-        create_profile_back_button.hidden = false;
-        create_profile_next_button.textContent = "Save";
     }
 }

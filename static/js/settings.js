@@ -23,7 +23,7 @@ function updateInfo() {
 
 
             let balance = document.getElementsByClassName("my-balance");
-            for (let i = 0; i < balankce.length; i++) {
+            for (let i = 0; i < balance.length; i++) {
                 balance.item(i).textContent = data["list"]["balance"];
             }
 
