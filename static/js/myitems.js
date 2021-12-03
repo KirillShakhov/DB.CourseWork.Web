@@ -245,7 +245,7 @@ create_tasks_button.onclick = () => {
     removeAllWindows();
     let home = document.getElementById("windows-container");
     let create_profile_window = document.createElement("div");
-    create_profile_window.innerHTML = "<div class=\"blur-window create-profile\" id=\"create-profile-window\">\n" +
+    create_profile_window.innerHTML = "<div class=\"blur-window create-profile\" id=\"create-item-window\">\n" +
         "        <div class=\"container top-container\">\n" +
         "            <div class=\"menu-slider unselectable\">\n" +
         "                <div class=\"menu-slider-item\" id=\"profile-general-button\" onclick='windows_name = \"car\";updateProfileWindow();'>Машинка</div>\n" +
@@ -260,18 +260,18 @@ create_tasks_button.onclick = () => {
         "                <div class=\"middle-container-text\">Выберите машинку:</div>\n" +
         "                <div class=\"middle-container-text\" style=\"margin-top: 70px\">Описание:</div>\n" +
         "                <div class=\"middle-container-text\" style=\"margin-top: 145px\">Фото:</div>\n" +
-        "                  <select class=\"group-selector\" id=\"wheels-selector\" onchange=\"\"" +
+        "                  <select class=\"group-selector\" id=\"create-window-cars-group-selector\" onchange=\"updateCrateWindowCarSelector();\"" +
         "                       style=\"position: absolute;margin-left: 10px;margin-top: 30px; width:160px;\">\n" +
         "                       <option value='null'>Выберите серию...</option>" +
         "                  </select>" +
-        "                  <select class=\"group-selector\" id=\"wheels-selector\" onchange=\"\"" +
+        "                  <select class=\"group-selector\" id=\"create-window-cars-selector\" onchange=\"\"" +
         "                       style=\"position: absolute;margin-left: 190px;margin-top: 30px; width:180px;\">\n" +
         "                       <option value='null'><--</option>" +
         "                  </select>" +
-        "                <input type=\"text\" id=\"GeneralEmailAddressInput\" placeholder=\"Не бита, не крашена\" value=\"\"\n" +
+        "                <input type=\"text\" id=\"ItemCarDesInput\" placeholder=\"Не бита, не крашена\" value=\"\"\n" +
         "                       style=\"position: absolute;margin-left: 10px;margin-top: 100px; width:220px;\">\n" +
         "                <div class=\"border-b-line\" style=\"width: 250px;top: 125px;\"></div>\n" +
-        "                <input type=\"text\" id=\"GeneralPhoneNumberInput\" placeholder=\"https://www.google.com/url...\" value=\"\"\n" +
+        "                <input type=\"text\" id=\"ItemCarPhotoInput\" placeholder=\"https://www.google.com/url...\" value=\"\"\n" +
         "                       style=\"position: absolute;margin-left: 10px;margin-top: 175px; width:220px;\">\n" +
         "                <div class=\"border-b-line\" style=\"width: 250px;top: 200px;\"></div>\n" +
         "            </div>\n" +
@@ -293,7 +293,7 @@ create_tasks_button.onclick = () => {
         "            </div>\n" +
         "\n" +
         "            <div class=\"container profile-container\" id=\"payment-container\" hidden>\n" +
-         "                <div class=\"middle-container-text\">Выберите колеса:</div>\n" +
+        "                <div class=\"middle-container-text\">Выберите колеса:</div>\n" +
         "                <div class=\"middle-container-text\" style=\"margin-top: 70px\">Описание:</div>\n" +
         "                <div class=\"middle-container-text\" style=\"margin-top: 145px\">Фото:</div>\n" +
         "                  <select class=\"group-selector\" id=\"wheels-selector\" onchange=\"\"" +
@@ -308,9 +308,8 @@ create_tasks_button.onclick = () => {
         "                <div class=\"border-b-line\" style=\"width: 250px;top: 200px;\"></div>\n" +
         "            </div>\n" +
         "        </div>\n" +
-        // "        <button class='grey-border-button' id='create-profile-back-button' onclick='backProfileButton()' hidden>Back</button>" +
         "        <span style=\"position: absolute; left: 180px;\">" +
-        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Закрыть</button>\n" +
+        "           <button class=\"button-active\" onclick='document.getElementById(\"create-item-window\").remove();'>Закрыть</button>\n" +
         "           <button type=\"submit\" class=\"red-button\" id='create-profile-next-button' onclick='createItem();'>Добавить</button>\n" +
         "        </span>" +
         "    </div>";
@@ -318,6 +317,7 @@ create_tasks_button.onclick = () => {
     windows_name = "car";
     updateProfileWindow();
 };
+
 
 function updateStatusTasks() {
     $.ajax({
@@ -408,99 +408,6 @@ function updateStatusTasks() {
     });
 }
 
-function saveTask() {
-    let module_list_header = document.getElementById("module-list-header");
-    let create_task_header = document.getElementById("create-task-header");
-    let create_task_back_button = document.getElementById("create-task-back-button");
-
-    if (window_create_task === "methods") {
-        document.getElementById("methods-container").hidden = true;
-        document.getElementById("crete-task-container").hidden = false;
-        window_create_task = "create-task";
-        module_list_header.className = "menu-slider-item unselectable";
-        create_task_header.className = "menu-slider-item unselectable active";
-        create_task_back_button.hidden = false;
-    } else {
-        addTask(document.getElementById("task-name-input").value,
-            document.getElementById("methods-selector").options[document.getElementById("methods-selector").selectedIndex].value,
-            document.getElementById("pid-input").value,
-            document.getElementById("amount-input").value,
-            document.getElementById("add-task-profile-selector").options[document.getElementById("add-task-profile-selector").selectedIndex].value,
-            null,
-            document.getElementById("add-task-proxy-selector").options[document.getElementById("add-task-proxy-selector").selectedIndex].value,
-            document.getElementById("filters-selector").options[document.getElementById("filters-selector").selectedIndex].value,
-            document.getElementById("size-input").value);
-        document.getElementById("create-task-window").remove();
-        window_create_task = "methods";
-        module_list_header.className = "menu-slider-item unselectable active";
-        create_task_header.className = "menu-slider-item unselectable";
-        create_task_back_button.hidden = true;
-    }
-}
-
-function updateProfileGroupSelector(selector) {
-    selector.innerText = "";
-    $.ajax({
-        url: '/show_profile_groups',
-        method: 'get',
-    }).done(function (data) {
-        let option = document.createElement("option");
-        option.value = "null";
-        option.text = "Не выбирать";
-        selector.appendChild(option);
-        data["list"].forEach((i) => {
-            let option = document.createElement("option");
-            option.value = i["id"];
-            option.text = i["name"];
-            selector.appendChild(option);
-        });
-    });
-}
-
-function updateMethodsSelector(selector) {
-    selector.innerText = "";
-    $.ajax({
-        url: '/tasks_modules',
-        method: 'get',
-    }).done(function (data) {
-        data["list"].forEach((i) => {
-            let option = document.createElement("option");
-            option.value = i;
-            option.text = i;
-            selector.appendChild(option);
-        });
-    });
-}
-
-function updateFilterSelector(selector) {
-    selector.innerText = "";
-    $.ajax({
-        url: '/get_filters',
-        method: 'get',
-    }).done(function (data) {
-        data["list"].forEach((i) => {
-            let option = document.createElement("option");
-            option.value = i;
-            option.text = i;
-            selector.appendChild(option);
-        });
-    });
-}
-
-function updateProxyGroupSelector(selector) {
-    selector.innerText = "";
-    $.ajax({
-        url: '/show_proxy_groups',
-        method: 'get',
-    }).done(function (data) {
-        data["list"].forEach((i) => {
-            let option = document.createElement("option");
-            option.value = i["id"];
-            option.text = i["name"];
-            selector.appendChild(option);
-        });
-    });
-}
 
 function addTask(name, module, pid, amount, profile_group_id, account_group_id, proxy_group_id, filter, sizes) {
     let data = {
@@ -651,15 +558,34 @@ function backProfileButton() {
 }
 
 function createItem() {
-    // if (windows_name === "car") {
-    //     windows_name = "delivery";
-    //     updateProfileWindow();
-    // } else if (windows_name === "delivery") {
-    //     windows_name = "payment";
-    //     updateProfileWindow();
-    // } else if (windows_name === "payment") {
-        // saveProfile();
+    let data = {
+        description: document.getElementById("ItemCarDesInput").value,
+        real_photo: document.getElementById("ItemCarPhotoInput").value,
+    };
+    if (windows_name === "car") {
+        let create_window_cars_selector = document.getElementById('create-window-cars-selector');
+        let id_car = create_window_cars_selector.options[create_window_cars_selector.selectedIndex].value;
+        if (id_car !== null && id_car !== 'null') {
+            data['id_car'] = id_car;
+        }
+    } else if (windows_name === "delivery") {
 
+    } else if (windows_name === "payment") {
+
+    }
+
+    $.ajax({
+        url: '/items/create',
+        method: 'post',
+        data: data
+    }).done(function (data) {
+        if (data["status"] === "ok") {
+            tempAlert("Предмет добавлен", 3000);
+            updateCarsGroup();
+        } else {
+            tempErrorAlert(data["message"], 3000);
+        }
+    });
 }
 
 function updateProfileWindow() {
@@ -681,6 +607,27 @@ function updateProfileWindow() {
     profile_delivery_button.className = "menu-slider-item unselectable";
     profile_payment_button.className = "menu-slider-item unselectable";
     if (windows_name === "car") {
+        let selector = document.getElementById("create-window-cars-group-selector");
+        selector.innerText = "";
+        $.ajax({
+            url: '/cars/groups',
+            method: 'get',
+        }).done(function (data) {
+            if (data["list"].length !== 0) {
+                let last = -1;
+                data["list"].forEach((i) => {
+                    let option = document.createElement("option");
+                    option.value = i["id_series"];
+                    option.text = i["name"];
+                    selector.appendChild(option);
+                    last++;
+                });
+                // selector.selectedIndex = last;
+                updateCrateWindowCarSelector();
+            } else {
+
+            }
+        });
         profile_general_button.className = "menu-slider-item unselectable active";
         general_container.hidden = false;
     } else if (windows_name === "bumper") {
@@ -690,4 +637,33 @@ function updateProfileWindow() {
         profile_payment_button.className = "menu-slider-item unselectable active";
         payment_container.hidden = false;
     }
+}
+
+function updateCrateWindowCarSelector() {
+    let create_window_cars_group_selector = document.getElementById('create-window-cars-group-selector');
+    let id = create_window_cars_group_selector.options[create_window_cars_group_selector.selectedIndex].value;
+    let cars = document.getElementById("create-window-cars-selector");
+    $.ajax({
+        url: '/cars/groups/get',
+        method: 'get',
+        data: {
+            id: id
+        }
+    }).done(function (data) {
+        while (cars.firstChild) {
+            cars.removeChild(cars.firstChild);
+        }
+        // cars.innerText = "";
+
+        cars_count = 0;
+        data["list"]['cars'].forEach((i) => {
+            let last = -1;
+            let option = document.createElement("option");
+            option.value = i["id_car"];
+            option.text = i["name"];
+            cars.appendChild(option);
+            last++;
+            cars.selectedIndex = last;
+        });
+    });
 }

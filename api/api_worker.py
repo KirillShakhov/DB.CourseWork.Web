@@ -294,12 +294,14 @@ def cars_groups(login, _pass):
         "pass": _pass
     })
 
+
 def cars_groups_get(login, _pass, _id):
     return create_req("cars/groups", {
         "login": login,
         "pass": _pass,
         "id": _id
     })
+
 
 def cars_groups_create(login, _pass, name, description, date_of_start, date_of_finish):
     return create_req("cars/groups/create", {"login": login,
@@ -329,3 +331,15 @@ def cars_create(login, _pass, name, series, bumpers, wheels1, first_color, secon
     if (first_color != None): data['first_color'] = first_color
     if (second_color != None): data['second_color'] = second_color
     return create_req("cars/create", data)
+
+
+def item_create(login, _pass, id_car, id_bumper, id_wheels, description, real_photo):
+    data = {"login": login,
+            "pass": _pass,
+            "description": description,
+            "real_photo": real_photo
+            }
+    if (id_car != None): data['id_car'] = id_car
+    if (id_bumper != None): data['id_bumper'] = id_bumper
+    if (id_wheels != None): data['id_wheels'] = id_wheels
+    return create_req("items/create", data)
