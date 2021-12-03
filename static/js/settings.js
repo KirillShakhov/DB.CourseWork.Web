@@ -20,6 +20,14 @@ function updateInfo() {
             EmailSettingsInput.value = data["list"]["email"];
             BiographySettingsInput.value = data["list"]["biography"];
             RDateSettingsInput.value = data["list"]["registration_date"];
+
+
+            let balance = document.getElementsByClassName("my-balance");
+            for (let i = 0; i < balankce.length; i++) {
+                balance.item(i).textContent = data["list"]["balance"];
+            }
+
+
             if (data["list"]["creator"] === null) {
                 CreatorSettingsInput.checked = false;
 
