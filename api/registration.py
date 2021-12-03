@@ -1,7 +1,8 @@
 from flask import request
 
 from api.api_worker import reg, auth, myinfo, edit_myinfo, colors, wheels_create, wheels, bumpers_create, bumpers, \
-    cars_groups, cars_groups_create, cars_groups_remove, cars_create, cars_groups_get, item_create, items_get
+    cars_groups, cars_groups_create, cars_groups_remove, cars_create, cars_groups_get, item_create, items_get, \
+    item_remove
 from app import app
 
 
@@ -142,3 +143,11 @@ def items_get_():
     login, _pass = request.cookies.get('login'), \
                    request.cookies.get('pass')
     return items_get(login, _pass)
+
+
+@app.route('/items/remove', methods=['POST'])
+def item_remove_():
+    login, _pass = request.cookies.get('login'), \
+                   request.cookies.get('pass')
+    _id = request.values.get('id')
+    return item_remove(login, _pass, _id)

@@ -345,6 +345,14 @@ def item_create(login, _pass, id_car, id_bumper, id_wheels, description, real_ph
     return create_req("items/create", data)
 
 
+def item_remove(login, _pass, _id):
+    data = {"login": login,
+            "pass": _pass,
+            "id": _id
+            }
+    return create_req("items/remove", data)
+
+
 def items_get(login, _pass):
     data = {"login": login,
             "pass": _pass

@@ -6,10 +6,10 @@ let windows_name = "car";
 
 
 delete_task_selected_button.onclick = () => {
-    let p = document.getElementsByClassName("checkbox-task");
+    let p = document.getElementsByClassName("checkbox-item");
     for (let i = 0; i < p.length; i++) {
         if (p.item(i).checked === true) {
-            removeTask(p.item(i).value);
+            removeItem(p.item(i).value);
         }
     }
 }
@@ -27,21 +27,21 @@ function updateItemTable() {
         tasks_count = 0;
         data["list"].forEach((i) => {
             let tr = document.createElement("tr");
-            tr.id = "item_" + i['id'];
+            tr.id = "item_" + i['id_item'];
             let type, type_name;
-            if(i['car'] != null) {
+            if (i['car'] != null) {
                 type = "Car";
                 type_name = i['car']['name']
-            }else if(i['bumper'] != null) {
+            } else if (i['bumper'] != null) {
                 type = "Bumper";
                 type_name = i['bumper']['name']
-            }else if(i['wheels'] != null) {
+            } else if (i['wheels'] != null) {
                 type = "Wheels";
                 type_name = i['wheels']['name']
             }
             tr.innerHTML = "<td style='padding-left: 2%; width: 5%'>" +
                 "                   <label class=\"my-checkbox\">\n" +
-                "                        <input type=\"checkbox\" class='checkbox-item' value='" + i['id'] + "' onclick='updateSelectedItemsCount();'>\n" +
+                "                        <input type=\"checkbox\" class='checkbox-item' value='" + i['id_item'] + "' onclick='updateSelectedItemsCount();'>\n" +
                 "                        <div class=\"check-container grey\">\n" +
                 "                            <svg class=\"\" width=\"15\" height=\"10\" viewBox=\"0 0 15 10\" fill=\"none\"\n" +
                 "                                 xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -56,22 +56,22 @@ function updateItemTable() {
                 "            <td>" + type + "</td>\n" +
                 "            <td>" + type_name + "</td>\n" +
                 "            <td>" + i['description'] + "</td>\n" +
-                "            <td>" + "<img width='150' src="+i['real_photo']+" alt="+i['real_photo']+">" + "</td>\n" +
+                "            <td>" + "<img width='150' src=" + i['real_photo'] + " alt=" + i['real_photo'] + ">" + "</td>\n" +
                 "            <td>\n" +
-                "                <button class=\"btn-none button-start\" style=\"margin-left: 15px;\" onclick='changeButton(" + i["id"] + ")'>\n" +
-                "                    <svg width=\"16\" height=\"22\" viewBox=\"0 0 22 22\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
-                "                         <rect x=\"1\" y=\"1\" width=\"20\" height=\"20\" rx=\"5\" stroke=\"#F1F1F1\" stroke-width=\"2\"/>\n" +
-                "                         <path d=\"M9 7.22729L15 11.3182L9 15.4091V7.22729Z\" stroke=\"#F1F1F1\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n" +
-                "                    </svg>\n" +
-                "                </button>\n" +
-                "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='copyTaskGroup(" + i["id"] + ")'>\n" +
-                "                    <svg width=\"16\" height=\"23\" viewBox=\"0 0 22 23\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
-                "                        <path d=\"M3 8.61084H12C13.1046 8.61084 14 9.52408 14 10.6506V19.8296C14 20.9561 13.1046 21.8694 12 21.8694H3C1.89543 21.8694 1 20.9561 1 19.8296V10.6506C1 9.52408 1.89543 8.61084 3 8.61084Z\"\n" +
-                "                              stroke=\"#F1F1F1\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path>\n" +
-                "                        <path d=\"M18 14.7302H19C19.5304 14.7302 20.0391 14.5153 20.4142 14.1328C20.7893 13.7502 21 13.2314 21 12.6904V3.51145C21 2.97047 20.7893 2.45165 20.4142 2.06912C20.0391 1.68658 19.5304 1.47168 19 1.47168H10C9.46957 1.47168 8.96086 1.68658 8.58579 2.06912C8.21071 2.45165 8 2.97047 8 3.51145V4.53134\"\n" +
-                "                              stroke=\"#F1F1F1\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path>\n" +
-                "                    </svg>\n" +
-                "                </button>\n" +
+                // "                <button class=\"btn-none button-start\" style=\"margin-left: 15px;\" onclick='changeButton(" + i["id"] + ")'>\n" +
+                // "                    <svg width=\"16\" height=\"22\" viewBox=\"0 0 22 22\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                // "                         <rect x=\"1\" y=\"1\" width=\"20\" height=\"20\" rx=\"5\" stroke=\"#F1F1F1\" stroke-width=\"2\"/>\n" +
+                // "                         <path d=\"M9 7.22729L15 11.3182L9 15.4091V7.22729Z\" stroke=\"#F1F1F1\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n" +
+                // "                    </svg>\n" +
+                // "                </button>\n" +
+                // "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='copyTaskGroup(" + i["id"] + ")'>\n" +
+                // "                    <svg width=\"16\" height=\"23\" viewBox=\"0 0 22 23\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                // "                        <path d=\"M3 8.61084H12C13.1046 8.61084 14 9.52408 14 10.6506V19.8296C14 20.9561 13.1046 21.8694 12 21.8694H3C1.89543 21.8694 1 20.9561 1 19.8296V10.6506C1 9.52408 1.89543 8.61084 3 8.61084Z\"\n" +
+                // "                              stroke=\"#F1F1F1\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path>\n" +
+                // "                        <path d=\"M18 14.7302H19C19.5304 14.7302 20.0391 14.5153 20.4142 14.1328C20.7893 13.7502 21 13.2314 21 12.6904V3.51145C21 2.97047 20.7893 2.45165 20.4142 2.06912C20.0391 1.68658 19.5304 1.47168 19 1.47168H10C9.46957 1.47168 8.96086 1.68658 8.58579 2.06912C8.21071 2.45165 8 2.97047 8 3.51145V4.53134\"\n" +
+                // "                              stroke=\"#F1F1F1\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path>\n" +
+                // "                    </svg>\n" +
+                // "                </button>\n" +
                 "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='showLogs(" + i["id"] + ");'>\n" +
                 "                    <svg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" transform=\"scale(0.9) translate(0 -2)\">\n" +
                 "                       <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M0.781049 0.7988C1.28115 0.287337 1.95942 0 2.66667 0H9.77778C10.0135 0 10.2396 0.0957789 10.4063 0.266267L15.7397 5.72081C15.9064 5.8913 16 6.12253 16 6.36364V17.2727C16 17.996 15.719 18.6897 15.219 19.2012C14.7189 19.7127 14.0406 20 13.3333 20H2.66667C1.95942 20 1.28115 19.7127 0.781049 19.2012C0.280952 18.6897 0 17.996 0 17.2727V2.72727C0 2.00396 0.280951 1.31026 0.781049 0.7988ZM2.66667 1.81818C2.43092 1.81818 2.20483 1.91396 2.03813 2.08445C1.87143 2.25494 1.77778 2.48617 1.77778 2.72727V17.2727C1.77778 17.5138 1.87143 17.7451 2.03813 17.9156C2.20483 18.086 2.43092 18.1818 2.66667 18.1818H13.3333C13.5691 18.1818 13.7952 18.086 13.9619 17.9156C14.1286 17.7451 14.2222 17.5138 14.2222 17.2727V6.74019L9.40959 1.81818H2.66667Z\" fill=\"#F1F1F1\"/>\n" +
@@ -183,15 +183,15 @@ create_tasks_button.onclick = () => {
     create_profile_window.innerHTML = "<div class=\"blur-window create-profile\" id=\"create-item-window\">\n" +
         "        <div class=\"container top-container\">\n" +
         "            <div class=\"menu-slider unselectable\">\n" +
-        "                <div class=\"menu-slider-item\" id=\"profile-general-button\" onclick='windows_name = \"car\";updateProfileWindow();'>Машинка</div>\n" +
-        "                <div class=\"menu-slider-item\" id=\"profile-delivery-button\" onclick='windows_name = \"bumper\";updateProfileWindow();'>Бампер</div>\n" +
-        "                <div class=\"menu-slider-item\" id=\"profile-payment-button\" onclick='windows_name = \"wheels\";updateProfileWindow();'>Колеса</div>\n" +
+        "                <div class=\"menu-slider-item\" id=\"item-car-button\" onclick='windows_name = \"car\";updateItemWindow();'>Машинка</div>\n" +
+        "                <div class=\"menu-slider-item\" id=\"item-bumper-button\" onclick='windows_name = \"bumper\";updateItemWindow();'>Бампер</div>\n" +
+        "                <div class=\"menu-slider-item\" id=\"item-wheels-button\" onclick='windows_name = \"wheels\";updateItemWindow();'>Колеса</div>\n" +
         "            </div>\n" +
         "            <div class=\"border-b-line\"></div>\n" +
         "        </div>\n" +
         "\n" +
         "        <div>\n" +
-        "            <div class=\"container profile-container\" id=\"general-container\" hidden>\n" +
+        "            <div class=\"container profile-container\" id=\"car-container\" hidden>\n" +
         "                <div class=\"middle-container-text\">Выберите машинку:</div>\n" +
         "                <div class=\"middle-container-text\" style=\"margin-top: 70px\">Описание:</div>\n" +
         "                <div class=\"middle-container-text\" style=\"margin-top: 145px\">Фото:</div>\n" +
@@ -211,34 +211,34 @@ create_tasks_button.onclick = () => {
         "                <div class=\"border-b-line\" style=\"width: 250px;top: 200px;\"></div>\n" +
         "            </div>\n" +
         "\n" +
-        "            <div class=\"container profile-container\" id=\"delivery-container\" hidden>\n" +
+        "            <div class=\"container profile-container\" id=\"bumper-container\" hidden>\n" +
         "                <div class=\"middle-container-text\">Выберите бампер:</div>\n" +
         "                <div class=\"middle-container-text\" style=\"margin-top: 70px\">Описание:</div>\n" +
         "                <div class=\"middle-container-text\" style=\"margin-top: 145px\">Фото:</div>\n" +
-        "                  <select class=\"group-selector\" id=\"wheels-selector\" onchange=\"\"" +
+        "                  <select class=\"group-selector\" id=\"create-window-bumper-selector\" onchange=\"\"" +
         "                       style=\"position: absolute;margin-left: 10px;margin-top: 30px; width:220px;\">\n" +
         "                       <option value='null'>Выберите бампер...</option>" +
         "                  </select>" +
-        "                <input type=\"text\" id=\"GeneralEmailAddressInput\" placeholder=\"Куплен на алике\" value=\"\"\n" +
+        "                <input type=\"text\" id=\"ItemBumperDesInput\" placeholder=\"Куплен на алике\" value=\"\"\n" +
         "                       style=\"position: absolute;margin-left: 10px;margin-top: 100px; width:220px;\">\n" +
         "                <div class=\"border-b-line\" style=\"width: 250px;top: 125px;\"></div>\n" +
-        "                <input type=\"text\" id=\"GeneralPhoneNumberInput\" placeholder=\"https://www.google.com/url...\" value=\"\"\n" +
+        "                <input type=\"text\" id=\"ItemBumperPhotoInput\" placeholder=\"https://www.google.com/url...\" value=\"\"\n" +
         "                       style=\"position: absolute;margin-left: 10px;margin-top: 175px; width:220px;\">\n" +
         "                <div class=\"border-b-line\" style=\"width: 250px;top: 200px;\"></div>\n" +
         "            </div>\n" +
         "\n" +
-        "            <div class=\"container profile-container\" id=\"payment-container\" hidden>\n" +
+        "            <div class=\"container profile-container\" id=\"wheels-container\" hidden>\n" +
         "                <div class=\"middle-container-text\">Выберите колеса:</div>\n" +
         "                <div class=\"middle-container-text\" style=\"margin-top: 70px\">Описание:</div>\n" +
         "                <div class=\"middle-container-text\" style=\"margin-top: 145px\">Фото:</div>\n" +
-        "                  <select class=\"group-selector\" id=\"wheels-selector\" onchange=\"\"" +
+        "                  <select class=\"group-selector\" id=\"create-window-wheels-selector\" onchange=\"\"" +
         "                       style=\"position: absolute;margin-left: 10px;margin-top: 30px; width:220px;\">\n" +
         "                       <option value='null'>Выберите колеса...</option>" +
         "                  </select>" +
-        "                <input type=\"text\" id=\"GeneralEmailAddressInput\" placeholder=\"Снял с соседсой машины\" value=\"\"\n" +
+        "                <input type=\"text\" id=\"ItemWheelsDesInput\" placeholder=\"Снял с соседсой машины\" value=\"\"\n" +
         "                       style=\"position: absolute;margin-left: 10px;margin-top: 100px; width:220px;\">\n" +
         "                <div class=\"border-b-line\" style=\"width: 250px;top: 125px;\"></div>\n" +
-        "                <input type=\"text\" id=\"GeneralPhoneNumberInput\" placeholder=\"https://www.google.com/url...\" value=\"\"\n" +
+        "                <input type=\"text\" id=\"ItemWheelsPhotoInput\" placeholder=\"https://www.google.com/url...\" value=\"\"\n" +
         "                       style=\"position: absolute;margin-left: 10px;margin-top: 175px; width:220px;\">\n" +
         "                <div class=\"border-b-line\" style=\"width: 250px;top: 200px;\"></div>\n" +
         "            </div>\n" +
@@ -250,7 +250,7 @@ create_tasks_button.onclick = () => {
         "    </div>";
     home.appendChild(create_profile_window);
     windows_name = "car";
-    updateProfileWindow();
+    updateItemWindow();
 };
 
 
@@ -375,20 +375,20 @@ function addTask(name, module, pid, amount, profile_group_id, account_group_id, 
     });
 }
 
-function removeTask(id) {
+function removeItem(id) {
     $.ajax({
-        url: '/remove_tasks',
-        method: 'get',
+        url: '/items/remove',
+        method: 'post',
         data: {
             id: id
         }
     }).done((data) => {
         if (data["status"] === "ok") {
-            tempAlert("Tasks was removed", 3000);
+            tempAlert("Предмет удален", 3000);
         } else {
             tempErrorAlert(data["message"], 3000);
         }
-        updateTasksTable();
+        updateItemTable();
     });
 }
 
@@ -484,29 +484,42 @@ function backProfileButton() {
     let create_profile_back_button = document.getElementById("create-profile-back-button")
     if (windows_name === "payment") {
         windows_name = "delivery";
-        updateProfileWindow();
+        updateItemWindow();
     } else if (windows_name === "delivery") {
         windows_name = "general";
-        updateProfileWindow();
+        updateItemWindow();
         create_profile_back_button.hidden = true;
     }
 }
 
 function createItem() {
-    let data = {
-        description: document.getElementById("ItemCarDesInput").value,
-        real_photo: document.getElementById("ItemCarPhotoInput").value,
-    };
+    let data = {};
     if (windows_name === "car") {
+        data['description'] = document.getElementById("ItemCarDesInput").value;
+        data['real_photo'] = document.getElementById("ItemCarPhotoInput").value;
         let create_window_cars_selector = document.getElementById('create-window-cars-selector');
         let id_car = create_window_cars_selector.options[create_window_cars_selector.selectedIndex].value;
         if (id_car !== null && id_car !== 'null') {
             data['id_car'] = id_car;
         }
-    } else if (windows_name === "delivery") {
+    } else if (windows_name === "bumper") {
+        data['description'] = document.getElementById("ItemBumperDesInput").value;
+        data['real_photo'] = document.getElementById("ItemBumperPhotoInput").value;
 
-    } else if (windows_name === "payment") {
+        let create_window_bumper_selector = document.getElementById('create-window-bumper-selector');
+        let id_bumper = create_window_bumper_selector.options[create_window_bumper_selector.selectedIndex].value;
+        if (id_bumper !== null && id_bumper !== 'null') {
+            data['id_bumper'] = id_bumper;
+        }
+    } else if (windows_name === "wheels") {
+        data['description'] = document.getElementById("ItemWheelsDesInput").value;
+        data['real_photo'] = document.getElementById("ItemWheelsPhotoInput").value;
 
+        let create_window_wheels_selector = document.getElementById('create-window-wheels-selector');
+        let id_wheels = create_window_wheels_selector.options[create_window_wheels_selector.selectedIndex].value;
+        if (id_wheels !== null && id_wheels !== 'null') {
+            data['id_wheels'] = id_wheels;
+        }
     }
     $.ajax({
         url: '/items/create',
@@ -523,20 +536,17 @@ function createItem() {
     document.getElementById("create-item-window").remove();
 }
 
-function updateProfileWindow() {
-    let general_container = document.querySelector("#general-container");
-    let delivery_container = document.querySelector("#delivery-container");
-    let payment_container = document.querySelector("#payment-container");
-    general_container.hidden = true;
-    delivery_container.hidden = true;
-    payment_container.hidden = true;
+function updateItemWindow() {
+    let car_container = document.querySelector("#car-container");
+    let bumper_container = document.querySelector("#bumper-container");
+    let wheels_container = document.querySelector("#wheels-container");
+    car_container.hidden = true;
+    bumper_container.hidden = true;
+    wheels_container.hidden = true;
 
-    let profile_general_button = document.getElementById("profile-general-button");
-    let profile_delivery_button = document.getElementById("profile-delivery-button");
-    let profile_payment_button = document.getElementById("profile-payment-button");
-
-    let create_profile_back_button = document.getElementById("create-profile-back-button")
-    let create_profile_next_button = document.getElementById("create-profile-next-button")
+    let profile_general_button = document.getElementById("item-car-button");
+    let profile_delivery_button = document.getElementById("item-bumper-button");
+    let profile_payment_button = document.getElementById("item-wheels-button");
 
     profile_general_button.className = "menu-slider-item unselectable";
     profile_delivery_button.className = "menu-slider-item unselectable";
@@ -563,14 +573,55 @@ function updateProfileWindow() {
 
             }
         });
+
         profile_general_button.className = "menu-slider-item unselectable active";
-        general_container.hidden = false;
+        car_container.hidden = false;
     } else if (windows_name === "bumper") {
+        let selector = document.getElementById("create-window-bumper-selector");
+        selector.innerText = "";
+        $.ajax({
+            url: '/bumpers',
+            method: 'get',
+        }).done(function (data) {
+            let option = document.createElement("option");
+            option.text = 'Выберите бампер';
+            option.value = 'null';
+            selector.appendChild(option);
+            if (data["status"] === 'ok') {
+                data["list"].forEach((i) => {
+                    let option = document.createElement("option");
+                    option.text = i['name'];
+                    option.value = i['id_bumper'];
+                    selector.appendChild(option);
+                });
+            }
+        });
+
         profile_delivery_button.className = "menu-slider-item unselectable active";
-        delivery_container.hidden = false;
+        bumper_container.hidden = false;
     } else if (windows_name === "wheels") {
+        let selector = document.getElementById("create-window-wheels-selector");
+        selector.innerText = "";
+        $.ajax({
+            url: '/wheels',
+            method: 'get',
+        }).done(function (data) {
+            let option = document.createElement("option");
+            option.text = 'Выберите колеса';
+            option.value = 'null';
+            selector.appendChild(option);
+            if (data["status"] === 'ok') {
+                data["list"].forEach((i) => {
+                    let option = document.createElement("option");
+                    option.text = i['name'];
+                    option.value = i['id_wheel'];
+                    selector.appendChild(option);
+                });
+            }
+        });
+
         profile_payment_button.className = "menu-slider-item unselectable active";
-        payment_container.hidden = false;
+        wheels_container.hidden = false;
     }
 }
 
@@ -602,4 +653,5 @@ function updateCrateWindowCarSelector() {
         });
     });
 }
+
 updateItemTable();
