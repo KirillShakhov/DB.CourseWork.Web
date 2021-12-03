@@ -384,7 +384,7 @@ function updatecarsTable() {
         data["list"]['cars'].forEach((i) => {
             let tr = document.createElement("tr");
             tr.id = "cars_" + i["id_car"];
-            tr.innerHTML = "<td style='padding-left: 2%; width: 7%'>" +
+            tr.innerHTML = "<td class=\"unselectable\" style='padding-left: 2%; width: 7%'>" +
                 "                        <label class=\"my-checkbox\">\n" +
                 "                        <input type=\"checkbox\" class='checkbox-cars' value='" + i['id_car'] + "' onclick='updateSelectedcarsCount();'>\n" +
                 "                        <div class=\"check-container grey\">\n" +
