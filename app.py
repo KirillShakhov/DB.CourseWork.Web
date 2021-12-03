@@ -25,6 +25,10 @@ def static_from_root():
 
 @app.route('/', methods=['POST', 'GET'])
 @app.route('/myitems', methods=['POST', 'GET'])
+@app.route('/contracts', methods=['POST', 'GET'])
+@app.route('/trade', methods=['POST', 'GET'])
+@app.route('/articles', methods=['POST', 'GET'])
+@app.route('/auctions', methods=['POST', 'GET'])
 @app.route('/wiki_cars', methods=['POST', 'GET'])
 @app.route('/wiki_wheels', methods=['POST', 'GET'])
 @app.route('/wiki_bumpers', methods=['POST', 'GET'])
