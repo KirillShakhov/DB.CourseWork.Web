@@ -343,3 +343,10 @@ def item_create(login, _pass, id_car, id_bumper, id_wheels, description, real_ph
     if (id_bumper != None): data['id_bumper'] = id_bumper
     if (id_wheels != None): data['id_wheels'] = id_wheels
     return create_req("items/create", data)
+
+
+def items_get(login, _pass):
+    data = {"login": login,
+            "pass": _pass
+            }
+    return create_req("items", data)

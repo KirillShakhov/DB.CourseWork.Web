@@ -1,9 +1,7 @@
 let create_tasks_button = document.getElementById("create-task-button");
 let delete_task_selected_button = document.getElementById("delete-task-selected-button");
 let window_create_task = "methods";
-let update_interval = null;
-let tasks_count = 0;
-
+let items_count = 0;
 let windows_name = "car";
 
 
@@ -17,10 +15,10 @@ delete_task_selected_button.onclick = () => {
 }
 
 
-function updateTasksTable() {
-    let tasks = document.getElementById("tbody-tasks");
+function updateItemTable() {
+    let tasks = document.getElementById("tbody-items");
     $.ajax({
-        url: '/show_tasks',
+        url: '/items',
         method: 'get',
     }).done(function (data) {
         while (tasks.firstChild) {
@@ -29,10 +27,21 @@ function updateTasksTable() {
         tasks_count = 0;
         data["list"].forEach((i) => {
             let tr = document.createElement("tr");
-            tr.id = "tasks_" + i['id'];
+            tr.id = "item_" + i['id'];
+            let type, type_name;
+            if(i['car'] != null) {
+                type = "Car";
+                type_name = i['car']['name']
+            }else if(i['bumper'] != null) {
+                type = "Bumper";
+                type_name = i['bumper']['name']
+            }else if(i['wheels'] != null) {
+                type = "Wheels";
+                type_name = i['wheels']['name']
+            }
             tr.innerHTML = "<td style='padding-left: 2%; width: 5%'>" +
                 "                   <label class=\"my-checkbox\">\n" +
-                "                        <input type=\"checkbox\" class='checkbox-task' value='" + i['id'] + "' onclick='updateSelectedTasksCount();'>\n" +
+                "                        <input type=\"checkbox\" class='checkbox-item' value='" + i['id'] + "' onclick='updateSelectedItemsCount();'>\n" +
                 "                        <div class=\"check-container grey\">\n" +
                 "                            <svg class=\"\" width=\"15\" height=\"10\" viewBox=\"0 0 15 10\" fill=\"none\"\n" +
                 "                                 xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -44,12 +53,10 @@ function updateTasksTable() {
                 "                    </label>" +
                 "                    </div></td>" +
                 "<td style='padding-left: 1%'>" + ('000' + ++tasks_count).slice(-4) + "</td>\n" +
-                "            <td>" + i['name'] + "</td>\n" +
-                "            <td>" + i['module'] + "</td>\n" +
-                "            <td>" + i['itemId'] + "</td>\n" +
-                "            <td>" + i['amount'] + "</td>\n" +
-                "            <td>" + i['proxyGroup']['name'] + "</td>\n" +
-                "            <td class='status-task' style='color: #A5E12D'>" + "Ready" + "</td>\n" +
+                "            <td>" + type + "</td>\n" +
+                "            <td>" + type_name + "</td>\n" +
+                "            <td>" + i['description'] + "</td>\n" +
+                "            <td>" + "<img width='150' src="+i['real_photo']+" alt="+i['real_photo']+">" + "</td>\n" +
                 "            <td>\n" +
                 "                <button class=\"btn-none button-start\" style=\"margin-left: 15px;\" onclick='changeButton(" + i["id"] + ")'>\n" +
                 "                    <svg width=\"16\" height=\"22\" viewBox=\"0 0 22 22\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -84,8 +91,7 @@ function updateTasksTable() {
                 // "                </button>\n" +
                 "            </td>";
             tasks.appendChild(tr);
-            updateStatusTasks();
-            updateSelectedTasksCount();
+            updateSelectedItemsCount();
         });
     });
 }
@@ -171,77 +177,6 @@ function changeButton(id) {
 }
 
 create_tasks_button.onclick = () => {
-    // removeAllWindows();
-    // window_create_task = "methods";
-    // let home = document.getElementById("windows-container");
-    // let create_task_window = document.createElement("div");
-    // create_task_window.id = "create-task-window";
-    // create_task_window.innerHTML = "<div class=\"blur-window create-task-window\">\n" +
-    //     "        <div class=\"container top-container\">\n" +
-    //     "            <div class=\"menu-slider\">\n" +
-    //     "                <div class=\"menu-slider-item unselectable active\" id='module-list-header'>\n" +
-    //     "                    Site list\n" +
-    //     "                </div>\n" +
-    //     "                <div class=\"menu-slider-item unselectable\" id='create-task-header'>\n" +
-    //     "                    Create task\n" +
-    //     "                </div>\n" +
-    //     "            </div>\n" +
-    //     "            <div class=border-b-line></div>\n" +
-    //     "        </div>\n" +
-    //     "        <div class=\"methods-container\" id=\"methods-container\">\n" +
-    //     "            <div class=\"middle-container-text\">\n" +
-    //     "                Methods\n" +
-    //     "            </div>\n" +
-    //     "            <select class=\"group-selector crete-task-selector profile-selector\" style='top: 40px; left: 0; width: 370px' id='methods-selector'>\n" +
-    //     "            </select>\n" +
-    //     "        </div>" +
-    //     "        <div class=\"crete-task-container\"  id=\"crete-task-container\" hidden>\n" +
-    //     "            <div class=\"middle-container-text\">\n" +
-    //     "                Task name\n" +
-    //     "            </div>\n" +
-    //     "            <input style=\"width: 170px; margin-top: 32px;\" placeholder=\"Task name\" id=\"task-name-input\">\n" +
-    //     "            <div class=\"border-b-line\" style=\"width: 170px; top: 58px\"></div>\n" +
-    //     "            <div class=\"middle-container-text\" style=\"margin-left: 195px\">\n" +
-    //     "                Method\n" +
-    //     "            </div>\n" +
-    //     "            <select class=\"group-selector crete-task-selector method-selector\" id=\"filters-selector\"></select>\n" +
-    //     "            <div class=\"middle-container-text\" style=\"margin-top: 40px\">\n" +
-    //     "                Size(s)\n" +
-    //     "            </div>\n" +
-    //     "            <input style=\"width: 170px; left:5px; top: 100px;\" placeholder=\"Size(s)\" id=\"size-input\">\n" +
-    //     "            <div class=\"border-b-line\" style=\"width: 375px; top: 125px\"></div>\n" +
-    //     "            <div class=\"middle-container-text\" style=\"margin-top: 110px\">\n" +
-    //     "                Item\n" +
-    //     "            </div>\n" +
-    //     "            <input style=\"width: 170px; top: 178px; left: 5px;\" placeholder=\"Product Id\" id=\"pid-input\">\n" +
-    //     "            <input style=\"width: 170px; top: 178px; left: 205px\" placeholder=\"Task(s) amount\" id=\"amount-input\">\n" +
-    //     "            <div class=\"border-b-line\" style=\"width: 175px; top: 200px\"></div>\n" +
-    //     "            <div class=\"border-b-line\" style=\"width: 175px; top: 200px; left: 200px\"></div>\n" +
-    //     "            <div class=\"middle-container-text\" style=\"margin-top: 190px\">\n" +
-    //     "                Group\n" +
-    //     "            </div>\n" +
-    //
-    //     "               <select class=\"group-selector crete-task-selector profile-selector\" id='add-task-profile-selector'></select>\n" +
-    //     "               <select class=\"group-selector crete-task-selector proxy-selector\" id='add-task-proxy-selector'></select>\n" +
-    //
-    //     "        </div>\n" +
-    //     "        <div style=\"position: relative; margin-top: 425px; margin-left: 40px\">\n" +
-    //     "           <button class='grey-border-button' id='create-task-back-button' onclick='backButton();' style='width: 95px' hidden>Back</button>" +
-    //     "           <span style=\"position: absolute; left: 180px;\">" +
-    //     "           <button class=\"button-active\"  onclick='document.getElementById(\"create-task-window\").remove();'>Cancel</button>\n" +
-    //     "           <button class=\"red-button\" onclick='saveTask();' style=\"margin-left: 20px; width: 95px\">Save\n" +
-    //     "           </span>" +
-    //     "           </button>\n" +
-    //     "        </div>\n" +
-    //     "    </div>";
-    // home.appendChild(create_task_window);
-    // let selector = document.getElementById("methods-selector");
-    // data["list"].forEach((i) => {
-    //     let option = document.createElement("option");
-    //     option.value = i;
-    //     option.text = i;
-    //     selector.appendChild(option);
-    // });
     removeAllWindows();
     let home = document.getElementById("windows-container");
     let create_profile_window = document.createElement("div");
@@ -319,94 +254,94 @@ create_tasks_button.onclick = () => {
 };
 
 
-function updateStatusTasks() {
-    $.ajax({
-        url: '/status_tasks',
-        method: 'get',
-    }).done(function (data) {
-        let updateMonitor = false;
-        for (let i = 0; i < data["list"].length; i++) {
-            const group = data["list"][i];
-            for (let j = 0; j < group["tasks"].length; j++) {
-                const task = group["tasks"][j];
-                if (task["status"] === "SUCCESS" && task["checked"] === false) {
-                    $.ajax({
-                        url: '/tasks_checked',
-                        method: 'post',
-                        data: {
-                            idGroup: group["id"],
-                            idTask: j
-                        }
-                    }).done(() => {
-                            updateStatusTasks();
-                        }
-                    );
-                    if (task["message"] === "null") {
-                        tempErrorAlert("Task not succeed", 1500);
-                    } else {
-                        if (getCookie('desktop') === 'true') {
-                            window.open("data:text/html;charset=utf-8," + task["message"], "", "_blank")
-                        } else {
-                            // let newWindow = window.open("about:blank", "", "_blank");
-                            // newWindow.document.write(task["message"]);
-                            let newWindow = window.open();
-                            newWindow.document.write(task["message"]);
-                        }
-                        tempAlert("Task succeed", 1500);
-                    }
-                }
-            }
-        }
-        let run = "                    <svg width=\"16\" height=\"22\" viewBox=\"0 0 22 22\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
-            "                         <rect x=\"1\" y=\"1\" width=\"20\" height=\"20\" rx=\"5\" stroke=\"#F1F1F1\" stroke-width=\"2\"/>\n" +
-            "                         <path d=\"M9 7.22729L15 11.3182L9 15.4091V7.22729Z\" stroke=\"#F1F1F1\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n" +
-            "                    </svg>\n";
-        let stop = "                   <svg width=\"16\" height=\"22\" viewBox=\"0 0 22 22\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
-            "                       <rect x=\"1\" y=\"1\" width=\"20\" height=\"20\" rx=\"5\" stroke=\"#F1F1F1\" stroke-width=\"2\"/>\n" +
-            "                       <rect x=\"7\" y=\"7\" width=\"8\" height=\"8\" rx=\"2\" fill=\"#F1F1F1\"/>\n" +
-            "                   </svg>\n";
-        data["list"].forEach((i) => {
-            let item = document.getElementById("tasks_" + i["id"]);
-            let status = item.getElementsByClassName("status-task").item(0);
-            let isSUCCESS = true;
-            let isStart = false;
-            let isCancel = false;
-            i["tasks"].forEach((task) => {
-                if (task["status"] === "IN_PROGRESS") {
-                    isStart = true;
-                    isSUCCESS = false;
-                }
-                if (task["status"] === "CANCEL") {
-                    isCancel = true;
-                    isSUCCESS = false;
-                }
-            });
-            if (isStart) {
-                status.style.color = '#F18730';
-                status.textContent = "In Progress";
-                updateMonitor = true;
-            } else if (isCancel) {
-                status.style.color = '#F18730';
-                status.textContent = "Canceled";
-            } else if (isSUCCESS) {
-                status.style.color = '#A5E12D';
-                status.textContent = "SUCCESS";
-            }
-            let button = item.getElementsByClassName("button-start").item(0);
-            if (status.textContent === "In Progress") {
-                button.innerHTML = stop;
-            } else {
-                button.innerHTML = run;
-            }
-        });
-        if (updateMonitor) {
-            if (update_interval == null) update_interval = setInterval(updateStatusTasks, 2000);
-        } else {
-            clearInterval(update_interval);
-            update_interval = null;
-        }
-    });
-}
+// function updateStatus() {
+//     $.ajax({
+//         url: '/status_tasks',
+//         method: 'get',
+//     }).done(function (data) {
+//         let updateMonitor = false;
+//         for (let i = 0; i < data["list"].length; i++) {
+//             const group = data["list"][i];
+//             for (let j = 0; j < group["tasks"].length; j++) {
+//                 const task = group["tasks"][j];
+//                 if (task["status"] === "SUCCESS" && task["checked"] === false) {
+//                     $.ajax({
+//                         url: '/tasks_checked',
+//                         method: 'post',
+//                         data: {
+//                             idGroup: group["id"],
+//                             idTask: j
+//                         }
+//                     }).done(() => {
+//                             updateStatus();
+//                         }
+//                     );
+//                     if (task["message"] === "null") {
+//                         tempErrorAlert("Task not succeed", 1500);
+//                     } else {
+//                         if (getCookie('desktop') === 'true') {
+//                             window.open("data:text/html;charset=utf-8," + task["message"], "", "_blank")
+//                         } else {
+//                             // let newWindow = window.open("about:blank", "", "_blank");
+//                             // newWindow.document.write(task["message"]);
+//                             let newWindow = window.open();
+//                             newWindow.document.write(task["message"]);
+//                         }
+//                         tempAlert("Task succeed", 1500);
+//                     }
+//                 }
+//             }
+//         }
+//         let run = "                    <svg width=\"16\" height=\"22\" viewBox=\"0 0 22 22\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+//             "                         <rect x=\"1\" y=\"1\" width=\"20\" height=\"20\" rx=\"5\" stroke=\"#F1F1F1\" stroke-width=\"2\"/>\n" +
+//             "                         <path d=\"M9 7.22729L15 11.3182L9 15.4091V7.22729Z\" stroke=\"#F1F1F1\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n" +
+//             "                    </svg>\n";
+//         let stop = "                   <svg width=\"16\" height=\"22\" viewBox=\"0 0 22 22\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+//             "                       <rect x=\"1\" y=\"1\" width=\"20\" height=\"20\" rx=\"5\" stroke=\"#F1F1F1\" stroke-width=\"2\"/>\n" +
+//             "                       <rect x=\"7\" y=\"7\" width=\"8\" height=\"8\" rx=\"2\" fill=\"#F1F1F1\"/>\n" +
+//             "                   </svg>\n";
+//         data["list"].forEach((i) => {
+//             let item = document.getElementById("tasks_" + i["id"]);
+//             let status = item.getElementsByClassName("status-task").item(0);
+//             let isSUCCESS = true;
+//             let isStart = false;
+//             let isCancel = false;
+//             i["tasks"].forEach((task) => {
+//                 if (task["status"] === "IN_PROGRESS") {
+//                     isStart = true;
+//                     isSUCCESS = false;
+//                 }
+//                 if (task["status"] === "CANCEL") {
+//                     isCancel = true;
+//                     isSUCCESS = false;
+//                 }
+//             });
+//             if (isStart) {
+//                 status.style.color = '#F18730';
+//                 status.textContent = "In Progress";
+//                 updateMonitor = true;
+//             } else if (isCancel) {
+//                 status.style.color = '#F18730';
+//                 status.textContent = "Canceled";
+//             } else if (isSUCCESS) {
+//                 status.style.color = '#A5E12D';
+//                 status.textContent = "SUCCESS";
+//             }
+//             let button = item.getElementsByClassName("button-start").item(0);
+//             if (status.textContent === "In Progress") {
+//                 button.innerHTML = stop;
+//             } else {
+//                 button.innerHTML = run;
+//             }
+//         });
+//         if (updateMonitor) {
+//             if (update_interval == null) update_interval = setInterval(updateStatus, 2000);
+//         } else {
+//             clearInterval(update_interval);
+//             update_interval = null;
+//         }
+//     });
+// }
 
 
 function addTask(name, module, pid, amount, profile_group_id, account_group_id, proxy_group_id, filter, sizes) {
@@ -474,7 +409,7 @@ function runTask(id) {
         } else {
             tempErrorAlert(data["message"], 3000);
         }
-        updateStatusTasks();
+        updateStatus();
     });
 }
 
@@ -491,38 +426,38 @@ function stopTask(id) {
         } else {
             tempErrorAlert(data["message"], 3000);
         }
-        updateStatusTasks();
+        updateStatus();
     });
 }
 
-function updateSelectedTasksCount() {
+function updateSelectedItemsCount() {
     let count = 0;
-    let p = document.getElementsByClassName("checkbox-task");
+    let p = document.getElementsByClassName("checkbox-item");
     for (let i = 0; i < p.length; i++) {
         if (p.item(i).checked === true) {
             count++;
         }
     }
-    if (count !== proxies_count) {
-        document.getElementById("checkbox-all-tasks").checked = false;
+    if (count !== items_count) {
+        document.getElementById("checkbox-all-items").checked = false;
     }
-    document.getElementById("tasks_stats").innerText = "Total: " + tasks_count + "/Select: " + count;
+    document.getElementById("items_stats").innerText = "Total: " + tasks_count + "/Select: " + count;
 }
 
-function selectAllTasks() {
-    let checkbox = document.getElementById("checkbox-all-tasks");
+function selectAllItems() {
+    let checkbox = document.getElementById("checkbox-all-items");
     if (checkbox.checked === true) {
-        let p = document.getElementsByClassName("checkbox-task");
+        let p = document.getElementsByClassName("checkbox-item");
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = true;
         }
-        document.getElementById("tasks_stats").innerText = "Total: " + tasks_count + "/Select: " + tasks_count;
+        document.getElementById("items_stats").innerText = "Total: " + tasks_count + "/Select: " + tasks_count;
     } else {
-        let p = document.getElementsByClassName("checkbox-task");
+        let p = document.getElementsByClassName("checkbox-item");
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = false;
         }
-        document.getElementById("tasks_stats").innerText = "Total: " + tasks_count + "/Select: 0";
+        document.getElementById("items_stats").innerText = "Total: " + tasks_count + "/Select: 0";
     }
 }
 
@@ -573,7 +508,6 @@ function createItem() {
     } else if (windows_name === "payment") {
 
     }
-
     $.ajax({
         url: '/items/create',
         method: 'post',
@@ -581,11 +515,12 @@ function createItem() {
     }).done(function (data) {
         if (data["status"] === "ok") {
             tempAlert("Предмет добавлен", 3000);
-            updateCarsGroup();
         } else {
             tempErrorAlert(data["message"], 3000);
         }
+        updateItemTable();
     });
+    document.getElementById("create-item-window").remove();
 }
 
 function updateProfileWindow() {
@@ -667,3 +602,4 @@ function updateCrateWindowCarSelector() {
         });
     });
 }
+updateItemTable();

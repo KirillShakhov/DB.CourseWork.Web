@@ -1,7 +1,7 @@
 from flask import request
 
 from api.api_worker import reg, auth, myinfo, edit_myinfo, colors, wheels_create, wheels, bumpers_create, bumpers, \
-    cars_groups, cars_groups_create, cars_groups_remove, cars_create, cars_groups_get, item_create
+    cars_groups, cars_groups_create, cars_groups_remove, cars_create, cars_groups_get, item_create, items_get
 from app import app
 
 
@@ -136,3 +136,9 @@ def item_create_():
     description = request.values.get('description')
     real_photo = request.values.get('real_photo')
     return item_create(login, _pass, id_car, id_bumper, id_wheels, description, real_photo)
+
+@app.route('/items', methods=['GET'])
+def items_get_():
+    login, _pass = request.cookies.get('login'), \
+                   request.cookies.get('pass')
+    return items_get(login, _pass)

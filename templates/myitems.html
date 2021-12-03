@@ -7,7 +7,7 @@
         <div class="header">
 
             <div class="container">
-                <span class="text" id="tasks_stats">Total: 0/Select: 0</span>
+                <span class="text" id="items_stats">Total: 0/Select: 0</span>
 {#                <span>#}
 {#                <select class="group-selector" id="profiles-group-selector" onchange="updateProfileTable();">#}
 {#                                    <option value="{{i["id"]}}">{{i["name"]}}</option>#}
@@ -53,7 +53,7 @@
             <tr>
                 <th class="unselectable" style="width: 5%; padding-left: 2%">
                     <label class="my-checkbox">
-                        <input type="checkbox" id="checkbox-all-tasks" onclick="selectAllTasks();">
+                        <input type="checkbox" id="checkbox-all-items" onclick="selectAllItems();">
                         <div class="check-container">
                             <svg class="" width="15" height="10" viewBox="0 0 15 10" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -82,16 +82,15 @@
             <tr>
                 <th style="width: 5%; padding-left: 2%"></th>
                 <th style="width: 8%; padding-left: 3%"></th>
-                <th style="width: 10%;"></th>
-                <th style="width: 14%;"></th>
+                <th style="width: 15%;"></th>
                 <th style="width: 12%;"></th>
-                <th style="width: 10%;"></th>
-                <th style="width: 14%;"></th>
+                <th style="width: 20%;"></th>
+                <th style="width: 25%;"></th>
                 <th style="width: 10%;"></th>
                 <th></th>
             </tr>
             </thead>
-            <tbody id="tbody-tasks"></tbody>
+            <tbody id="tbody-items"></tbody>
         </table>
     </div>
 
