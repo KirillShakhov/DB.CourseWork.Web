@@ -1,0 +1,80 @@
+/*RED BUTTON*/
+.red-button {
+    position: relative;
+    width: 135px;
+    height: 30px;
+
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+
+    background: linear-gradient(90deg, #CB2D3E 0%, #EF473A 100%);
+
+    font-size: 14px;
+    color: #F1F1F1;
+    outline: none;
+}
+
+.red-button:hover {
+    /*outline: 1px solid #CB2D3E;*/
+    /*outline-offset: 3px;*/
+    background: #CB2D3E;
+    /*filter: drop-shadow(0px 4px 12px rgba(239, 71, 58, 0.25));*/
+}
+
+.red-button:active {
+    transition: background-color .05s;
+    background: linear-gradient(0deg, rgba(138, 148, 155, 0.1), rgba(138, 148, 155, 0.1)), #1F1F25;
+}
+
+/*GREY BUTTON*/
+button {
+    height: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+    position: relative;
+    cursor: pointer;
+
+    font-family: "VelaSans-Bold", sans-serif;
+    font-size: 14px;
+
+    color: #fafafa;
+    border: 0;
+    background: rgba(138, 148, 155, 0.1);
+    border-radius: 10px;
+}
+
+.button-active {
+    transition: background-color .05s;
+    color: #8A949B;
+    outline: none;
+    cursor: pointer;
+    font-size: 14px;
+
+    background: none;
+
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
+.button-active:hover {
+    /*background: rgba(138, 148, 155, 1);*/
+
+    color: #F1F1F1;
+}
+
+.button-active:active {
+    /*transition: background-color .05s;*/
+    /*background: rgba(31, 31, 37, 1);*/
+    color: rgba(30, 23, 23, 0.8);
+}
+
+/*GREY BORDER BUTTON*/
+.grey-border-button:hover {
+    background: rgba(138, 148, 155, 0.2);
+}
+
+/*Buttons just with 1 SVG inside*/
+.svg-button {
+    border-radius: 7px;
+}

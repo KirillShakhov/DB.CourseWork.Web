@@ -1,0 +1,38 @@
+
+/* ADD ACCOUNT WINDOW*/
+
+/*MAIN WINDOW*/
+.create-account-window {
+    width: 400px;
+    height: 380px;
+}
+
+/*INPUT*/
+.input-container {
+    width: 260px;
+    height: 195px;
+
+    margin-left: 30px;
+    margin-top: 60px;
+
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.create-account-window input {
+    width: 260px;
+}
+
+/*BUTTONS*/
+.create-account-window .buttons-container {
+    width: 300px;
+    height: 30px;
+
+    margin-left: 30px;
+    margin-top: 20px;
+
+    display: flex;
+    justify-content: space-between;
+}

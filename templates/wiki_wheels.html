@@ -1,0 +1,79 @@
+<section class="home-section" id="wiki-wheels-section" hidden>
+    <div class="new-header">
+        <div class="new-menu-slider" style="width: 210px">
+            <div class="text menu-slider-item unselectable" onclick="changeMainWindow('wiki_cars');"><b>Cars</b></div>
+            <div class="text menu-slider-item unselectable" onclick="changeMainWindow('wiki_bumpers');" style="margin-left: 30px"><b>Bumpers</b></div>
+            <div class="text menu-slider-item active unselectable" style="margin-left: 30px"><b>Wheels</b></div>
+        </div>
+        <div class="header">
+            <div class="header">
+                <span class="text" id="wheels_stats">Total: 0/Select: 0</span>
+            </div>
+            <div>
+                <button class="grey-border-button" id="create-wiki-wheels-button">
+                    <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"
+                         style="margin-right: 8px; margin-top: 5px">
+                        <path d="M5.5 1V5.5M5.5 10V5.5M5.5 5.5H1H10" stroke="#A5E12D" stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                    </svg>
+                    Create
+                </button>
+                <button class="grey-border-button" id="remove-monitor-group-button" style="margin-left: 20px" hidden>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"
+                         style="margin-right: 8px; position: relative;" transform="scale(1.2) translate(0 1)">
+                        <path d="M4.018 4.00735L7.18932 7.19995M10.3606 10.3926L7.18932 7.19995M7.18932 7.19995L4.018 10.3926L10.3606 4.00735"
+                              stroke="#CB2D3E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="fake-scroll-container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th style="width: 5%; padding-left: 2%">
+                    <label class="my-checkbox">
+                        <input type="checkbox" id="checkbox-all-wheels" onclick="selectAllWheels();">
+                        <div class="check-container">
+                            <svg class="" width="15" height="10" viewBox="0 0 15 10" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13 2L5.4375 9L2 5.81818" stroke="#F1F1F1" stroke-width="2"
+                                      stroke-linecap="square"
+                                      stroke-linejoin="round"></path>
+                            </svg>
+                        </div>
+                    </label>
+                </th>
+                <th style="width: 10.5%; padding-left: 2%">#</th>
+                <th style="width: 10.5%;">Название</th>
+                <th style="width: 15.5%">Коэф.сцепления</th>
+                <th style="width: 15.5%">Цвет дисков</th>
+                <th style="width: 10.5%">Фото</th>
+                <th style="width: 15.5%;">Создатель</th>
+                <th style="width: 15.3%; padding-left: 15px">Действия</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+
+    <div class="scroll-container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th style="width: 5%; padding-left: 2%"></th>
+                <th style="width: 10%; padding-left: 2%"></th>
+                <th style="width: 15%"></th>
+                <th style="width: 15%"></th>
+                <th style="width: 10%"></th>
+                <th style="width: 15%"></th>
+                <th style="width: 15%"></th>
+            </tr>
+            </thead>
+            <tbody id="tbody-wiki-wheels"></tbody>
+        </table>
+    </div>
+</section>

@@ -1,0 +1,454 @@
+@font-face {
+    font-family: 'VelaSans-Regular';
+    src: url(./fonts/VelaSans-Regular.otf);
+}
+
+@font-face {
+    font-family: 'VelaSans-Bold';
+    src: url(./fonts/VelaSans-Bold.otf);
+}
+
+@font-face {
+    font-family: 'VelaSans-SemiBold';
+    src: url(./fonts/VelaSans-SemiBold.otf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "VelaSans-Regular", sans-serif;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    /*background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(33, 33, 39, 0.1)), to(rgba(138, 148, 155, 0)));*/
+    /*background: -webkit-linear-gradient(top, rgba(33, 33, 39, 0.1), rgba(138, 148, 155, 0) 50%);*/
+    /*background: -moz-linear-gradient(top, black, white);*/
+    /*background: -ms-linear-gradient(top, black, white);*/
+    /*background: -o-linear-gradient(top, black, white);*/
+    /*background: linear-gradient(360deg, rgba(33, 33, 39, 0.1) 0%, rgba(138, 148, 155, 0) 50%), #1F1F25;*/
+    /*background: #29292f url('../img/profile_background.svg') bottom;*/
+    background: #1F1F25;
+    background-size: cover;
+    background-position-y: 40%;
+}
+
+input {
+    outline: none;
+}
+
+.icon {
+    width: 20%;
+    margin-top: 10px;
+}
+
+.pics {
+    width: 40px;
+    height: 40px;
+}
+
+.sidebar {
+    position: fixed;
+    height: 96%;
+    width: 60px;
+
+    left: 0;
+    top: 0;
+    z-index: 99;
+
+    margin: 1%;
+
+    background: #1A1A1F;
+    border-radius: 15px;
+
+    transition: all 0.5s ease;
+}
+
+.sidebar .bx-log-out {
+    margin-bottom: 10px;
+    color: #8A949B;
+}
+
+.sidebar .bx-log-out:hover {
+    color: #F1F1F1;
+}
+
+
+.sidebar .logo-details {
+    height: 60px;
+    position: relative;
+
+    display: flex;
+    justify-content: space-around;
+
+    margin-top: 15px;
+}
+
+.sidebar .nav-list {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+
+.sidebar li {
+    position: relative;
+    margin-top: 10px;
+    list-style: none;
+}
+
+.sidebar input {
+    font-size: 15px;
+    color: #FFF;
+    font-weight: 400;
+    outline: none;
+    width: 100%;
+    border: none;
+    border-radius: 12px;
+    transition: all 0.5s ease;
+    background: #1F1F25;
+}
+
+
+.sidebar li a {
+    text-decoration: none;
+    transition: all 0.2s ease;
+    outline: none;
+    cursor: pointer;
+    /*background: #11101D;*/
+}
+
+.sidebar li a:hover .fill {
+    fill: #F1F1F1;
+    position: fixed;
+}
+
+.sidebar li a:hover .stroke {
+    stroke: #F1F1F1;
+    position: fixed;
+}
+
+.sidebar li a .fill {
+    fill: #8A949B;
+    position: fixed;
+}
+
+.sidebar li a .stroke {
+    stroke: #8A949B;
+    position: fixed;
+}
+
+.svg-container {
+    height: 40px;
+    width: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: transparent;
+
+    border-radius: 10px;
+}
+
+.selected {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.sidebar li.profile {
+    position: fixed;
+    height: 60px;
+    width: 78px;
+    left: 0;
+    bottom: 0;
+    padding: 10px 14px;
+    background: #1F1F25;
+    transition: all 0.5s ease;
+    overflow: hidden;
+}
+
+
+.sidebar li .profile-details {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.sidebar li img {
+    width: 15px;
+}
+
+.sidebar li .profile {
+    height: 45px;
+    width: 45px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-right: 10px;
+}
+
+.sidebar li.profile .name,
+.sidebar li.profile .job {
+    font-size: 15px;
+    font-weight: 400;
+    color: #fff;
+    white-space: nowrap;
+}
+
+.sidebar li.profile .job {
+    font-size: 12px;
+}
+
+.home-section {
+    position: relative;
+    height: 100%;
+    left: 78px;
+    width: calc(100% - 78px);
+    transition: all 0.5s ease;
+    z-index: 2;
+}
+
+/*~~~HEADER~~~*/
+
+.header {
+    height: 30px;
+    /*line-height: 30px;*/
+    white-space: nowrap;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /*padding-right: 10px;*/
+}
+
+.header .container {
+    width: 370px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.new-header {
+    height: 80px;
+    width: 93%;
+
+    margin-top: 30px;
+    margin-left: 25px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.header button {
+    position: static;
+}
+
+.new-header .text {
+    font-size: 24px;
+}
+
+.header .text {
+    font-family: "VelaSans-Regular", sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19px;
+
+    color: #8A949B;
+}
+
+.crete-group {
+    margin-left: 10px;
+    width: 30px;
+    vertical-align: bottom;
+}
+
+.home-section input {
+    outline: none;
+}
+
+.home-section .header button {
+    /*margin-right: 10px;*/
+
+    /*vertical-align: bottom;*/
+    /*margin-bottom: 30px;*/
+}
+
+/*GROUP SELECTOR MARGIN*/
+.header .group-selector {
+    /*margin-left: 14%;*/
+}
+
+/*SELECTOR*/
+.group-selector {
+    /*vertical-align: bottom;*/
+    /*margin-bottom: 30px;*/
+    appearance: none;
+    position: relative;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+
+    cursor: pointer;
+    outline: none;
+
+    width: 130px;
+    height: 30px;
+
+    padding-left: 12px;
+    font-size: 14px;
+    font-family: "VelaSans-Bold", sans-serif;
+    color: #FFFFFF;
+
+    border: 2px solid rgba(138, 148, 155, 0.25);
+    border-radius: 7px;
+    background: #29292f url('../img/profiles/rectangle.png') no-repeat bottom 10px right 10px;
+    background-size: 9px 6px;
+}
+
+.btn-none {
+    background: none;
+    border: none;
+    padding: 0 0 0 0;
+    margin: auto;
+}
+
+.unselectable {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+    -khtml-user-select: none; /* Konqueror */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                           not supported by any browser */
+}
+
+.border-b-line {
+    position: absolute;
+    height: 2px;
+    background: #8A949B;
+}
+
+/*NEW SLIDER IN HEAD*/
+.new-menu-slider {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.new-header .new-menu-slider {
+    width: 240px;
+}
+
+.new-header .menu-slider-item {
+    color: #8A949B;
+}
+
+/*SELECT BUTTON*/
+.select-button {
+    width: 25px;
+    height: 25px;
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 10px;
+}
+
+.select-button.head {
+    background: #8A949B;
+    border: 2px solid rgba(138, 148, 155, 0.15);
+}
+
+.select-button.middle {
+    background: rgba(138, 148, 155, 0.15);
+    border: 2px solid rgba(138, 148, 155, 0.5);
+}
+
+.select-button svg {
+    opacity: 0;
+}
+
+.select-button.active svg {
+    opacity: 1;
+}
+
+.select-button.active {
+    transition: background-color .1s;
+    border: rgba(203, 45, 62, 1);
+    background: rgba(203, 45, 62, 1);
+}
+
+/*~~~CHECKBOX~~~*/
+
+.my-checkbox {
+    width: 25px;
+    height: 25px;
+}
+
+.my-checkbox input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    margin: 0 0 0 0;
+}
+
+.check-container {
+    width: 25px;
+    height: 25px;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    border-radius: 10px;
+    border: 2px solid rgba(138, 148, 155, 0.15);
+}
+
+.check-container.grey {
+    background: rgba(138, 148, 155, 0.15);
+    border: 2px solid rgba(138, 148, 155, 0.5);
+}
+
+.my-checkbox input:checked + .check-container {
+    background: #CB2D3E;
+    border: #CB2D3E;
+}
+
+.my-checkbox input:checked + .check-container svg {
+    opacity: 1;
+}
+
+.check-container svg {
+    opacity: 0;
+}
+
+.blur-window-text {
+    position: absolute;
+    width: 120px;
+    height: 25px;
+    left: 40px;
+    top: 25px;
+
+    font-family: "VelaSans-Regular", sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 25px;
+    /* identical to box height */
+
+
+    color: #F1F1F1;
+}
+
+
+
