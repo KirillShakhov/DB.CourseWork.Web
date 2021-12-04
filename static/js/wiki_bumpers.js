@@ -68,6 +68,7 @@ function createbumpers() {
         }).done(function (data) {
             if (data["status"] === "ok") {
                 tempAlert("Бампер добавлен", 3000);
+                updatebumpersTable();
             } else {
                 tempErrorAlert(data["message"], 3000);
             }
@@ -122,7 +123,7 @@ function updatebumpersTable() {
                 " <td style='padding-left: 2%'>" + ('000' + ++bumpers_count).slice(-4) + "</td>\n" +
                 "            <td>" + i["name"] + "</td>\n" +
                 "            <td>" + i["color"]['name'] + "</td>\n" +
-                "            <td>" + i["photo"] + "</td>\n" +
+                "            <td>" + "<img width='150' src=" + i['photo'] + " alt=" + i['photo'] + ">" + "</td>\n" +
                 "            <td>" + i["creator"] + "</td>\n" +
                 "            <td>" + "" + "</td>";
             bumpers.appendChild(tr);

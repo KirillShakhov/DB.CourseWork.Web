@@ -2,7 +2,7 @@ from flask import request
 
 from api.api_worker import reg, auth, myinfo, edit_myinfo, colors, wheels_create, wheels, bumpers_create, bumpers, \
     cars_groups, cars_groups_create, cars_groups_remove, cars_create, cars_groups_get, item_create, items_get, \
-    item_remove, trade_remove, trade_get, trade_create
+    item_remove, trade_remove, trade_get, trade_create, trade_buy
 from app import app
 
 
@@ -177,3 +177,10 @@ def trade_create_():
     _id = request.values.get('id')
     price = request.values.get('price')
     return trade_create(login, _pass, _id, price)
+
+@app.route('/trade/buy', methods=['POST'])
+def trade_buy_():
+    login, _pass = request.cookies.get('login'), \
+                   request.cookies.get('pass')
+    _id = request.values.get('id')
+    return trade_buy(login, _pass, _id)

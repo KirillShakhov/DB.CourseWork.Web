@@ -383,3 +383,11 @@ def trade_remove(login, _pass, _id):
             "id": _id
             }
     return create_req("trade/remove", data)
+
+
+def trade_buy(login, _pass, _id):
+    data = {"login": login,
+            "pass": _pass,
+            "id": _id
+            }
+    return create_req("trade/confirm", data)

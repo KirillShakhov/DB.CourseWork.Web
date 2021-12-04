@@ -1,14 +1,12 @@
-let create_trade_button = document.getElementById("create-trade-button");
-let delete_trade_selected_button = document.getElementById("delete-trade-selected-button");
-let window_create_trade = "methods";
+let trade_selected_button = document.getElementById("trade-selected-button");
 let trade_count = 0;
 
 
-delete_trade_selected_button.onclick = () => {
+trade_selected_button.onclick = () => {
     let p = document.getElementsByClassName("checkbox-trade");
     for (let i = 0; i < p.length; i++) {
         if (p.item(i).checked === true) {
-            removeItem(p.item(i).value);
+            buyItem(p.item(i).value);
         }
     }
 }
@@ -26,7 +24,7 @@ function updateTradeTable() {
         trade_count = 0;
         data["list"].forEach((i) => {
             let tr = document.createElement("tr");
-            tr.id = "item_" + i['item']['id_item'];
+            tr.id = "trade_" + i['id'];
             let type, type_name;
             if (i['item']['car'] != null) {
                 type = "Car";
@@ -40,7 +38,7 @@ function updateTradeTable() {
             }
             tr.innerHTML = "<td style='padding-left: 2%; width: 5%'>" +
                 "                   <label class=\"my-checkbox\">\n" +
-                "                        <input type=\"checkbox\" class='checkbox-trade' value='" + i['item']['id_item'] + "' onclick='updateSelectedItemsCount();'>\n" +
+                "                        <input type=\"checkbox\" class='checkbox-trade' value='" + i['id'] + "' onclick='updateSelectedItemsCount();'>\n" +
                 "                        <div class=\"check-container grey\">\n" +
                 "                            <svg class=\"\" width=\"15\" height=\"10\" viewBox=\"0 0 15 10\" fill=\"none\"\n" +
                 "                                 xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -78,82 +76,6 @@ function updateTradeTable() {
     });
 }
 
-create_trade_button.onclick = () => {
-    removeAllWindows();
-    let home = document.getElementById("windows-container");
-    let create_profile_window = document.createElement("div");
-    create_profile_window.innerHTML = "<div class=\"blur-window create-profile\" id=\"create-item-window\">\n" +
-        "        <div class=\"container top-container\">\n" +
-        "            <div class=\"menu-slider unselectable\">\n" +
-        "                <div class=\"menu-slider-item\" id=\"item-car-button\" onclick='windows_name = \"car\";updateItemWindow();'>Машинка</div>\n" +
-        "                <div class=\"menu-slider-item\" id=\"item-bumper-button\" onclick='windows_name = \"bumper\";updateItemWindow();'>Бампер</div>\n" +
-        "                <div class=\"menu-slider-item\" id=\"item-wheels-button\" onclick='windows_name = \"wheels\";updateItemWindow();'>Колеса</div>\n" +
-        "            </div>\n" +
-        "            <div class=\"border-b-line\"></div>\n" +
-        "        </div>\n" +
-        "\n" +
-        "        <div>\n" +
-        "            <div class=\"container profile-container\" id=\"car-container\" hidden>\n" +
-        "                <div class=\"middle-container-text\">Выберите машинку:</div>\n" +
-        "                <div class=\"middle-container-text\" style=\"margin-top: 70px\">Описание:</div>\n" +
-        "                <div class=\"middle-container-text\" style=\"margin-top: 145px\">Фото:</div>\n" +
-        "                  <select class=\"group-selector\" id=\"create-window-cars-group-selector\" onchange=\"updateCrateWindowCarSelector();\"" +
-        "                       style=\"position: absolute;margin-left: 10px;margin-top: 30px; width:160px;\">\n" +
-        "                       <option value='null'>Выберите серию...</option>" +
-        "                  </select>" +
-        "                  <select class=\"group-selector\" id=\"create-window-cars-selector\" onchange=\"\"" +
-        "                       style=\"position: absolute;margin-left: 190px;margin-top: 30px; width:180px;\">\n" +
-        "                       <option value='null'><--</option>" +
-        "                  </select>" +
-        "                <input type=\"text\" id=\"ItemCarDesInput\" placeholder=\"Не бита, не крашена\" value=\"\"\n" +
-        "                       style=\"position: absolute;margin-left: 10px;margin-top: 100px; width:220px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 250px;top: 125px;\"></div>\n" +
-        "                <input type=\"text\" id=\"ItemCarPhotoInput\" placeholder=\"https://www.google.com/url...\" value=\"\"\n" +
-        "                       style=\"position: absolute;margin-left: 10px;margin-top: 175px; width:220px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 250px;top: 200px;\"></div>\n" +
-        "            </div>\n" +
-        "\n" +
-        "            <div class=\"container profile-container\" id=\"bumper-container\" hidden>\n" +
-        "                <div class=\"middle-container-text\">Выберите бампер:</div>\n" +
-        "                <div class=\"middle-container-text\" style=\"margin-top: 70px\">Описание:</div>\n" +
-        "                <div class=\"middle-container-text\" style=\"margin-top: 145px\">Фото:</div>\n" +
-        "                  <select class=\"group-selector\" id=\"create-window-bumper-selector\" onchange=\"\"" +
-        "                       style=\"position: absolute;margin-left: 10px;margin-top: 30px; width:220px;\">\n" +
-        "                       <option value='null'>Выберите бампер...</option>" +
-        "                  </select>" +
-        "                <input type=\"text\" id=\"ItemBumperDesInput\" placeholder=\"Куплен на алике\" value=\"\"\n" +
-        "                       style=\"position: absolute;margin-left: 10px;margin-top: 100px; width:220px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 250px;top: 125px;\"></div>\n" +
-        "                <input type=\"text\" id=\"ItemBumperPhotoInput\" placeholder=\"https://www.google.com/url...\" value=\"\"\n" +
-        "                       style=\"position: absolute;margin-left: 10px;margin-top: 175px; width:220px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 250px;top: 200px;\"></div>\n" +
-        "            </div>\n" +
-        "\n" +
-        "            <div class=\"container profile-container\" id=\"wheels-container\" hidden>\n" +
-        "                <div class=\"middle-container-text\">Выберите колеса:</div>\n" +
-        "                <div class=\"middle-container-text\" style=\"margin-top: 70px\">Описание:</div>\n" +
-        "                <div class=\"middle-container-text\" style=\"margin-top: 145px\">Фото:</div>\n" +
-        "                  <select class=\"group-selector\" id=\"create-window-wheels-selector\" onchange=\"\"" +
-        "                       style=\"position: absolute;margin-left: 10px;margin-top: 30px; width:220px;\">\n" +
-        "                       <option value='null'>Выберите колеса...</option>" +
-        "                  </select>" +
-        "                <input type=\"text\" id=\"ItemWheelsDesInput\" placeholder=\"Снял с соседсой машины\" value=\"\"\n" +
-        "                       style=\"position: absolute;margin-left: 10px;margin-top: 100px; width:220px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 250px;top: 125px;\"></div>\n" +
-        "                <input type=\"text\" id=\"ItemWheelsPhotoInput\" placeholder=\"https://www.google.com/url...\" value=\"\"\n" +
-        "                       style=\"position: absolute;margin-left: 10px;margin-top: 175px; width:220px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 250px;top: 200px;\"></div>\n" +
-        "            </div>\n" +
-        "        </div>\n" +
-        "        <span style=\"position: absolute; left: 180px;\">" +
-        "           <button class=\"button-active\" onclick='document.getElementById(\"create-item-window\").remove();'>Закрыть</button>\n" +
-        "           <button type=\"submit\" class=\"red-button\" id='create-profile-next-button' onclick='createItem();'>Добавить</button>\n" +
-        "        </span>" +
-        "    </div>";
-    home.appendChild(create_profile_window);
-    windows_name = "car";
-    updateItemWindow();
-};
 
 function addTask(name, module, pid, amount, profile_group_id, account_group_id, proxy_group_id, filter, sizes) {
     let data = {
@@ -186,58 +108,20 @@ function addTask(name, module, pid, amount, profile_group_id, account_group_id, 
     });
 }
 
-function removeItem(id) {
+function buyItem(id) {
     $.ajax({
-        url: '/items/remove',
+        url: '/trade/buy',
         method: 'post',
         data: {
             id: id
         }
     }).done((data) => {
         if (data["status"] === "ok") {
-            tempAlert("Предмет удален", 3000);
+            tempAlert("Предмет куплен", 3000);
         } else {
             tempErrorAlert(data["message"], 3000);
         }
         updateTradeTable();
-    });
-}
-
-function runTask(id) {
-    $.ajax({
-        url: '/run_tasks',
-        method: 'post',
-        data: {
-            id: id
-        }
-    }).done((data) => {
-        if (data["status"] === "ok") {
-            let tr = document.getElementById("tasks_" + id);
-            let status = tr.getElementsByClassName("status-task").item(0);
-            status.textContent = "In Progress";
-            status.style.color = '#F18730';
-            tempAlert("Tasks started", 3000);
-        } else {
-            tempErrorAlert(data["message"], 3000);
-        }
-        updateStatus();
-    });
-}
-
-function stopTask(id) {
-    $.ajax({
-        url: '/stop_tasks',
-        method: 'post',
-        data: {
-            id: id
-        }
-    }).done((data) => {
-        if (data["status"] === "ok") {
-            tempAlert("Tasks stoped", 3000);
-        } else {
-            tempErrorAlert(data["message"], 3000);
-        }
-        updateStatus();
     });
 }
 
@@ -269,37 +153,6 @@ function selectAllTrade() {
             p.item(i).checked = false;
         }
         document.getElementById("trade_stats").innerText = "Total: " + trade_count + "/Select: 0";
-    }
-}
-
-function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-}
-
-function backButton() {
-    let module_list_header = document.getElementById("module-list-header");
-    let create_task_header = document.getElementById("create-task-header");
-    document.getElementById("methods-container").hidden = false;
-    document.getElementById("crete-task-container").hidden = true;
-    window_create_trade = "methods";
-    module_list_header.className = "menu-slider-item unselectable active";
-    create_task_header.className = "menu-slider-item unselectable";
-    let create_task_back_button = document.getElementById("create-task-back-button")
-    create_task_back_button.hidden = true;
-}
-
-
-function backProfileButton() {
-    let create_profile_back_button = document.getElementById("create-profile-back-button")
-    if (windows_name === "payment") {
-        windows_name = "delivery";
-        updateItemWindow();
-    } else if (windows_name === "delivery") {
-        windows_name = "general";
-        updateItemWindow();
-        create_profile_back_button.hidden = true;
     }
 }
 
