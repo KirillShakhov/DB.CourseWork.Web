@@ -1,12 +1,11 @@
-let create_tasks_button = document.getElementById("create-task-button");
-let delete_task_selected_button = document.getElementById("delete-task-selected-button");
-let window_create_task = "methods";
-let items_count = 0;
-let windows_name = "car";
+let create_trade_button = document.getElementById("create-trade-button");
+let delete_trade_selected_button = document.getElementById("delete-trade-selected-button");
+let window_create_trade = "methods";
+let trade_count = 0;
 
 
-delete_task_selected_button.onclick = () => {
-    let p = document.getElementsByClassName("checkbox-item");
+delete_trade_selected_button.onclick = () => {
+    let p = document.getElementsByClassName("checkbox-trade");
     for (let i = 0; i < p.length; i++) {
         if (p.item(i).checked === true) {
             removeItem(p.item(i).value);
@@ -15,33 +14,33 @@ delete_task_selected_button.onclick = () => {
 }
 
 
-function updateItemTable() {
-    let tasks = document.getElementById("tbody-items");
+function updateTradeTable() {
+    let tasks = document.getElementById("tbody-trade");
     $.ajax({
-        url: '/items',
+        url: '/trade/get',
         method: 'get',
     }).done(function (data) {
         while (tasks.firstChild) {
             tasks.removeChild(tasks.firstChild);
         }
-        tasks_count = 0;
+        trade_count = 0;
         data["list"].forEach((i) => {
             let tr = document.createElement("tr");
-            tr.id = "item_" + i['id_item'];
+            tr.id = "item_" + i['item']['id_item'];
             let type, type_name;
-            if (i['car'] != null) {
+            if (i['item']['car'] != null) {
                 type = "Car";
-                type_name = i['car']['name']
-            } else if (i['bumper'] != null) {
+                type_name = i['item']['car']['name']
+            } else if (i['item']['bumper'] != null) {
                 type = "Bumper";
-                type_name = i['bumper']['name']
-            } else if (i['wheels'] != null) {
+                type_name = i['item']['bumper']['name']
+            } else if (i['item']['wheels'] != null) {
                 type = "Wheels";
-                type_name = i['wheels']['name']
+                type_name = i['item']['wheels']['name']
             }
             tr.innerHTML = "<td style='padding-left: 2%; width: 5%'>" +
                 "                   <label class=\"my-checkbox\">\n" +
-                "                        <input type=\"checkbox\" class='checkbox-item' value='" + i['id_item'] + "' onclick='updateSelectedItemsCount();'>\n" +
+                "                        <input type=\"checkbox\" class='checkbox-trade' value='" + i['item']['id_item'] + "' onclick='updateSelectedItemsCount();'>\n" +
                 "                        <div class=\"check-container grey\">\n" +
                 "                            <svg class=\"\" width=\"15\" height=\"10\" viewBox=\"0 0 15 10\" fill=\"none\"\n" +
                 "                                 xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -52,134 +51,34 @@ function updateItemTable() {
                 "                        </div>\n" +
                 "                    </label>" +
                 "                    </div></td>" +
-                "<td style='padding-left: 1%'>" + ('000' + ++tasks_count).slice(-4) + "</td>\n" +
+                "<td style='padding-left: 1%'>" + ('000' + ++trade_count).slice(-4) + "</td>\n" +
                 "            <td>" + type + "</td>\n" +
                 "            <td>" + type_name + "</td>\n" +
-                "            <td>" + i['description'] + "</td>\n" +
-                "            <td>" + "<img width='150' src=" + i['real_photo'] + " alt=" + i['real_photo'] + ">" + "</td>\n" +
-                "            <td>\n" +
-                // "                <button class=\"btn-none button-start\" style=\"margin-left: 15px;\" onclick='changeButton(" + i["id"] + ")'>\n" +
-                // "                    <svg width=\"16\" height=\"22\" viewBox=\"0 0 22 22\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
-                // "                         <rect x=\"1\" y=\"1\" width=\"20\" height=\"20\" rx=\"5\" stroke=\"#F1F1F1\" stroke-width=\"2\"/>\n" +
-                // "                         <path d=\"M9 7.22729L15 11.3182L9 15.4091V7.22729Z\" stroke=\"#F1F1F1\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n" +
-                // "                    </svg>\n" +
+                "            <td>" + i['item']['description'] + "</td>\n" +
+                "            <td>" + "<img width='150' src=" + i['item']['real_photo'] + " alt=" + i['item']['real_photo'] + ">" + "</td>\n" +
+                // "            <td>\n" +
+                // "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='tradeItemWindow(" + i['item']['id_item'] + ");'>\n" +
+                // "                      <b style='font-size: 22px;'>$</b>" +
                 // "                </button>\n" +
-                // "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='copyTaskGroup(" + i["id"] + ")'>\n" +
-                // "                    <svg width=\"16\" height=\"23\" viewBox=\"0 0 22 23\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
-                // "                        <path d=\"M3 8.61084H12C13.1046 8.61084 14 9.52408 14 10.6506V19.8296C14 20.9561 13.1046 21.8694 12 21.8694H3C1.89543 21.8694 1 20.9561 1 19.8296V10.6506C1 9.52408 1.89543 8.61084 3 8.61084Z\"\n" +
-                // "                              stroke=\"#F1F1F1\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path>\n" +
-                // "                        <path d=\"M18 14.7302H19C19.5304 14.7302 20.0391 14.5153 20.4142 14.1328C20.7893 13.7502 21 13.2314 21 12.6904V3.51145C21 2.97047 20.7893 2.45165 20.4142 2.06912C20.0391 1.68658 19.5304 1.47168 19 1.47168H10C9.46957 1.47168 8.96086 1.68658 8.58579 2.06912C8.21071 2.45165 8 2.97047 8 3.51145V4.53134\"\n" +
-                // "                              stroke=\"#F1F1F1\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path>\n" +
-                // "                    </svg>\n" +
+                // "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='showLogs(" + i['item']["id_item"] + ");'>\n" +
+                // "                    <svg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" transform=\"scale(0.9) translate(0 -2)\">\n" +
+                // "                       <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M0.781049 0.7988C1.28115 0.287337 1.95942 0 2.66667 0H9.77778C10.0135 0 10.2396 0.0957789 10.4063 0.266267L15.7397 5.72081C15.9064 5.8913 16 6.12253 16 6.36364V17.2727C16 17.996 15.719 18.6897 15.219 19.2012C14.7189 19.7127 14.0406 20 13.3333 20H2.66667C1.95942 20 1.28115 19.7127 0.781049 19.2012C0.280952 18.6897 0 17.996 0 17.2727V2.72727C0 2.00396 0.280951 1.31026 0.781049 0.7988ZM2.66667 1.81818C2.43092 1.81818 2.20483 1.91396 2.03813 2.08445C1.87143 2.25494 1.77778 2.48617 1.77778 2.72727V17.2727C1.77778 17.5138 1.87143 17.7451 2.03813 17.9156C2.20483 18.086 2.43092 18.1818 2.66667 18.1818H13.3333C13.5691 18.1818 13.7952 18.086 13.9619 17.9156C14.1286 17.7451 14.2222 17.5138 14.2222 17.2727V6.74019L9.40959 1.81818H2.66667Z\" fill=\"#F1F1F1\"/>\n" +
+                // "                       <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M9.7778 0C10.2687 0 10.6667 0.407014 10.6667 0.909091V5.45455H15.1111C15.6021 5.45455 16 5.86156 16 6.36364C16 6.86571 15.6021 7.27273 15.1111 7.27273H9.7778C9.28689 7.27273 8.88892 6.86571 8.88892 6.36364V0.909091C8.88892 0.407014 9.28689 0 9.7778 0Z\" fill=\"#F1F1F1\"/>\n" +
+                // "                       <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M3.55566 10.9091C3.55566 10.407 3.95363 10 4.44455 10H11.5557C12.0466 10 12.4446 10.407 12.4446 10.9091C12.4446 11.4112 12.0466 11.8182 11.5557 11.8182H4.44455C3.95363 11.8182 3.55566 11.4112 3.55566 10.9091Z\" fill=\"#F1F1F1\"/>\n" +
+                // "                       <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M3.55566 14.5454C3.55566 14.0434 3.95363 13.6364 4.44455 13.6364H11.5557C12.0466 13.6364 12.4446 14.0434 12.4446 14.5454C12.4446 15.0475 12.0466 15.4545 11.5557 15.4545H4.44455C3.95363 15.4545 3.55566 15.0475 3.55566 14.5454Z\" fill=\"#F1F1F1\"/>\n" +
+                // "                       <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M3.55566 7.27274C3.55566 6.77066 3.95363 6.36365 4.44455 6.36365H6.22233C6.71325 6.36365 7.11122 6.77066 7.11122 7.27274C7.11122 7.77482 6.71325 8.18183 6.22233 8.18183H4.44455C3.95363 8.18183 3.55566 7.77482 3.55566 7.27274Z\" fill=\"#F1F1F1\"/>\n" +
+                // "                   </svg>\n" +
                 // "                </button>\n" +
-                "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='tradeItemWindow(" + i['id_item'] + ");'>\n" +
-                "                      <b style='font-size: 22px;'>$</b>" +
-                "                </button>\n" +
-                "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='showLogs(" + i["id"] + ");'>\n" +
-                "                    <svg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" transform=\"scale(0.9) translate(0 -2)\">\n" +
-                "                       <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M0.781049 0.7988C1.28115 0.287337 1.95942 0 2.66667 0H9.77778C10.0135 0 10.2396 0.0957789 10.4063 0.266267L15.7397 5.72081C15.9064 5.8913 16 6.12253 16 6.36364V17.2727C16 17.996 15.719 18.6897 15.219 19.2012C14.7189 19.7127 14.0406 20 13.3333 20H2.66667C1.95942 20 1.28115 19.7127 0.781049 19.2012C0.280952 18.6897 0 17.996 0 17.2727V2.72727C0 2.00396 0.280951 1.31026 0.781049 0.7988ZM2.66667 1.81818C2.43092 1.81818 2.20483 1.91396 2.03813 2.08445C1.87143 2.25494 1.77778 2.48617 1.77778 2.72727V17.2727C1.77778 17.5138 1.87143 17.7451 2.03813 17.9156C2.20483 18.086 2.43092 18.1818 2.66667 18.1818H13.3333C13.5691 18.1818 13.7952 18.086 13.9619 17.9156C14.1286 17.7451 14.2222 17.5138 14.2222 17.2727V6.74019L9.40959 1.81818H2.66667Z\" fill=\"#F1F1F1\"/>\n" +
-                "                       <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M9.7778 0C10.2687 0 10.6667 0.407014 10.6667 0.909091V5.45455H15.1111C15.6021 5.45455 16 5.86156 16 6.36364C16 6.86571 15.6021 7.27273 15.1111 7.27273H9.7778C9.28689 7.27273 8.88892 6.86571 8.88892 6.36364V0.909091C8.88892 0.407014 9.28689 0 9.7778 0Z\" fill=\"#F1F1F1\"/>\n" +
-                "                       <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M3.55566 10.9091C3.55566 10.407 3.95363 10 4.44455 10H11.5557C12.0466 10 12.4446 10.407 12.4446 10.9091C12.4446 11.4112 12.0466 11.8182 11.5557 11.8182H4.44455C3.95363 11.8182 3.55566 11.4112 3.55566 10.9091Z\" fill=\"#F1F1F1\"/>\n" +
-                "                       <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M3.55566 14.5454C3.55566 14.0434 3.95363 13.6364 4.44455 13.6364H11.5557C12.0466 13.6364 12.4446 14.0434 12.4446 14.5454C12.4446 15.0475 12.0466 15.4545 11.5557 15.4545H4.44455C3.95363 15.4545 3.55566 15.0475 3.55566 14.5454Z\" fill=\"#F1F1F1\"/>\n" +
-                "                       <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M3.55566 7.27274C3.55566 6.77066 3.95363 6.36365 4.44455 6.36365H6.22233C6.71325 6.36365 7.11122 6.77066 7.11122 7.27274C7.11122 7.77482 6.71325 8.18183 6.22233 8.18183H4.44455C3.95363 8.18183 3.55566 7.77482 3.55566 7.27274Z\" fill=\"#F1F1F1\"/>\n" +
-                "                   </svg>\n" +
-                "                </button>\n" +
-                // "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='removeTask(" + i["id"] + ")'>\n" +
-                // "                    <svg width=\"14\" height=\"24\" viewBox=\"0 0 20 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
-                // "                        <path d=\"M1 5.5791H3H19\" stroke=\"#F1F1F1\" stroke-width=\"2\" stroke-linecap=\"round\"\n" +
-                // "                              stroke-linejoin=\"round\"></path>\n" +
-                // "                        <path d=\"M6 5.5783V3.52499C6 2.98042 6.21071 2.45815 6.58579 2.07308C6.96086 1.68801 7.46957 1.47168 8 1.47168H12C12.5304 1.47168 13.0391 1.68801 13.4142 2.07308C13.7893 2.45815 14 2.98042 14 3.52499V5.5783M17 5.5783V19.9515C17 20.496 16.7893 21.0183 16.4142 21.4034C16.0391 21.7884 15.5304 22.0048 15 22.0048H5C4.46957 22.0048 3.96086 21.7884 3.58579 21.4034C3.21071 21.0183 3 20.496 3 19.9515V5.5783H17Z\"\n" +
-                // "                              stroke=\"#F1F1F1\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path>\n" +
-                // "                    </svg>\n" +
-                // "                </button>\n" +
-                "            </td>";
+                // "            </td>";
+                "            <td style='color: #FFD800; font-size: 22px;'>" + i['price'] + "</td>";
+
             tasks.appendChild(tr);
             updateSelectedItemsCount();
         });
     });
 }
 
-function showLogs(id) {
-    removeAllWindows();
-    $.ajax({
-        url: '/status_tasks',
-        method: 'get',
-    }).done(function (data) {
-        let home = document.getElementById("windows-container");
-        let create_task_window = document.createElement("div");
-        create_task_window.id = "logs-window";
-        create_task_window.className = "blur-window add-proxy-window account-window";
-        create_task_window.innerHTML = "        <div class=\"account-window-top-container\">\n" +
-            "                Logs\n" +
-            "        </div>\n" +
-            "        <div class=\"add-proxy-container task-log-container\">\n" +
-            "            <div class=\"textarea add-proxy-textarea task-log-area overflow\" id='logs-area'>\n" +
-            "            </div>\n" +
-            "        </div>\n" +
-            "        <div style=\"position: relative; margin-top: 430px; margin-left: 360px\">\n" +
-            "            <button class=\"button-active\" onclick='document.getElementById(\"logs-window\").remove();'>Cancel</button>\n" +
-            "        </div>";
-        home.appendChild(create_task_window);
-        let textarea = document.getElementById('logs-area');
-        let list = [];
-        data['list'].forEach(i => {
-            if (i['id'] === id) {
-                i['tasks'].forEach(t => {
-                    t["logs"].split("\n").forEach(dl => {
-                        if (dl !== '') {
-                            let dd = dl.split('###', 2);
-                            list.push(dd[1]);
-                            // [Date.parse(dd[0])],
-                            // list.sort();
-                        }
-                    });
-                });
-            }
-        });
-        list.forEach((i1) => {
-            let s = document.createElement("div");
-            s.innerHTML = i1;
-            textarea.appendChild(s);
-        });
-    });
-}
-
-function copyTaskGroup(id) {
-    $.ajax({
-        url: '/show_tasks',
-        method: 'get',
-        data: {
-            id: id
-        }
-    }).done(function (data) {
-        let sizes = "";
-        data['list']['sizes'].forEach(i => {
-            sizes += i + " ";
-        })
-        sizes.trim();
-        addTask(data['list']['name'],
-            data['list']['module'],
-            data['list']['itemId'],
-            data['list']['amount'],
-            data['list']['profileGroup'] === null ? null : data['list']['profileGroup']['id'],
-            data['list']['accountGroup'] === null ? null : data['list']['accountGroup']['id'],
-            data['list']['proxyGroup']['id'],
-            data['list']['filter'],
-            sizes);
-    });
-}
-
-function changeButton(id) {
-    let tr = document.getElementById("tasks_" + id);
-    let status = tr.getElementsByClassName("status-task").item(0);
-    if (status.textContent === "In Progress") {
-        stopTask(id);
-    } else {
-        runTask(id);
-    }
-}
-
-create_tasks_button.onclick = () => {
+create_trade_button.onclick = () => {
     removeAllWindows();
     let home = document.getElementById("windows-container");
     let create_profile_window = document.createElement("div");
@@ -300,7 +199,7 @@ function removeItem(id) {
         } else {
             tempErrorAlert(data["message"], 3000);
         }
-        updateItemTable();
+        updateTradeTable();
     });
 }
 
@@ -344,32 +243,32 @@ function stopTask(id) {
 
 function updateSelectedItemsCount() {
     let count = 0;
-    let p = document.getElementsByClassName("checkbox-item");
+    let p = document.getElementsByClassName("checkbox-trade");
     for (let i = 0; i < p.length; i++) {
         if (p.item(i).checked === true) {
             count++;
         }
     }
-    if (count !== items_count) {
+    if (count !== trade_count) {
         document.getElementById("checkbox-all-items").checked = false;
     }
-    document.getElementById("items_stats").innerText = "Total: " + tasks_count + "/Select: " + count;
+    document.getElementById("trade_stats").innerText = "Total: " + trade_count + "/Select: " + count;
 }
 
-function selectAllItems() {
-    let checkbox = document.getElementById("checkbox-all-items");
+function selectAllTrade() {
+    let checkbox = document.getElementById("checkbox-all-trade");
     if (checkbox.checked === true) {
-        let p = document.getElementsByClassName("checkbox-item");
+        let p = document.getElementsByClassName("checkbox-trade");
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = true;
         }
-        document.getElementById("items_stats").innerText = "Total: " + tasks_count + "/Select: " + tasks_count;
+        document.getElementById("trade_stats").innerText = "Total: " + trade_count + "/Select: " + trade_count;
     } else {
-        let p = document.getElementsByClassName("checkbox-item");
+        let p = document.getElementsByClassName("checkbox-trade");
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = false;
         }
-        document.getElementById("items_stats").innerText = "Total: " + tasks_count + "/Select: 0";
+        document.getElementById("trade_stats").innerText = "Total: " + trade_count + "/Select: 0";
     }
 }
 
@@ -384,7 +283,7 @@ function backButton() {
     let create_task_header = document.getElementById("create-task-header");
     document.getElementById("methods-container").hidden = false;
     document.getElementById("crete-task-container").hidden = true;
-    window_create_task = "methods";
+    window_create_trade = "methods";
     module_list_header.className = "menu-slider-item unselectable active";
     create_task_header.className = "menu-slider-item unselectable";
     let create_task_back_button = document.getElementById("create-task-back-button")
@@ -443,7 +342,7 @@ function createItem() {
         } else {
             tempErrorAlert(data["message"], 3000);
         }
-        updateItemTable();
+        updateTradeTable();
     });
     document.getElementById("create-item-window").remove();
 }
@@ -610,7 +509,7 @@ function tradeItem(id, price) {
         } else {
             tempErrorAlert(data["message"], 3000);
         }
-        updateItemTable();
+        updateTradeTable();
     });
 }
-updateItemTable();
+updateTradeTable();

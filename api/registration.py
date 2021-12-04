@@ -2,7 +2,7 @@ from flask import request
 
 from api.api_worker import reg, auth, myinfo, edit_myinfo, colors, wheels_create, wheels, bumpers_create, bumpers, \
     cars_groups, cars_groups_create, cars_groups_remove, cars_create, cars_groups_get, item_create, items_get, \
-    item_remove
+    item_remove, trade_remove, trade_get, trade_create
 from app import app
 
 
@@ -138,6 +138,7 @@ def item_create_():
     real_photo = request.values.get('real_photo')
     return item_create(login, _pass, id_car, id_bumper, id_wheels, description, real_photo)
 
+
 @app.route('/items', methods=['GET'])
 def items_get_():
     login, _pass = request.cookies.get('login'), \
@@ -151,3 +152,28 @@ def item_remove_():
                    request.cookies.get('pass')
     _id = request.values.get('id')
     return item_remove(login, _pass, _id)
+
+
+@app.route('/trade/get', methods=['GET'])
+def trade_get_():
+    login, _pass = request.cookies.get('login'), \
+                   request.cookies.get('pass')
+    find = request.values.get('find')
+    return trade_get(login, _pass, find)
+
+
+@app.route('/trade/remove', methods=['POST'])
+def trade_remove_():
+    login, _pass = request.cookies.get('login'), \
+                   request.cookies.get('pass')
+    _id = request.values.get('id')
+    return trade_remove(login, _pass, _id)
+
+
+@app.route('/trade/create', methods=['POST'])
+def trade_create_():
+    login, _pass = request.cookies.get('login'), \
+                   request.cookies.get('pass')
+    _id = request.values.get('id')
+    price = request.values.get('price')
+    return trade_create(login, _pass, _id, price)

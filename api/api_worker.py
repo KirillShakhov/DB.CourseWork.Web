@@ -358,3 +358,28 @@ def items_get(login, _pass):
             "pass": _pass
             }
     return create_req("items", data)
+
+
+def trade_get(login, _pass, find):
+    data = {"login": login,
+            "pass": _pass
+            }
+    if (find != None): data['find'] = find
+    return create_req("trade", data)
+
+
+def trade_create(login, _pass, _id, price):
+    data = {"login": login,
+            "pass": _pass,
+            "id": _id,
+            "price": price
+            }
+    return create_req("trade/create", data)
+
+
+def trade_remove(login, _pass, _id):
+    data = {"login": login,
+            "pass": _pass,
+            "id": _id
+            }
+    return create_req("trade/remove", data)
