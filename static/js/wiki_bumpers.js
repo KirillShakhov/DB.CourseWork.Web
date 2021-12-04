@@ -107,10 +107,10 @@ function updatebumpersTable() {
         bumpers_count = 0;
         data["list"].forEach((i) => {
             let tr = document.createElement("tr");
-            tr.id = "bumpers_" + i["id"];
+            tr.id = "bumpers_" + i["id_bumper"];
             tr.innerHTML = "<td class=\"unselectable\" style='padding-left: 2%; width: 7%'>" +
                 "                        <label class=\"my-checkbox\">\n" +
-                "                        <input type=\"checkbox\" class='checkbox-bumpers' value='" + i['id'] + "' onclick='updateSelectedbumpersCount();'>\n" +
+                "                        <input type=\"checkbox\" class='checkbox-bumpers' value='" + i['id_bumper'] + "' onclick='updateSelectedbumpersCount();'>\n" +
                 "                        <div class=\"check-container grey\">\n" +
                 "                            <svg class=\"\" width=\"15\" height=\"10\" viewBox=\"0 0 15 10\" fill=\"none\"\n" +
                 "                                 xmlns=\"http://www.w3.org/2000/svg\">\n" +

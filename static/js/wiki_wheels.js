@@ -70,6 +70,7 @@ function createWheels() {
         }).done(function (data) {
             if (data["status"] === "ok") {
                 tempAlert("Колеса добавлены", 3000);
+                updateWheelsTable();
             } else {
                 tempErrorAlert(data["message"], 3000);
             }
@@ -125,7 +126,7 @@ function updateWheelsTable() {
                 "            <td>" + i["name"] + "</td>\n" +
                 "            <td>" + i["adhesion_coefficient"] + "</td>\n" +
                 "            <td>" + i["disk_color"]['name'] + "</td>\n" +
-                "            <td>" + i["photo"] + "</td>\n" +
+                "            <td>" + "<img width='150' src=" + i['photo'] + " alt=" + i['photo'] + ">" + "</td>\n" +
                 "            <td>" + i["creator"] + "</td>\n" +
                 "            <td>" + "" + "</td>";
             wheels.appendChild(tr);

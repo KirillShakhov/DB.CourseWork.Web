@@ -122,6 +122,8 @@ function buyItem(id) {
             tempErrorAlert(data["message"], 3000);
         }
         updateTradeTable();
+        updateItemTable();
+        updateInfo();
     });
 }
 
