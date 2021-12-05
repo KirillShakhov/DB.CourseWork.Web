@@ -6,7 +6,7 @@ create_contract_button.onclick = () => {
     removeAllWindows();
     let home = document.getElementById("windows-container");
     let create_profile_window = document.createElement("div");
-    create_profile_window.innerHTML = "<div class=\"blur-window create-profile\" id=\"create-profile-window\">\n" +
+    create_profile_window.innerHTML = "<div class=\"blur-window create-profile\" id=\"create-profile-window\" style='height: 560px'>\n" +
         "        <div class=\"container top-container\">\n" +
         "            <div class=\"menu-slider unselectable\">\n" +
         "                <div class=\"menu-slider-item active unselectable\" id=\"profile-general-button\">Создать</div>\n" +
@@ -19,9 +19,21 @@ create_contract_button.onclick = () => {
         "            <div class=\"container profile-container\" id=\"delivery-container\" hidden>\n" +
         "            </div>\n" +
         "            <div class=\"container profile-container\" id=\"payment-container\">\n" +
-        "                <input type=\"text\" id=\"NumberbumpersInput\" name=\"NameInput\" placeholder=\"Название\" value=\"\"\n" +
-        "                       style=\"position: absolute;margin-left: 10px;margin-top: 10px; width: 340px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 370px;top: 35px;\">" +
+        "                <input type=\"text\" id=\"ForNameCreateContractInput\" name=\"NameInput\" placeholder=\"Кому\" value=\"\"\n" +
+        "                        style=\"position: absolute;margin-left: 10px;margin-top: 0px; width: 350px;\">\n" +
+        "                <div class=\"border-b-line\" style=\"width: 350px;top: 25px;\">" +
+        "                <input type=\"text\" id=\"FromMoneyCreateContractInput\" name=\"NameInput\" placeholder=\"Сколько денег отдашь\" value=\"\"\n" +
+        "                        style=\"position: absolute;margin-left: 10px;margin-top: 10px; width: 350px;\">\n" +
+        "                <div class=\"border-b-line\" style=\"width: 350px;top: 35px;\">" +
+        "                <input type=\"text\" id=\"ToMoneyCreateContractInput\" name=\"NameInput\" placeholder=\"Сколько денег получишь\" value=\"\"\n" +
+        "                        style=\"position: absolute;margin-left: 10px;margin-top: 10px; width: 350px;\">\n" +
+        "                <div class=\"border-b-line\" style=\"width: 350px;top: 35px;\">" +
+        "                <input type=\"text\" id=\"ClosingDateCreateContractInput\" name=\"NameInput\" placeholder=\"Дата окончания. 2021-12-12\" value=\"\"\n" +
+        "                        style=\"position: absolute;margin-left: 10px;margin-top: 10px; width: 350px;\">\n" +
+        "                <div class=\"border-b-line\" style=\"width: 350px;top: 35px;\">" +
+                "        <input type=\"text\" id=\"ClosingTimeCreateContractInput\" name=\"NameInput\" placeholder=\"Время окончания. Необязательно\" value=\"\"\n" +
+        "                        style=\"position: absolute;margin-left: 10px;margin-top: 10px; width: 350px;\">\n" +
+        "                <div class=\"border-b-line\" style=\"width: 350px;top: 35px;\">" +
         "            </div>\n" +
         "           <div class=\"fake-scroll-container\" style='margin-top:0;'>\n" +
         "        <table class=\"table\" style='width: 380px; margin-top: 40px; margin-left: 0'>\n" +
@@ -47,7 +59,7 @@ create_contract_button.onclick = () => {
         "            </thead>\n" +
         "        </table>\n" +
         "    </div>\n" +
-        "    <div class=\"scroll-container\" style='position:relative;width: 380px;height: 150px; margin-top: -40px; margin-left: 0'>\n" +
+        "    <div class=\"scroll-container\" style='position:relative;width: 380px;height: 140px; margin-top: -40px; margin-left: 0'>\n" +
         "        <table class=\"table\" style='margin-left: 0;margin-top: 0;overflow:auto;'>\n" +
         "            <thead>\n" +
         "            <tr>\n" +
@@ -63,7 +75,7 @@ create_contract_button.onclick = () => {
         "    </div>" +
         "            </div>\n" +
         "        </div>\n" +
-        "        <span style=\"position: absolute; left: 180px;\">" +
+        "        <span style=\"position: relative; left: 140px; top: -50px\">" +
         "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
         "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='createbumpers();'>Save</button>\n" +
         "        </span>" +
