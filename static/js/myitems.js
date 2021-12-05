@@ -440,11 +440,13 @@ function createItem() {
     }).done(function (data) {
         if (data["status"] === "ok") {
             tempAlert("Предмет добавлен", 3000);
+            updateItemTable();
         } else {
             tempErrorAlert(data["message"], 3000);
         }
         updateItemTable();
     });
+    updateItemTable();
     document.getElementById("create-item-window").remove();
 }
 

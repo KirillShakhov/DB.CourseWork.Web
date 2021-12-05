@@ -390,4 +390,4 @@ def trade_buy(login, _pass, _id):
             "pass": _pass,
             "id": _id
             }
-    return create_req("trade/confirm", data)
+    return create_req("trade/buy", data)
