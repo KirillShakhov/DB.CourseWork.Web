@@ -21,9 +21,10 @@ create_contract_button.onclick = () => {
         "            <div class=\"container profile-container\" id=\"payment-container\">\n" +
         "                <input type=\"text\" id=\"NumberbumpersInput\" name=\"NameInput\" placeholder=\"Название\" value=\"\"\n" +
         "                       style=\"position: absolute;margin-left: 10px;margin-top: 10px; width: 340px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 370px;top: 35px;\"></div>\n" +
-        "<div class=\"fake-scroll-container\">\n" +
-        "        <table class=\"table\" style='width: 350px; margin-left: 10px; margin-top: 50px;'>\n" +
+        "                <div class=\"border-b-line\" style=\"width: 370px;top: 35px;\">" +
+        "            </div>\n" +
+        "           <div class=\"fake-scroll-container\" style='margin-top:0;'>\n" +
+        "        <table class=\"table\" style='width: 380px; margin-top: 40px; margin-left: 0'>\n" +
         "            <thead>\n" +
         "            <tr>\n" +
         "                <th class=\"unselectable\" style=\"width: 5%; padding-left: 2%\">\n" +
@@ -46,8 +47,8 @@ create_contract_button.onclick = () => {
         "            </thead>\n" +
         "        </table>\n" +
         "    </div>\n" +
-        "    <div class=\"scroll-container\">\n" +
-        "        <table class=\"table\" style='width: 350px; margin-left: 10px; margin-top: -30px; height: 300px'>\n" +
+        "    <div class=\"scroll-container\" style='position:relative;width: 380px;height: 150px; margin-top: -40px; margin-left: 0'>\n" +
+        "        <table class=\"table\" style='margin-left: 0;margin-top: 0;overflow:auto;'>\n" +
         "            <thead>\n" +
         "            <tr>\n" +
         "                <th style=\"width: 15%; padding-left: 2%\"></th>\n" +
