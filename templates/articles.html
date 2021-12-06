@@ -7,7 +7,7 @@
         <div class="header">
 
             <div class="container">
-                <span class="text" id="tasks_stats">Total: 0/Select: 0</span>
+                <span class="text" id="article_stats">Total: 0/Select: 0</span>
 {#                <span>#}
 {#                <select class="group-selector" id="profiles-group-selector" onchange="updateProfileTable();">#}
 {#                                    <option value="{{i["id"]}}">{{i["name"]}}</option>#}
@@ -26,7 +26,7 @@
 {#                    </svg>#}
 {#                    Run#}
 {#                </button>#}
-                <button class="grey-border-button" id="create-task-button" style="margin-left: 20px">
+                <button class="grey-border-button" id="create-article-button" style="margin-left: 20px">
                     <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"
                          style="margin-right: 8px; margin-top: 5px">
                         <path d="M5.5 1V5.5M5.5 10V5.5M5.5 5.5H1H10" stroke="#A5E12D" stroke-width="2"
@@ -35,7 +35,7 @@
                     </svg>
                     Create
                 </button>
-                <button class="grey-border-button" id="delete-task-selected-button" style="margin-left: 20px">
+                <button class="grey-border-button" id="delete-article-selected-button" style="margin-left: 20px">
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"
                          style="margin-right: 8px; position: relative;" transform="scale(1.2) translate(0 1)">
                         <path d="M4.018 4.00735L7.18932 7.19995M10.3606 10.3926L7.18932 7.19995M7.18932 7.19995L4.018 10.3926L10.3606 4.00735"
@@ -53,7 +53,7 @@
             <tr>
                 <th class="unselectable" style="width: 5%; padding-left: 2%">
                     <label class="my-checkbox">
-                        <input type="checkbox" id="checkbox-all-tasks" onclick="selectAllItems();">
+                        <input type="checkbox" id="checkbox-all-article" onclick="selectAllArticle();">
                         <div class="check-container">
                             <svg class="" width="15" height="10" viewBox="0 0 15 10" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -65,10 +65,10 @@
                     </label>
                 </th>
                 <th style="width: 8%; padding-left: 1.5%">#</th>
-                <th style="width: 15%;">Тип</th>
-                <th style="width: 14%;">Имя</th>
-                <th style="width: 22%;">Описание</th>
-                <th style="width: 20%;">Фото</th>
+                <th style="width: 15%;">Название</th>
+                <th style="width: 14%;">Машинка</th>
+                <th style="width: 22%;">Автор</th>
+                <th style="width: 20%;">Дата создания</th>
                 <th style="padding-left: 15px;">Действия</th>
             </tr>
             </thead>
@@ -91,7 +91,7 @@
                 <th></th>
             </tr>
             </thead>
-            <tbody id="tbody-tasks"></tbody>
+            <tbody id="tbody-article"></tbody>
         </table>
     </div>
 
