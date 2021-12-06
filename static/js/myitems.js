@@ -325,23 +325,6 @@ function runTask(id) {
     });
 }
 
-function stopTask(id) {
-    $.ajax({
-        url: '/stop_tasks',
-        method: 'post',
-        data: {
-            id: id
-        }
-    }).done((data) => {
-        if (data["status"] === "ok") {
-            tempAlert("Tasks stoped", 3000);
-        } else {
-            tempErrorAlert(data["message"], 3000);
-        }
-        updateStatus();
-    });
-}
-
 function updateSelectedItemsCount() {
     let count = 0;
     let p = document.getElementsByClassName("checkbox-item");
@@ -356,7 +339,7 @@ function updateSelectedItemsCount() {
     document.getElementById("items_stats").innerText = "Total: " + tasks_count + "/Select: " + count;
 }
 
-function selectAllItems() {
+function selectAllContract() {
     let checkbox = document.getElementById("checkbox-all-items");
     if (checkbox.checked === true) {
         let p = document.getElementsByClassName("checkbox-item");

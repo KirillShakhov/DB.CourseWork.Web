@@ -407,6 +407,14 @@ def contract_get(login, _pass):
     return create_req("contract", data)
 
 
+def contract_items(login, _pass, _id):
+    data = {"login": login,
+            "pass": _pass,
+            "id": _id
+            }
+    return create_req("contract/items", data)
+
+
 def contract_create(login, _pass, to_user, from_money, to_money, closing_date, closing_time, items):
     data = {"login": login,
             "pass": _pass,

@@ -2,7 +2,8 @@ from flask import request
 
 from api.api_worker import reg, auth, myinfo, edit_myinfo, colors, wheels_create, wheels, bumpers_create, bumpers, \
     cars_groups, cars_groups_create, cars_groups_remove, cars_create, cars_groups_get, item_create, items_get, \
-    item_remove, trade_remove, trade_get, trade_create, trade_buy, contract_remove, contract_get, contract_create
+    item_remove, trade_remove, trade_get, trade_create, trade_buy, contract_remove, contract_get, contract_create, \
+    contract_items
 from app import app
 
 
@@ -192,6 +193,14 @@ def contract_get_():
     login, _pass = request.cookies.get('login'), \
                    request.cookies.get('pass')
     return contract_get(login, _pass)
+
+
+@app.route('/contract/items', methods=['GET'])
+def contract_get_items_():
+    login, _pass = request.cookies.get('login'), \
+                   request.cookies.get('pass')
+    _id = request.values.get('id')
+    return contract_items(login, _pass, _id)
 
 
 @app.route('/contract/remove', methods=['POST'])

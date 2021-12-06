@@ -226,7 +226,7 @@ function updateContractTable() {
             tr.id = "contract_" + i['id_contract'];
             tr.innerHTML = "<td style='padding-left: 2%; width: 5%'>" +
                 "                   <label class=\"my-checkbox\">\n" +
-                "                        <input type=\"checkbox\" class='checkbox-contract' value='" + i['id_contract'] + "' onclick='updateSelectedItemsCount();'>\n" +
+                "                        <input type=\"checkbox\" class='checkbox-contract' value='" + i['id_contract'] + "' onclick='updateSelectedContractCount();'>\n" +
                 "                        <div class=\"check-container grey\">\n" +
                 "                            <svg class=\"\" width=\"15\" height=\"10\" viewBox=\"0 0 15 10\" fill=\"none\"\n" +
                 "                                 xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -243,9 +243,13 @@ function updateContractTable() {
                 "            <td>" + i['closing_date']+"("+ i['closing_time'] + ")" + "</td>\n" +
                 "            <td><p style='color: red;'>" + i['from_money'] + "</p>/<p style='color: green'>" + i['to_money'] + "</p></td>\n" +
                 // "            <td>\n" +
-                // "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='contractItemWindow(" + i['item']['id_item'] + ");'>\n" +
-                // "                      <b style='font-size: 22px;'>$</b>" +
-                // "                </button>\n" +
+                "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='contractItemWindow(" + i['id_contract'] + ");'>\n" +
+                "                       <svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" viewBox=\"0 0 96 96\" width=\"20px\" height=\"20px\">\n" +
+                "                           <g id=\"surface35259549\">\n" +
+                "                           <path style=\" stroke:none;fill-rule:nonzero;fill:rgb(100%,100%,100%);fill-opacity:1;\" d=\"M 20.703125 12 L 12 26.921875 L 12 84 L 84 84 L 84 26.921875 L 75.296875 12 Z M 25.296875 20 L 70.703125 20 L 75.367188 28 L 20.632812 28 Z M 36 36 L 60 36 L 60 44 L 36 44 Z M 36 36 \"/>\n" +
+                "                           </g>\n" +
+                "                       </svg>\n" +
+                "                </button>\n" +
                 // "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='showLogs(" + i['item']["id_item"] + ");'>\n" +
                 // "                    <svg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" transform=\"scale(0.9) translate(0 -2)\">\n" +
                 // "                       <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M0.781049 0.7988C1.28115 0.287337 1.95942 0 2.66667 0H9.77778C10.0135 0 10.2396 0.0957789 10.4063 0.266267L15.7397 5.72081C15.9064 5.8913 16 6.12253 16 6.36364V17.2727C16 17.996 15.719 18.6897 15.219 19.2012C14.7189 19.7127 14.0406 20 13.3333 20H2.66667C1.95942 20 1.28115 19.7127 0.781049 19.2012C0.280952 18.6897 0 17.996 0 17.2727V2.72727C0 2.00396 0.280951 1.31026 0.781049 0.7988ZM2.66667 1.81818C2.43092 1.81818 2.20483 1.91396 2.03813 2.08445C1.87143 2.25494 1.77778 2.48617 1.77778 2.72727V17.2727C1.77778 17.5138 1.87143 17.7451 2.03813 17.9156C2.20483 18.086 2.43092 18.1818 2.66667 18.1818H13.3333C13.5691 18.1818 13.7952 18.086 13.9619 17.9156C14.1286 17.7451 14.2222 17.5138 14.2222 17.2727V6.74019L9.40959 1.81818H2.66667Z\" fill=\"#F1F1F1\"/>\n" +
@@ -258,63 +262,12 @@ function updateContractTable() {
                 // "            </td>";
                 "";
             tasks.appendChild(tr);
-            updateSelectedItemsCount();
+            updateSelectedContractCount();
         });
     });
 }
 
-
-function addTask(name, module, pid, amount, profile_group_id, account_group_id, proxy_group_id, filter, sizes) {
-    let data = {
-        name: name,
-        module: module,
-        filter: filter,
-        sizes: sizes,
-        item_id: pid,
-        amount: amount,
-        proxyGroup_id: proxy_group_id,
-    };
-    if (account_group_id !== null && account_group_id !== 'null') {
-        data['accountGroup_id'] = account_group_id;
-    }
-    if (profile_group_id !== null && profile_group_id !== 'null') {
-        data['profileGroup_id'] = profile_group_id;
-    }
-
-    $.ajax({
-        url: '/add_tasks',
-        method: 'post',
-        data: data
-    }).done(function (data) {
-        if (data["status"] === "ok") {
-            tempAlert("Tasks added", 3000);
-            updateTasksTable();
-        } else {
-            tempErrorAlert(data["message"], 3000);
-        }
-    });
-}
-
-function buyItem(id) {
-    $.ajax({
-        url: '/contract/buy',
-        method: 'post',
-        data: {
-            id: id
-        }
-    }).done((data) => {
-        if (data["status"] === "ok") {
-            tempAlert("Предмет куплен", 3000);
-        } else {
-            tempErrorAlert(data["message"], 3000);
-        }
-        updateContractTable();
-        updateItemTable();
-        updateInfo();
-    });
-}
-
-function updateSelectedItemsCount() {
+function updateSelectedContractCount() {
     let count = 0;
     let p = document.getElementsByClassName("checkbox-contract");
     for (let i = 0; i < p.length; i++) {
@@ -323,7 +276,7 @@ function updateSelectedItemsCount() {
         }
     }
     if (count !== contract_count) {
-        document.getElementById("checkbox-all-items").checked = false;
+        document.getElementById("checkbox-all-contract").checked = false;
     }
     document.getElementById("contract_stats").innerText = "Total: " + contract_count + "/Select: " + count;
 }
@@ -343,50 +296,6 @@ function selectAllContract() {
         }
         document.getElementById("contract_stats").innerText = "Total: " + contract_count + "/Select: 0";
     }
-}
-
-function createItem() {
-    let data = {};
-    if (windows_name === "car") {
-        data['description'] = document.getElementById("ItemCarDesInput").value;
-        data['real_photo'] = document.getElementById("ItemCarPhotoInput").value;
-        let create_window_cars_selector = document.getElementById('create-window-cars-selector');
-        let id_car = create_window_cars_selector.options[create_window_cars_selector.selectedIndex].value;
-        if (id_car !== null && id_car !== 'null') {
-            data['id_car'] = id_car;
-        }
-    } else if (windows_name === "bumper") {
-        data['description'] = document.getElementById("ItemBumperDesInput").value;
-        data['real_photo'] = document.getElementById("ItemBumperPhotoInput").value;
-
-        let create_window_bumper_selector = document.getElementById('create-window-bumper-selector');
-        let id_bumper = create_window_bumper_selector.options[create_window_bumper_selector.selectedIndex].value;
-        if (id_bumper !== null && id_bumper !== 'null') {
-            data['id_bumper'] = id_bumper;
-        }
-    } else if (windows_name === "wheels") {
-        data['description'] = document.getElementById("ItemWheelsDesInput").value;
-        data['real_photo'] = document.getElementById("ItemWheelsPhotoInput").value;
-
-        let create_window_wheels_selector = document.getElementById('create-window-wheels-selector');
-        let id_wheels = create_window_wheels_selector.options[create_window_wheels_selector.selectedIndex].value;
-        if (id_wheels !== null && id_wheels !== 'null') {
-            data['id_wheels'] = id_wheels;
-        }
-    }
-    $.ajax({
-        url: '/items/create',
-        method: 'post',
-        data: data
-    }).done(function (data) {
-        if (data["status"] === "ok") {
-            tempAlert("Предмет добавлен", 3000);
-        } else {
-            tempErrorAlert(data["message"], 3000);
-        }
-        updatecontractTable();
-    });
-    document.getElementById("create-item-window").remove();
 }
 
 function updateItemWindow() {
@@ -511,10 +420,10 @@ function contractItemWindow(id_item) {
     removeAllWindows();
     let home = document.getElementById("windows-container");
     let create_profile_window = document.createElement("div");
-    create_profile_window.innerHTML = "<div class=\"blur-window create-profile\" id=\"create-profile-window\" style='height: 300px'>\n" +
+    create_profile_window.innerHTML = "<div class=\"blur-window create-profile\" id=\"create-profile-window\" style='height: 500px'>\n" +
         "        <div class=\"container top-container\">\n" +
         "            <div class=\"menu-slider unselectable\">\n" +
-        "                <div class=\"menu-slider-item active unselectable\" id=\"profile-general-button\">Продажа предмета</div>\n" +
+        "                <div class=\"menu-slider-item active unselectable\" id=\"profile-general-button\">Предметы</div>\n" +
         "            </div>\n" +
         "            <div class=\"border-b-line\"></div>\n" +
         "        </div>\n" +
@@ -524,18 +433,72 @@ function contractItemWindow(id_item) {
         "            <div class=\"container profile-container\" id=\"delivery-container\" hidden>\n" +
         "            </div>\n" +
         "            <div class=\"container profile-container\" id=\"payment-container\">\n" +
-        "                <div class=\"middle-container-text\">Введите цену:</div>\n" +
-        "                <input type=\"text\" id=\"PriceItemInput\" name=\"NameInput\" placeholder=\"100\" value=\"\"\n" +
-        "                       style=\"position: absolute;margin-left: 10px;margin-top: 50px; width: 340px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 370px;top: 75px;\"></div>\n" +
+            "           <div class=\"fake-scroll-container\" style='margin-top:0;'>\n" +
+        "        <table class=\"table\" style='width: 380px; margin-top: 20px; margin-left: 0'>\n" +
+        "            <thead>\n" +
+        "            <tr>\n" +
+        "                <th style=\"width: 10%; padding-left: 5%\">#</th>\n" +
+        "                <th style=\"width: 15%;\">Тип</th>\n" +
+        "                <th style=\"width: 14%;\">Имя</th>\n" +
+        "            </tr>\n" +
+        "            </thead>\n" +
+        "        </table>\n" +
+          "    <div class=\"scroll-container\" style='position:relative;width: 380px;height: 240px; margin-top: -40px; margin-left: 0'>\n" +
+        "        <table class=\"table\" style='margin-left: 0;margin-top: 0;overflow:auto;'>\n" +
+        "            <thead>\n" +
+        "            <tr>\n" +
+        "                <th style=\"width: 10%; padding-left: 5%\"></th>\n" +
+        "                <th style=\"width: 15%;\"></th>\n" +
+        "                <th style=\"width: 14%;\"></th>\n" +
+        "                <th></th>\n" +
+        "            </tr>\n" +
+        "            </thead>\n" +
+        "            <tbody id=\"tbody-contract-items\"></tbody>\n" +
+        "        </table>\n" +
+        "    </div>" +
         "            </div>\n" +
         "        </div>\n" +
-        "        <span style=\"position: absolute; left: 180px; top: -180px\">" +
+        "        <span style=\"position: absolute; left: 180px; top: 40px\">" +
         "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
         "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='contractItem("+id_item+",document.getElementById(\"PriceItemInput\").value);document.getElementById(\"create-profile-window\").remove();'>Save</button>\n" +
         "        </span>" +
         "    </div>";
     home.appendChild(create_profile_window);
+
+    let tasks = document.getElementById("tbody-contract-items");
+    $.ajax({
+        url: '/contract/items',
+        method: 'get',
+        data:{
+            id: id_item
+        }
+    }).done(function (data) {
+        while (tasks.firstChild) {
+            tasks.removeChild(tasks.firstChild);
+        }
+        contract_count = 0;
+        data["list"].forEach((i) => {
+            let type, type_name;
+            if (i['car'] != null) {
+                type = "Car";
+                type_name = i['car']['name']
+            } else if (i['bumper'] != null) {
+                type = "Bumper";
+                type_name = i['bumper']['name']
+            } else if (i['wheels'] != null) {
+                type = "Wheels";
+                type_name = i['wheels']['name']
+            }
+            let tr = document.createElement("tr");
+            tr.id = "contract_item_" + i['id_item'];
+            tr.innerHTML = "<td style='padding-left: 1%'>" + ('000' + ++contract_count).slice(-4) + "</td>\n" +
+                "            <td>" + type + "</td>\n" +
+                "            <td>" + type_name + "</td>\n" +
+                "";
+            tasks.appendChild(tr);
+            updateSelectedContractCount();
+        });
+    });
 }
 function contractItem(id, price) {
     $.ajax({
