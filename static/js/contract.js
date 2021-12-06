@@ -223,21 +223,10 @@ function updateContractTable() {
         contract_count = 0;
         data["list"].forEach((i) => {
             let tr = document.createElement("tr");
-            tr.id = "contract_" + i['id'];
-            let type, type_name;
-            if (i['item']['car'] != null) {
-                type = "Car";
-                type_name = i['item']['car']['name']
-            } else if (i['item']['bumper'] != null) {
-                type = "Bumper";
-                type_name = i['item']['bumper']['name']
-            } else if (i['item']['wheels'] != null) {
-                type = "Wheels";
-                type_name = i['item']['wheels']['name']
-            }
+            tr.id = "contract_" + i['id_contract'];
             tr.innerHTML = "<td style='padding-left: 2%; width: 5%'>" +
                 "                   <label class=\"my-checkbox\">\n" +
-                "                        <input type=\"checkbox\" class='checkbox-contract' value='" + i['id'] + "' onclick='updateSelectedItemsCount();'>\n" +
+                "                        <input type=\"checkbox\" class='checkbox-contract' value='" + i['id_contract'] + "' onclick='updateSelectedItemsCount();'>\n" +
                 "                        <div class=\"check-container grey\">\n" +
                 "                            <svg class=\"\" width=\"15\" height=\"10\" viewBox=\"0 0 15 10\" fill=\"none\"\n" +
                 "                                 xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -249,10 +238,10 @@ function updateContractTable() {
                 "                    </label>" +
                 "                    </div></td>" +
                 "<td style='padding-left: 1%'>" + ('000' + ++contract_count).slice(-4) + "</td>\n" +
-                "            <td>" + type + "</td>\n" +
-                "            <td>" + type_name + "</td>\n" +
-                "            <td>" + i['item']['description'] + "</td>\n" +
-                "            <td>" + "<img width='150' src=" + i['item']['real_photo'] + " alt=" + i['item']['real_photo'] + ">" + "</td>\n" +
+                "            <td>" + i['from_user']['username'] + "</td>\n" +
+                "            <td>" + i['to_user']['username'] + "</td>\n" +
+                "            <td>" + i['closing_date']+"("+ i['closing_time'] + ")" + "</td>\n" +
+                "            <td><p style='color: red;'>" + i['from_money'] + "</p>/<p style='color: green'>" + i['to_money'] + "</p></td>\n" +
                 // "            <td>\n" +
                 // "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='contractItemWindow(" + i['item']['id_item'] + ");'>\n" +
                 // "                      <b style='font-size: 22px;'>$</b>" +
@@ -267,8 +256,7 @@ function updateContractTable() {
                 // "                   </svg>\n" +
                 // "                </button>\n" +
                 // "            </td>";
-                "            <td style='color: #FFD800; font-size: 22px;'>" + i['price'] + "</td>";
-
+                "";
             tasks.appendChild(tr);
             updateSelectedItemsCount();
         });
