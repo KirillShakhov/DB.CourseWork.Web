@@ -290,16 +290,13 @@ def articles_remove_():
     return article_remove(login, _pass, _id)
 
 
-@app.route('/articles/create', methods=['POST'])
+@app.route('/article/create', methods=['POST'])
 def articles_create_():
     login, _pass = request.cookies.get('login'), \
                    request.cookies.get('pass')
-    to_user = request.values.get('to_user')
-    from_money = request.values.get('from_money')
-    to_money = request.values.get('to_money')
-    closing_date = request.values.get('closing_date')
-    closing_time = request.values.get('closing_time')
-    items = request.values.getlist('items[]')
-    return article_create(login, _pass, to_user, from_money, to_money, closing_date, closing_time, items)
+    title = request.values.get('title')
+    text = request.values.get('text')
+    car = request.values.get('car')
+    return article_create(login, _pass, title, text, car)
 
 

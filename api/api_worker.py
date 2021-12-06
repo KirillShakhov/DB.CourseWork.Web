@@ -13,7 +13,6 @@ def create_req(command, d, list=(), list_name='name'):
 
     print(requ)
 
-
     req = get(requ)
     return req.json()
 
@@ -443,9 +442,6 @@ def contract_confirm(login, _pass, _id):
     return create_req("contract/confirm", data)
 
 
-
-
-
 def auction_get(login, _pass):
     data = {"login": login,
             "pass": _pass
@@ -481,9 +477,6 @@ def auction_remove(login, _pass, _id):
     return create_req("auction/remove", data)
 
 
-
-
-
 def article_get(login, _pass):
     data = {"login": login,
             "pass": _pass
@@ -491,16 +484,14 @@ def article_get(login, _pass):
     return create_req("articles", data)
 
 
-def article_create(login, _pass, to_user, from_money, to_money, closing_date, closing_time, items):
+def article_create(login, _pass, title, text, car):
     data = {"login": login,
             "pass": _pass,
-            "from_money": from_money,
-            "to_money": to_money,
-            "closing_date": closing_date
+            "title": title,
+            "text": text,
             }
-    if (to_user != None): data['to_user'] = to_user
-    if (closing_time != None): data['closing_time'] = closing_time
-    return create_req("articles/create", data, items, 'items')
+    if (car != None and car != "null"): data['car'] = car
+    return create_req("articles/create", data)
 
 
 def article_remove(login, _pass, _id):
