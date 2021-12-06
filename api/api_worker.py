@@ -433,3 +433,11 @@ def contract_remove(login, _pass, _id):
             "id": _id
             }
     return create_req("contract/remove", data)
+
+
+def contract_confirm(login, _pass, _id):
+    data = {"login": login,
+            "pass": _pass,
+            "id": _id
+            }
+    return create_req("contract/confirm", data)

@@ -3,7 +3,7 @@ from flask import request
 from api.api_worker import reg, auth, myinfo, edit_myinfo, colors, wheels_create, wheels, bumpers_create, bumpers, \
     cars_groups, cars_groups_create, cars_groups_remove, cars_create, cars_groups_get, item_create, items_get, \
     item_remove, trade_remove, trade_get, trade_create, trade_buy, contract_remove, contract_get, contract_create, \
-    contract_items
+    contract_items, contract_confirm
 from app import app
 
 
@@ -209,6 +209,13 @@ def contract_remove_():
                    request.cookies.get('pass')
     _id = request.values.get('id')
     return contract_remove(login, _pass, _id)
+
+@app.route('/contract/confirm', methods=['POST'])
+def contract_confirm_():
+    login, _pass = request.cookies.get('login'), \
+                   request.cookies.get('pass')
+    _id = request.values.get('id')
+    return contract_confirm(login, _pass, _id)
 
 
 @app.route('/contract/create', methods=['POST'])
