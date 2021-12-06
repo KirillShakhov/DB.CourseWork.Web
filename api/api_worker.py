@@ -441,3 +441,41 @@ def contract_confirm(login, _pass, _id):
             "id": _id
             }
     return create_req("contract/confirm", data)
+
+
+
+
+
+def auction_get(login, _pass):
+    data = {"login": login,
+            "pass": _pass
+            }
+    return create_req("auction", data)
+
+
+def auction_items(login, _pass, _id):
+    data = {"login": login,
+            "pass": _pass,
+            "id": _id
+            }
+    return create_req("auction/items", data)
+
+
+def auction_create(login, _pass, to_user, from_money, to_money, closing_date, closing_time, items):
+    data = {"login": login,
+            "pass": _pass,
+            "from_money": from_money,
+            "to_money": to_money,
+            "closing_date": closing_date
+            }
+    if (to_user != None): data['to_user'] = to_user
+    if (closing_time != None): data['closing_time'] = closing_time
+    return create_req("auction/create", data, items, 'items')
+
+
+def auction_remove(login, _pass, _id):
+    data = {"login": login,
+            "pass": _pass,
+            "id": _id
+            }
+    return create_req("auction/remove", data)

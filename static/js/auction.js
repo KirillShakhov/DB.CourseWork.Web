@@ -1,8 +1,8 @@
-let create_contract_button = document.getElementById("create-contract-button");
-let contract_selected_button = document.getElementById("delete-contract-selected-button");
-let contract_count = 0;
+let create_auction_button = document.getElementById("create-auction-button");
+let auction_selected_button = document.getElementById("delete-auction-selected-button");
+let auction_count = 0;
 
-create_contract_button.onclick = () => {
+create_auction_button.onclick = () => {
     removeAllWindows();
     let home = document.getElementById("windows-container");
     let create_profile_window = document.createElement("div");
@@ -19,19 +19,16 @@ create_contract_button.onclick = () => {
         "            <div class=\"container profile-container\" id=\"delivery-container\" hidden>\n" +
         "            </div>\n" +
         "            <div class=\"container profile-container\" id=\"payment-container\">\n" +
-        "                <input type=\"text\" id=\"ForNameCreateContractInput\" name=\"NameInput\" placeholder=\"Кому\" value=\"\"\n" +
-        "                        style=\"position: absolute;margin-left: 10px;margin-top: 0px; width: 350px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 350px;top: 25px;\">" +
-        "                <input type=\"text\" id=\"FromMoneyCreateContractInput\" name=\"NameInput\" placeholder=\"Сколько денег отдашь\" value=\"\"\n" +
+        "                <input type=\"text\" id=\"FromMoneyCreateauctionInput\" name=\"NameInput\" placeholder=\"Начальная ставка\" value=\"\"\n" +
         "                        style=\"position: absolute;margin-left: 10px;margin-top: 10px; width: 350px;\">\n" +
         "                <div class=\"border-b-line\" style=\"width: 350px;top: 35px;\">" +
-        "                <input type=\"text\" id=\"ToMoneyCreateContractInput\" name=\"NameInput\" placeholder=\"Сколько денег получишь\" value=\"\"\n" +
+        "                <input type=\"text\" id=\"ToMoneyCreateauctionInput\" name=\"NameInput\" placeholder=\"Цена выкупа\" value=\"\"\n" +
         "                        style=\"position: absolute;margin-left: 10px;margin-top: 10px; width: 350px;\">\n" +
         "                <div class=\"border-b-line\" style=\"width: 350px;top: 35px;\">" +
-        "                <input type=\"text\" id=\"ClosingDateCreateContractInput\" name=\"NameInput\" placeholder=\"Дата окончания. 2021-12-12\" value=\"\"\n" +
+        "                <input type=\"text\" id=\"ClosingDateCreateauctionInput\" name=\"NameInput\" placeholder=\"Дата окончания. 2021-12-12\" value=\"\"\n" +
         "                        style=\"position: absolute;margin-left: 10px;margin-top: 10px; width: 350px;\">\n" +
         "                <div class=\"border-b-line\" style=\"width: 350px;top: 35px;\">" +
-        "        <input type=\"text\" id=\"ClosingTimeCreateContractInput\" name=\"NameInput\" placeholder=\"Время окончания. Необязательно\" value=\"\"\n" +
+        "        <input type=\"text\" id=\"ClosingTimeCreateauctionInput\" name=\"NameInput\" placeholder=\"Время окончания. Необязательно\" value=\"\"\n" +
         "                        style=\"position: absolute;margin-left: 10px;margin-top: 10px; width: 350px;\">\n" +
         "                <div class=\"border-b-line\" style=\"width: 350px;top: 35px;\">" +
         "            </div>\n" +
@@ -41,7 +38,7 @@ create_contract_button.onclick = () => {
         "            <tr>\n" +
         "                <th class=\"unselectable\" style=\"width: 5%; padding-left: 2%\">\n" +
         "                    <label class=\"my-checkbox\">\n" +
-        "                        <input type=\"checkbox\" id=\"checkbox-all-create-contract\" onclick=\"selectAllCreateContract();\">\n" +
+        "                        <input type=\"checkbox\" id=\"checkbox-all-create-auction\" onclick=\"selectAllCreateauction();\">\n" +
         "                        <div class=\"check-container\">\n" +
         "                            <svg class=\"\" width=\"15\" height=\"10\" viewBox=\"0 0 15 10\" fill=\"none\"\n" +
         "                                 xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -70,37 +67,35 @@ create_contract_button.onclick = () => {
         "                <th></th>\n" +
         "            </tr>\n" +
         "            </thead>\n" +
-        "            <tbody id=\"tbody-create-contract\"></tbody>\n" +
+        "            <tbody id=\"tbody-create-auction\"></tbody>\n" +
         "        </table>\n" +
         "    </div>" +
         "            </div>\n" +
         "        </div>\n" +
         "        <span style=\"position: relative; left: 140px; top: -50px\">" +
         "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
-        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='createContract();'>Save</button>\n" +
+        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='createauction();'>Save</button>\n" +
         "        </span>" +
         "    </div>";
     home.appendChild(create_profile_window);
-    updateCreateContractTable();
+    updateCreateauctionTable();
 }
 
-function createContract() {
-    let ForNameCreateContractInput = document.getElementById("ForNameCreateContractInput");
-    let FromMoneyCreateContractInput = document.getElementById("FromMoneyCreateContractInput");
-    let ToMoneyCreateContractInput = document.getElementById("ToMoneyCreateContractInput");
-    let ClosingDateCreateContractInput = document.getElementById("ClosingDateCreateContractInput");
-    let ClosingTimeCreateContractInput = document.getElementById("ClosingTimeCreateContractInput");
+function createauction() {
+    let FromMoneyCreateauctionInput = document.getElementById("FromMoneyCreateauctionInput");
+    let ToMoneyCreateauctionInput = document.getElementById("ToMoneyCreateauctionInput");
+    let ClosingDateCreateauctionInput = document.getElementById("ClosingDateCreateauctionInput");
+    let ClosingTimeCreateauctionInput = document.getElementById("ClosingTimeCreateauctionInput");
 
     let dat = {
-        from_money: FromMoneyCreateContractInput.value,
-        to_money: ToMoneyCreateContractInput.value,
-        closing_date: ClosingDateCreateContractInput.value
+        from_money: FromMoneyCreateauctionInput.value,
+        to_money: ToMoneyCreateauctionInput.value,
+        closing_date: ClosingDateCreateauctionInput.value
     };
-    if (ForNameCreateContractInput.value !== '') dat['to_user'] = ForNameCreateContractInput.value
-    if (ClosingTimeCreateContractInput.value !== '') dat['closing_time'] = ClosingTimeCreateContractInput.value
+    if (ClosingTimeCreateauctionInput.value !== '') dat['closing_time'] = ClosingTimeCreateauctionInput.value
 
     let items = [];
-    let p = document.getElementsByClassName("checkbox-create-contract");
+    let p = document.getElementsByClassName("checkbox-create-auction");
     for (let i = 0; i < p.length; i++) {
         if (p.item(i).checked === true) {
             items.push(p.item(i).value);
@@ -109,7 +104,7 @@ function createContract() {
     if (items != null) dat['items'] = items
 
     $.ajax({
-        url: '/contract/create',
+        url: '/auction/create',
         method: 'post',
         data: dat
     }).done(function (data) {
@@ -127,23 +122,23 @@ function createContract() {
     removeAllWindows();
 }
 
-function selectAllCreateContract() {
-    let checkbox = document.getElementById("checkbox-all-create-contract");
+function selectAllCreateauction() {
+    let checkbox = document.getElementById("checkbox-all-create-auction");
     if (checkbox.checked === true) {
-        let p = document.getElementsByClassName("checkbox-create-contract");
+        let p = document.getElementsByClassName("checkbox-create-auction");
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = true;
         }
     } else {
-        let p = document.getElementsByClassName("checkbox-create-contract");
+        let p = document.getElementsByClassName("checkbox-create-auction");
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = false;
         }
     }
 }
 
-function updateCreateContractTable() {
-    let tasks = document.getElementById("tbody-create-contract");
+function updateCreateauctionTable() {
+    let tasks = document.getElementById("tbody-create-auction");
     $.ajax({
         url: '/items',
         method: 'get',
@@ -168,7 +163,7 @@ function updateCreateContractTable() {
             }
             tr.innerHTML = "<td style='padding-left: 2%; width: 5%'>" +
                 "                   <label class=\"my-checkbox\">\n" +
-                "                        <input type=\"checkbox\" class='checkbox-create-contract' value='" + i['id_item'] + "' onclick='updateSelectedCreateContract();'>\n" +
+                "                        <input type=\"checkbox\" class='checkbox-create-auction' value='" + i['id_item'] + "' onclick='updateSelectedCreateauction();'>\n" +
                 "                        <div class=\"check-container grey\">\n" +
                 "                            <svg class=\"\" width=\"15\" height=\"10\" viewBox=\"0 0 15 10\" fill=\"none\"\n" +
                 "                                 xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -187,31 +182,31 @@ function updateCreateContractTable() {
     });
 }
 
-function updateSelectedCreateContract() {
+function updateSelectedCreateauction() {
     let count = 0;
-    let p = document.getElementsByClassName("checkbox-create-contract");
+    let p = document.getElementsByClassName("checkbox-create-auction");
     for (let i = 0; i < p.length; i++) {
         if (p.item(i).checked === true) {
             count++;
         }
     }
     if (count !== items_count) {
-        document.getElementById("checkbox-all-create-contract").checked = false;
+        document.getElementById("checkbox-all-create-auction").checked = false;
     }
 }
 
-contract_selected_button.onclick = () => {
-    let p = document.getElementsByClassName("checkbox-contract");
+auction_selected_button.onclick = () => {
+    let p = document.getElementsByClassName("checkbox-auction");
     for (let i = 0; i < p.length; i++) {
         if (p.item(i).checked === true) {
-            removeContract(p.item(i).value);
+            removeauction(p.item(i).value);
         }
     }
 }
 
-function removeContract(id) {
+function removeauction(id) {
     $.ajax({
-        url: '/contract/remove',
+        url: '/auction/remove',
         method: 'post',
         data: {
             id: id
@@ -222,14 +217,14 @@ function removeContract(id) {
         } else {
             tempErrorAlert(data["message"], 3000);
         }
-        updateContractTable();
+        updateauctionTable();
     });
 }
 
 
-function confirmContract(id) {
+function confirmauction(id) {
     $.ajax({
-        url: '/contract/confirm',
+        url: '/auction/confirm',
         method: 'post',
         data: {
             id: id
@@ -240,29 +235,27 @@ function confirmContract(id) {
         } else {
             tempErrorAlert(data["message"], 3000);
         }
-        updateContractTable();
+        updateauctionTable();
     });
 }
 
-function updateContractTable() {
-    let tasks = document.getElementById("tbody-contract");
+function updateauctionTable() {
+    let tasks = document.getElementById("tbody-auction");
     $.ajax({
-        url: '/contract/get',
+        url: '/auction/get',
         method: 'get',
     }).done(function (data) {
         while (tasks.firstChild) {
             tasks.removeChild(tasks.firstChild);
         }
-        contract_count = 0;
+        auction_count = 0;
         data["list"].forEach((i) => {
             let tr = document.createElement("tr");
-            tr.id = "contract_" + i['id_contract'];
+            tr.id = "auction_" + i['id'];
             let toUser = "Общедоступный";
-            if (i['to_user'] !== null) toUser = i['to_user']['username'];
-
             tr.innerHTML = "<td style='padding-left: 2%; width: 5%'>" +
                 "                   <label class=\"my-checkbox\">\n" +
-                "                        <input type=\"checkbox\" class='checkbox-contract' value='" + i['id_contract'] + "' onclick='updateSelectedContractCount();'>\n" +
+                "                        <input type=\"checkbox\" class='checkbox-auction' value='" + i['id'] + "' onclick='updateSelectedauctionCount();'>\n" +
                 "                        <div class=\"check-container grey\">\n" +
                 "                            <svg class=\"\" width=\"15\" height=\"10\" viewBox=\"0 0 15 10\" fill=\"none\"\n" +
                 "                                 xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -273,20 +266,20 @@ function updateContractTable() {
                 "                        </div>\n" +
                 "                    </label>" +
                 "                    </div></td>" +
-                "<td style='padding-left: 1%'>" + ('000' + ++contract_count).slice(-4) + "</td>\n" +
-                "            <td>" + i['from_user']['username'] + "</td>\n" +
+                "<td style='padding-left: 1%'>" + ('000' + ++auction_count).slice(-4) + "</td>\n" +
+                "            <td>" + i['contract']['from_user']['username'] + "</td>\n" +
                 "            <td>" + toUser + "</td>\n" +
-                "            <td>" + i['closing_date'] + "(" + i['closing_time'] + ")" + "</td>\n" +
-                "            <td><p style='color: red;'>" + i['from_money'] + "</p>/<p style='color: green'>" + i['to_money'] + "</p></td>\n" +
+                "            <td>" + i['contract']['closing_date'] + "(" + i['contract']['closing_time'] + ")" + "</td>\n" +
+                "            <td><p style='color: red;'>" + i['contract']['from_money'] + "</p>/<p style='color: green'>" + i['contract']['to_money'] + "</p></td>\n" +
                 // "            <td>\n" +
-                "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='contractItemWindow(" + i['id_contract'] + ");'>\n" +
+                "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='auctionItemWindow(" + i['id'] + ");'>\n" +
                 "                       <svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" viewBox=\"0 0 96 96\" width=\"20px\" height=\"20px\">\n" +
                 "                           <g id=\"surface35259549\">\n" +
                 "                           <path style=\" stroke:none;fill-rule:nonzero;fill:rgb(100%,100%,100%);fill-opacity:1;\" d=\"M 20.703125 12 L 12 26.921875 L 12 84 L 84 84 L 84 26.921875 L 75.296875 12 Z M 25.296875 20 L 70.703125 20 L 75.367188 28 L 20.632812 28 Z M 36 36 L 60 36 L 60 44 L 36 44 Z M 36 36 \"/>\n" +
                 "                           </g>\n" +
                 "                       </svg>\n" +
                 "                </button>\n" +
-                "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='confirmContract(" + i['id_contract'] + ");'>\n" +
+                "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='confirmauction(" + i['id'] + ");'>\n" +
                 "                       <svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" viewBox=\"0 0 96 96\" width=\"20px\" height=\"20px\">\n" +
                 "                           <g id=\"surface35259549\">\n" +
                 "                           <path style=\" stroke:none;fill-rule:nonzero;fill:rgb(100%,100%,100%);fill-opacity:1;\" d=\"M 20.703125 12 L 12 26.921875 L 12 84 L 84 84 L 84 26.921875 L 75.296875 12 Z M 25.296875 20 L 70.703125 20 L 75.367188 28 L 20.632812 28 Z M 36 36 L 60 36 L 60 44 L 36 44 Z M 36 36 \"/>\n" +
@@ -295,40 +288,40 @@ function updateContractTable() {
                 "                </button>\n" +
                 "";
             tasks.appendChild(tr);
-            updateSelectedContractCount();
+            updateSelectedauctionCount();
         });
     });
 }
 
 
-function updateSelectedContractCount() {
+function updateSelectedauctionCount() {
     let count = 0;
-    let p = document.getElementsByClassName("checkbox-contract");
+    let p = document.getElementsByClassName("checkbox-auction");
     for (let i = 0; i < p.length; i++) {
         if (p.item(i).checked === true) {
             count++;
         }
     }
-    if (count !== contract_count) {
-        document.getElementById("checkbox-all-contract").checked = false;
+    if (count !== auction_count) {
+        document.getElementById("checkbox-all-auction").checked = false;
     }
-    document.getElementById("contract_stats").innerText = "Total: " + contract_count + "/Select: " + count;
+    document.getElementById("auction_stats").innerText = "Total: " + auction_count + "/Select: " + count;
 }
 
-function selectAllContract() {
-    let checkbox = document.getElementById("checkbox-all-contract");
+function selectAllAuction() {
+    let checkbox = document.getElementById("checkbox-all-auction");
     if (checkbox.checked === true) {
-        let p = document.getElementsByClassName("checkbox-contract");
+        let p = document.getElementsByClassName("checkbox-auction");
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = true;
         }
-        document.getElementById("contract_stats").innerText = "Total: " + contract_count + "/Select: " + contract_count;
+        document.getElementById("auction_stats").innerText = "Total: " + auction_count + "/Select: " + auction_count;
     } else {
-        let p = document.getElementsByClassName("checkbox-contract");
+        let p = document.getElementsByClassName("checkbox-auction");
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = false;
         }
-        document.getElementById("contract_stats").innerText = "Total: " + contract_count + "/Select: 0";
+        document.getElementById("auction_stats").innerText = "Total: " + auction_count + "/Select: 0";
     }
 }
 
@@ -450,7 +443,7 @@ function updateCrateWindowCarSelector() {
     });
 }
 
-function contractItemWindow(id_item) {
+function auctionItemWindow(id_item) {
     removeAllWindows();
     let home = document.getElementById("windows-container");
     let create_profile_window = document.createElement("div");
@@ -487,21 +480,21 @@ function contractItemWindow(id_item) {
         "                <th></th>\n" +
         "            </tr>\n" +
         "            </thead>\n" +
-        "            <tbody id=\"tbody-contract-items\"></tbody>\n" +
+        "            <tbody id=\"tbody-auction-items\"></tbody>\n" +
         "        </table>\n" +
         "    </div>" +
         "            </div>\n" +
         "        </div>\n" +
         "        <span style=\"position: absolute; left: 180px; top: 40px\">" +
         "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
-        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='contractItem(" + id_item + ",document.getElementById(\"PriceItemInput\").value);document.getElementById(\"create-profile-window\").remove();'>Save</button>\n" +
+        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='auctionItem(" + id_item + ",document.getElementById(\"PriceItemInput\").value);document.getElementById(\"create-profile-window\").remove();'>Save</button>\n" +
         "        </span>" +
         "    </div>";
     home.appendChild(create_profile_window);
 
-    let tasks = document.getElementById("tbody-contract-items");
+    let tasks = document.getElementById("tbody-auction-items");
     $.ajax({
-        url: '/contract/items',
+        url: '/auction/items',
         method: 'get',
         data: {
             id: id_item
@@ -510,7 +503,7 @@ function contractItemWindow(id_item) {
         while (tasks.firstChild) {
             tasks.removeChild(tasks.firstChild);
         }
-        contract_count = 0;
+        auction_count = 0;
         data["list"].forEach((i) => {
             let type, type_name;
             if (i['car'] != null) {
@@ -524,20 +517,20 @@ function contractItemWindow(id_item) {
                 type_name = i['wheels']['name']
             }
             let tr = document.createElement("tr");
-            tr.id = "contract_item_" + i['id_item'];
-            tr.innerHTML = "<td style='padding-left: 1%'>" + ('000' + ++contract_count).slice(-4) + "</td>\n" +
+            tr.id = "auction_item_" + i['id_item'];
+            tr.innerHTML = "<td style='padding-left: 1%'>" + ('000' + ++auction_count).slice(-4) + "</td>\n" +
                 "            <td>" + type + "</td>\n" +
                 "            <td>" + type_name + "</td>\n" +
                 "";
             tasks.appendChild(tr);
-            updateSelectedContractCount();
+            updateSelectedauctionCount();
         });
     });
 }
 
-function contractItem(id, price) {
+function auctionItem(id, price) {
     $.ajax({
-        url: '/contract/create',
+        url: '/auction/create',
         method: 'post',
         data: {
             id: id,
@@ -549,8 +542,8 @@ function contractItem(id, price) {
         } else {
             tempErrorAlert(data["message"], 3000);
         }
-        updateContractTable();
+        updateauctionTable();
     });
 }
 
-updateContractTable();
+updateauctionTable();

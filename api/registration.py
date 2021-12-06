@@ -3,7 +3,7 @@ from flask import request
 from api.api_worker import reg, auth, myinfo, edit_myinfo, colors, wheels_create, wheels, bumpers_create, bumpers, \
     cars_groups, cars_groups_create, cars_groups_remove, cars_create, cars_groups_get, item_create, items_get, \
     item_remove, trade_remove, trade_get, trade_create, trade_buy, contract_remove, contract_get, contract_create, \
-    contract_items, contract_confirm
+    contract_items, contract_confirm, auction_get, auction_items, auction_remove, auction_create
 from app import app
 
 
@@ -230,3 +230,45 @@ def contract_create_():
     items = request.values.getlist('items[]')
     print(items)
     return contract_create(login, _pass, to_user, from_money, to_money, closing_date, closing_time, items)
+
+
+
+
+
+
+@app.route('/auction/get', methods=['GET'])
+def auction_get_():
+    login, _pass = request.cookies.get('login'), \
+                   request.cookies.get('pass')
+    return auction_get(login, _pass)
+
+
+@app.route('/auction/items', methods=['GET'])
+def auction_get_items_():
+    login, _pass = request.cookies.get('login'), \
+                   request.cookies.get('pass')
+    _id = request.values.get('id')
+    return auction_items(login, _pass, _id)
+
+
+@app.route('/auction/remove', methods=['POST'])
+def auction_remove_():
+    login, _pass = request.cookies.get('login'), \
+                   request.cookies.get('pass')
+    _id = request.values.get('id')
+    return auction_remove(login, _pass, _id)
+
+
+@app.route('/auction/create', methods=['POST'])
+def auction_create_():
+    login, _pass = request.cookies.get('login'), \
+                   request.cookies.get('pass')
+    to_user = request.values.get('to_user')
+    from_money = request.values.get('from_money')
+    to_money = request.values.get('to_money')
+    closing_date = request.values.get('closing_date')
+    closing_time = request.values.get('closing_time')
+    items = request.values.getlist('items[]')
+    print(items)
+    return auction_create(login, _pass, to_user, from_money, to_money, closing_date, closing_time, items)
+
