@@ -77,11 +77,50 @@ create_contract_button.onclick = () => {
         "        </div>\n" +
         "        <span style=\"position: relative; left: 140px; top: -50px\">" +
         "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
-        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='createbumpers();'>Save</button>\n" +
+        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='createContract();'>Save</button>\n" +
         "        </span>" +
         "    </div>";
     home.appendChild(create_profile_window);
     updateCreateContractTable();
+}
+
+function createContract(){
+    let ForNameCreateContractInput = document.getElementById("ForNameCreateContractInput");
+    let FromMoneyCreateContractInput = document.getElementById("FromMoneyCreateContractInput");
+    let ToMoneyCreateContractInput = document.getElementById("ToMoneyCreateContractInput");
+    let ClosingDateCreateContractInput = document.getElementById("ClosingDateCreateContractInput");
+    let ClosingTimeCreateContractInput = document.getElementById("ClosingTimeCreateContractInput");
+
+    let dat = {
+            from_money: FromMoneyCreateContractInput.value,
+            to_money: ToMoneyCreateContractInput.value,
+            closing_date: ClosingDateCreateContractInput.value
+        };
+    if(ForNameCreateContractInput.value !== '') dat['to_user'] = ForNameCreateContractInput.value
+    if(ClosingTimeCreateContractInput.value !== '') dat['closing_time'] = ClosingTimeCreateContractInput.value
+
+    let items = [];
+    let p = document.getElementsByClassName("checkbox-create-contract");
+    for (let i = 0; i < p.length; i++) {
+        if (p.item(i).checked === true) {
+           items.push(p.item(i).value);
+        }
+    }
+    if(items != null) dat['items'] = items
+
+    $.ajax({
+        url: '/contract/create',
+        method: 'post',
+        data: dat
+    }).done(function (data) {
+        if (data["status"] === "ok") {
+            tempAlert("Контракт добавлен", 3000);
+            updatebumpersTable();
+        } else {
+            tempErrorAlert(data["message"], 3000);
+        }
+    });
+    removeAllWindows();
 }
 
 function selectAllCreateContract(){

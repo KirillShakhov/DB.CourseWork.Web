@@ -3,10 +3,14 @@ from requests import get
 from server_config import SERVER_PROTOCOL, SERVER_IP, SERVER_PORT
 
 
-def create_req(command, d):
-    print([i + '=' + d[i] for i in d.keys()])
+def create_req(command, d, list=(), list_name='name'):
     requ = SERVER_PROTOCOL + SERVER_IP + ':' + SERVER_PORT + "/api/v1/" + command + '?' + '&'.join(
-        [i + '=' + d[i] for i in d.keys()])
+        [i + '=' + d[i] for i in d.keys()]) + '&'.join(
+        [list_name + '=' + i for i in list])
+
+    print([i + '=' + d[i] for i in d.keys()])
+    print([list_name + '=' + i for i in list])
+
     req = get(requ)
     return req.json()
 
@@ -391,3 +395,30 @@ def trade_buy(login, _pass, _id):
             "id": _id
             }
     return create_req("trade/buy", data)
+
+
+def contract_get(login, _pass):
+    data = {"login": login,
+            "pass": _pass
+            }
+    return create_req("contract", data)
+
+
+def contract_create(login, _pass, to_user, from_money, to_money, closing_date, closing_time, items):
+    data = {"login": login,
+            "pass": _pass,
+            "from_money": from_money,
+            "to_money": to_money,
+            "closing_date": closing_date
+            }
+    if (to_user != None): data['to_user'] = to_user
+    if (closing_time != None): data['closing_time'] = closing_time
+    return create_req("contract/create", data, items, 'items[]')
+
+
+def contract_remove(login, _pass, _id):
+    data = {"login": login,
+            "pass": _pass,
+            "id": _id
+            }
+    return create_req("contract/remove", data)
