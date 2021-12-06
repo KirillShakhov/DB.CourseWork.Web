@@ -1,5 +1,5 @@
 let create_contract_button = document.getElementById("create-contract-button");
-let contract_selected_button = document.getElementById("contract-selected-button");
+let contract_selected_button = document.getElementById("delete-contract-selected-button");
 let contract_count = 0;
 
 create_contract_button.onclick = () => {
@@ -205,9 +205,26 @@ contract_selected_button.onclick = () => {
     let p = document.getElementsByClassName("checkbox-contract");
     for (let i = 0; i < p.length; i++) {
         if (p.item(i).checked === true) {
-            buyItem(p.item(i).value);
+            removeContract(p.item(i).value);
         }
     }
+}
+
+function removeContract(id){
+    $.ajax({
+        url: '/contract/remove',
+        method: 'post',
+        data: {
+            id: id
+        }
+    }).done(function (data) {
+        if (data["status"] === "ok") {
+            tempAlert("Контракт удален", 3000);
+        } else {
+            tempErrorAlert(data["message"], 3000);
+        }
+        updateContractTable();
+    });
 }
 
 
