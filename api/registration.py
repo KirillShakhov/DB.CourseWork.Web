@@ -178,6 +178,7 @@ def trade_create_():
     price = request.values.get('price')
     return trade_create(login, _pass, _id, price)
 
+
 @app.route('/trade/buy', methods=['POST'])
 def trade_buy_():
     login, _pass = request.cookies.get('login'), \
@@ -186,13 +187,11 @@ def trade_buy_():
     return trade_buy(login, _pass, _id)
 
 
-
 @app.route('/contract/get', methods=['GET'])
 def contract_get_():
     login, _pass = request.cookies.get('login'), \
                    request.cookies.get('pass')
-    find = request.values.get('find')
-    return contract_get(login, _pass, find)
+    return contract_get(login, _pass)
 
 
 @app.route('/contract/remove', methods=['POST'])
@@ -203,7 +202,7 @@ def contract_remove_():
     return contract_remove(login, _pass, _id)
 
 
-@app.route('/contract/create', methods=['POST', 'GET'])
+@app.route('/contract/create', methods=['POST'])
 def contract_create_():
     login, _pass = request.cookies.get('login'), \
                    request.cookies.get('pass')

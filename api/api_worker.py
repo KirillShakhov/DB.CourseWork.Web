@@ -5,11 +5,14 @@ from server_config import SERVER_PROTOCOL, SERVER_IP, SERVER_PORT
 
 def create_req(command, d, list=(), list_name='name'):
     requ = SERVER_PROTOCOL + SERVER_IP + ':' + SERVER_PORT + "/api/v1/" + command + '?' + '&'.join(
-        [i + '=' + d[i] for i in d.keys()]) + '&'.join(
+        [i + '=' + d[i] for i in d.keys()]) + '&' + '&'.join(
         [list_name + '=' + i for i in list])
 
     print([i + '=' + d[i] for i in d.keys()])
     print([list_name + '=' + i for i in list])
+
+    print(requ)
+
 
     req = get(requ)
     return req.json()
@@ -413,7 +416,7 @@ def contract_create(login, _pass, to_user, from_money, to_money, closing_date, c
             }
     if (to_user != None): data['to_user'] = to_user
     if (closing_time != None): data['closing_time'] = closing_time
-    return create_req("contract/create", data, items, 'items[]')
+    return create_req("contract/create", data, items, 'items')
 
 
 def contract_remove(login, _pass, _id):

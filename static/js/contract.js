@@ -117,7 +117,12 @@ function createContract(){
             tempAlert("Контракт добавлен", 3000);
             updatebumpersTable();
         } else {
-            tempErrorAlert(data["message"], 3000);
+            if(data["message"] === "could not execute statement;"){
+                tempErrorAlert("Один из предметов используется в другом контракте", 3000);
+            }
+            else {
+                tempErrorAlert(data["message"], 3000);
+            }
         }
     });
     removeAllWindows();
