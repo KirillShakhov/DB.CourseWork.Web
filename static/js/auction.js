@@ -253,6 +253,10 @@ function updateauctionTable() {
             let tr = document.createElement("tr");
             tr.id = "auction_" + i['id'];
             let toUser = "Общедоступный";
+            let last_customer = "Нет";
+            let last_bet = 0;
+            if(i['last_customer'] != null) last_customer = i['last_customer']['username']
+            if(i['last_bet_size'] != null) last_bet = i['last_bet_size']
             tr.innerHTML = "<td style='padding-left: 2%; width: 5%'>" +
                 "                   <label class=\"my-checkbox\">\n" +
                 "                        <input type=\"checkbox\" class='checkbox-auction' value='" + i['id'] + "' onclick='updateSelectedauctionCount();'>\n" +
@@ -268,8 +272,8 @@ function updateauctionTable() {
                 "                    </div></td>" +
                 "<td style='padding-left: 1%'>" + ('000' + ++auction_count).slice(-4) + "</td>\n" +
                 "            <td>" + i['contract']['from_user']['username'] + "</td>\n" +
-                "            <td>" + toUser + "</td>\n" +
                 "            <td>" + i['contract']['closing_date'] + "(" + i['contract']['closing_time'] + ")" + "</td>\n" +
+                "            <td>" + last_customer + "(" + last_bet +  ")" + "</td>\n" +
                 "            <td><p style='color: red;'>" + i['contract']['from_money'] + "</p>/<p style='color: green'>" + i['contract']['to_money'] + "</p></td>\n" +
                 // "            <td>\n" +
                 "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='auctionItemWindow(" + i['id'] + ");'>\n" +
@@ -279,12 +283,8 @@ function updateauctionTable() {
                 "                           </g>\n" +
                 "                       </svg>\n" +
                 "                </button>\n" +
-                "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='confirmauction(" + i['id'] + ");'>\n" +
-                "                       <svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" viewBox=\"0 0 96 96\" width=\"20px\" height=\"20px\">\n" +
-                "                           <g id=\"surface35259549\">\n" +
-                "                           <path style=\" stroke:none;fill-rule:nonzero;fill:rgb(100%,100%,100%);fill-opacity:1;\" d=\"M 20.703125 12 L 12 26.921875 L 12 84 L 84 84 L 84 26.921875 L 75.296875 12 Z M 25.296875 20 L 70.703125 20 L 75.367188 28 L 20.632812 28 Z M 36 36 L 60 36 L 60 44 L 36 44 Z M 36 36 \"/>\n" +
-                "                           </g>\n" +
-                "                       </svg>\n" +
+                "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='betAuction(" + i['id'] + ");'>\n" +
+                "                       <svg class='fill' fill=\"#fafafa\" xmlns=\"http://www.w3.org/2000/svg\"  viewBox=\"0 0 30 30\" width=\"20px\" height=\"20px\">    <path d=\"M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M21,16h-5v5 c0,0.553-0.448,1-1,1s-1-0.447-1-1v-5H9c-0.552,0-1-0.447-1-1s0.448-1,1-1h5V9c0-0.553,0.448-1,1-1s1,0.447,1,1v5h5 c0.552,0,1,0.447,1,1S21.552,16,21,16z\"/></svg>"+
                 "                </button>\n" +
                 "";
             tasks.appendChild(tr);
@@ -293,6 +293,54 @@ function updateauctionTable() {
     });
 }
 
+function betAuction(id_item){
+    removeAllWindows();
+    let home = document.getElementById("windows-container");
+    let create_profile_window = document.createElement("div");
+    create_profile_window.innerHTML = "<div class=\"blur-window create-profile\" id=\"create-profile-window\" style='height: 300px'>\n" +
+        "        <div class=\"container top-container\">\n" +
+        "            <div class=\"menu-slider unselectable\">\n" +
+        "                <div class=\"menu-slider-item active unselectable\" id=\"profile-general-button\">Продажа предмета</div>\n" +
+        "            </div>\n" +
+        "            <div class=\"border-b-line\"></div>\n" +
+        "        </div>\n" +
+        "        <div>\n" +
+        "            <div class=\"container profile-container\" id=\"general-container\" hidden>\n" +
+        "            </div>\n" +
+        "            <div class=\"container profile-container\" id=\"delivery-container\" hidden>\n" +
+        "            </div>\n" +
+        "            <div class=\"container profile-container\" id=\"payment-container\">\n" +
+        "                <div class=\"middle-container-text\">Введите ставку:</div>\n" +
+        "                <input type=\"text\" id=\"PriceItemInput\" name=\"NameInput\" placeholder=\"100\" value=\"\"\n" +
+        "                       style=\"position: absolute;margin-left: 10px;margin-top: 50px; width: 340px;\">\n" +
+        "                <div class=\"border-b-line\" style=\"width: 370px;top: 75px;\"></div>\n" +
+        "            </div>\n" +
+        "        </div>\n" +
+        "        <span style=\"position: absolute; left: 180px; top: -180px\">" +
+        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
+        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='betAuctionConfirm("+id_item+",document.getElementById(\"PriceItemInput\").value);document.getElementById(\"create-profile-window\").remove();'>Save</button>\n" +
+        "        </span>" +
+        "    </div>";
+    home.appendChild(create_profile_window);
+}
+
+function betAuctionConfirm(id, price){
+     $.ajax({
+        url: '/auction/bet',
+        method: 'post',
+        data: {
+            id: id,
+            price: price
+        }
+    }).done(function (data) {
+        if (data["status"] === "ok") {
+            tempAlert("Ставка учтена", 3000);
+        } else {
+            tempErrorAlert(data["message"], 3000);
+        }
+        updateauctionTable();
+    });
+}
 
 function updateSelectedauctionCount() {
     let count = 0;

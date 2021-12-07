@@ -494,6 +494,15 @@ def article_create(login, _pass, title, text, car):
     return create_req("articles/create", data)
 
 
+def auction_bet(login, _pass, _id, price):
+    data = {"login": login,
+            "pass": _pass,
+            "id": _id,
+            "price": price,
+            }
+    return create_req("auction/bet", data)
+
+
 def article_remove(login, _pass, _id):
     data = {"login": login,
             "pass": _pass,

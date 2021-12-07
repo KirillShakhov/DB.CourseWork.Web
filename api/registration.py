@@ -4,7 +4,7 @@ from api.api_worker import reg, auth, myinfo, edit_myinfo, colors, wheels_create
     cars_groups, cars_groups_create, cars_groups_remove, cars_create, cars_groups_get, item_create, items_get, \
     item_remove, trade_remove, trade_get, trade_create, trade_buy, contract_remove, contract_get, contract_create, \
     contract_items, contract_confirm, auction_get, auction_items, auction_remove, auction_create, article_remove, \
-    article_create, article_get
+    article_create, article_get, auction_bet
 from app import app
 
 
@@ -299,4 +299,12 @@ def articles_create_():
     car = request.values.get('car')
     return article_create(login, _pass, title, text, car)
 
+
+@app.route('/auction/bet', methods=['POST'])
+def auction_bet_():
+    login, _pass = request.cookies.get('login'), \
+                   request.cookies.get('pass')
+    _id = request.values.get('id')
+    price = request.values.get('price')
+    return auction_bet(login, _pass, _id, price)
 

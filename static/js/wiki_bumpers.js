@@ -124,7 +124,7 @@ function updatebumpersTable() {
                 "            <td>" + i["name"] + "</td>\n" +
                 "            <td>" + i["color"]['name'] + "</td>\n" +
                 "            <td>" + "<img width='150' src=" + i['photo'] + " alt=" + i['photo'] + ">" + "</td>\n" +
-                "            <td>" + i["creator"] + "</td>\n" +
+                "            <td>" + i["creator"]['creator_user']['username'] + "</td>\n" +
                 "            <td>" + "" + "</td>";
             bumpers.appendChild(tr);
         });
