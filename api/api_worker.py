@@ -310,13 +310,14 @@ def cars_groups_get(login, _pass, _id):
 
 
 def cars_groups_create(login, _pass, name, description, date_of_start, date_of_finish):
-    return create_req("cars/groups/create", {"login": login,
-                                             "pass": _pass,
-                                             "name": name,
-                                             "description": description,
-                                             "date_of_start": date_of_start,
-                                             "date_of_finish": date_of_finish
-                                             })
+    data = {"login": login,
+            "pass": _pass,
+            "name": name,
+            "description": description,
+            "date_of_start": date_of_start
+            }
+    if (date_of_finish != None): data['date_of_finish'] = date_of_finish
+    return create_req("cars/groups/create", data)
 
 
 def cars_groups_remove(login, _pass, id):

@@ -155,15 +155,18 @@ function createCarsGroup() {
     let CarsDateBeginInput = document.getElementById("CarsDateBeginInput");
     let CarsDateFinishInput = document.getElementById("CarsDateFinishInput");
 
-    $.ajax({
-        url: '/cars/groups/create',
-        method: 'post',
-        data: {
+    let data = {
             name: CarNameInput.value,
             description: CarsDescriptionInput.value,
             date_of_start: CarsDateBeginInput.value,
-            date_of_finish: CarsDateFinishInput.value
         }
+
+    if(CarsDateFinishInput.value !== "")  data['date_of_finish'] = CarsDateFinishInput.value
+
+    $.ajax({
+        url: '/cars/groups/create',
+        method: 'post',
+        data: data
     }).done(function (data) {
         if (data["status"] === "ok") {
             tempAlert("Серия создана", 3000);
@@ -205,13 +208,11 @@ create_wiki_cars_button.onclick = () => {
         "            </div>\n" +
         "            <div class=\"border-b-line\"></div>\n" +
         "        </div>\n" +
-        "\n" +
         "        <div>\n" +
         "            <div class=\"container profile-container\" id=\"general-container\" hidden>\n" +
         "            </div>\n" +
         "            <div class=\"container profile-container\" id=\"delivery-container\" hidden>\n" +
         "            </div>\n" +
-        "\n" +
         "            <div class=\"container profile-container\" id=\"payment-container\">\n" +
         "                <input type=\"text\" id=\"carsNameInput\" name=\"NameInput\" placeholder=\"Название\" value=\"\"\n" +
         "                       style=\"position: absolute;margin-left: 10px;margin-top: 50px; width: 340px;\">\n" +
@@ -228,14 +229,14 @@ create_wiki_cars_button.onclick = () => {
         "                  <select class=\"group-selector\" id=\"color1-selector\" onchange=\"\"" +
         "                       style=\"position: absolute;margin-left: 10px;margin-top: 250px; width: 145px;\">\n" +
         "                  </select>" +
-                "                  <select class=\"group-selector\" id=\"color2-selector\" onchange=\"\"" +
+        "                  <select class=\"group-selector\" id=\"color2-selector\" onchange=\"\"" +
         "                       style=\"position: absolute;margin-left: 210px;margin-top: 250px; width: 145px;\">\n" +
         "                  </select>" +
         "            </div>\n" +
         "        </div>\n" +
         "        <span style=\"position: absolute; left: 180px;\">" +
         "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
-        "           <button type=\"submit\" class=\"red-button\" id='create-cars-button' onclick='createcars();'>Save</button>\n" +
+        "           <button type=\"submit\" class=\"red-button\" id='create-cars-button' onclick='createCars();'>Save</button>\n" +
         "        </span>" +
         "    </div>";
     home.appendChild(create_profile_window);
@@ -249,7 +250,7 @@ function isNumber(n) {
     return !isNaN(parseFloat(n)) && !isNaN(n - 0)
 }
 
-function createcars() {
+function createCars() {
     let carsNameInput = document.getElementById("carsNameInput");
 
     let series_selector = document.getElementById("series-selector");
@@ -294,7 +295,7 @@ function createcars() {
         }).done(function (data) {
             if (data["status"] === "ok") {
                 tempAlert("Машинка добавлен", 3000);
-                updateCarsGroup();
+                updateCarsTable();
             } else {
                 tempErrorAlert(data["message"], 3000);
             }
@@ -303,7 +304,7 @@ function createcars() {
     }
 }
 
-function updateSelectedcarsCount() {
+function updateSelectedCarsCount() {
     let count = 0;
     let p = document.getElementsByClassName("checkbox-cars");
     for (let i = 0; i < p.length; i++) {
@@ -352,7 +353,7 @@ function updateCarsGroup() {
             });
             let profile_group_selector = document.getElementById('cars-group-selector');
             profile_group_selector.selectedIndex = last;
-            updatecarsTable();
+            updateCarsTable();
         } else {
             let option = document.createElement("option");
             option.text = "Create ->";
@@ -365,7 +366,7 @@ function updateCarsGroup() {
     });
 }
 
-function updatecarsTable() {
+function updateCarsTable() {
     let cars_group_selector = document.getElementById('cars-group-selector');
     let id = cars_group_selector.options[cars_group_selector.selectedIndex].value;
 
@@ -386,7 +387,7 @@ function updatecarsTable() {
             tr.id = "cars_" + i["id_car"];
             tr.innerHTML = "<td class=\"unselectable\" style='padding-left: 2%; width: 7%'>" +
                 "                        <label class=\"my-checkbox\">\n" +
-                "                        <input type=\"checkbox\" class='checkbox-cars' value='" + i['id_car'] + "' onclick='updateSelectedcarsCount();'>\n" +
+                "                        <input type=\"checkbox\" class='checkbox-cars' value='" + i['id_car'] + "' onclick='updateSelectedCarsCount();'>\n" +
                 "                        <div class=\"check-container grey\">\n" +
                 "                            <svg class=\"\" width=\"15\" height=\"10\" viewBox=\"0 0 15 10\" fill=\"none\"\n" +
                 "                                 xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -401,11 +402,11 @@ function updatecarsTable() {
                 "            <td>" + i["first_color"] + ":" + i["second_color"] + "</td>\n" +
                 "            <td>" + i["wheels"] + "</td>\n" +
                 "            <td>" + i["bumper"] + "</td>\n" +
-                "            <td>" + i["creator"]['name'] + "</td>\n" +
+                "            <td>" + i["creator"]['creator_user']['username'] + "</td>\n" +
                 "            <td>" + "" + "</td>";
             cars.appendChild(tr);
         });
-        updateSelectedcarsCount();
+        updateSelectedCarsCount();
     });
 }
 

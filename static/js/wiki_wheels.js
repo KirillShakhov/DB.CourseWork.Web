@@ -127,7 +127,7 @@ function updateWheelsTable() {
                 "            <td>" + i["adhesion_coefficient"] + "</td>\n" +
                 "            <td>" + i["disk_color"]['name'] + "</td>\n" +
                 "            <td>" + "<img width='150' src=" + i['photo'] + " alt=" + i['photo'] + ">" + "</td>\n" +
-                "            <td>" + i["creator"] + "</td>\n" +
+                "            <td>" + i['creator']['creator_user']['username'] + "</td>\n" +
                 "            <td>" + "" + "</td>";
             wheels.appendChild(tr);
         });

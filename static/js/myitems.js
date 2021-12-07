@@ -1,6 +1,5 @@
 let create_tasks_button = document.getElementById("create-task-button");
 let delete_task_selected_button = document.getElementById("delete-task-selected-button");
-let window_create_task = "methods";
 let items_count = 0;
 let windows_name = "car";
 
@@ -58,20 +57,6 @@ function updateItemTable() {
                 "            <td>" + i['description'] + "</td>\n" +
                 "            <td>" + "<img width='150' src=" + i['real_photo'] + " alt=" + i['real_photo'] + ">" + "</td>\n" +
                 "            <td>\n" +
-                // "                <button class=\"btn-none button-start\" style=\"margin-left: 15px;\" onclick='changeButton(" + i["id"] + ")'>\n" +
-                // "                    <svg width=\"16\" height=\"22\" viewBox=\"0 0 22 22\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
-                // "                         <rect x=\"1\" y=\"1\" width=\"20\" height=\"20\" rx=\"5\" stroke=\"#F1F1F1\" stroke-width=\"2\"/>\n" +
-                // "                         <path d=\"M9 7.22729L15 11.3182L9 15.4091V7.22729Z\" stroke=\"#F1F1F1\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n" +
-                // "                    </svg>\n" +
-                // "                </button>\n" +
-                // "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='copyTaskGroup(" + i["id"] + ")'>\n" +
-                // "                    <svg width=\"16\" height=\"23\" viewBox=\"0 0 22 23\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
-                // "                        <path d=\"M3 8.61084H12C13.1046 8.61084 14 9.52408 14 10.6506V19.8296C14 20.9561 13.1046 21.8694 12 21.8694H3C1.89543 21.8694 1 20.9561 1 19.8296V10.6506C1 9.52408 1.89543 8.61084 3 8.61084Z\"\n" +
-                // "                              stroke=\"#F1F1F1\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path>\n" +
-                // "                        <path d=\"M18 14.7302H19C19.5304 14.7302 20.0391 14.5153 20.4142 14.1328C20.7893 13.7502 21 13.2314 21 12.6904V3.51145C21 2.97047 20.7893 2.45165 20.4142 2.06912C20.0391 1.68658 19.5304 1.47168 19 1.47168H10C9.46957 1.47168 8.96086 1.68658 8.58579 2.06912C8.21071 2.45165 8 2.97047 8 3.51145V4.53134\"\n" +
-                // "                              stroke=\"#F1F1F1\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path>\n" +
-                // "                    </svg>\n" +
-                // "                </button>\n" +
                 "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='tradeItemWindow(" + i['id_item'] + ");'>\n" +
                 "                      <b style='font-size: 22px;'>$</b>" +
                 "                </button>\n" +
@@ -84,14 +69,6 @@ function updateItemTable() {
                 "                       <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M3.55566 7.27274C3.55566 6.77066 3.95363 6.36365 4.44455 6.36365H6.22233C6.71325 6.36365 7.11122 6.77066 7.11122 7.27274C7.11122 7.77482 6.71325 8.18183 6.22233 8.18183H4.44455C3.95363 8.18183 3.55566 7.77482 3.55566 7.27274Z\" fill=\"#F1F1F1\"/>\n" +
                 "                   </svg>\n" +
                 "                </button>\n" +
-                // "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='removeTask(" + i["id"] + ")'>\n" +
-                // "                    <svg width=\"14\" height=\"24\" viewBox=\"0 0 20 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
-                // "                        <path d=\"M1 5.5791H3H19\" stroke=\"#F1F1F1\" stroke-width=\"2\" stroke-linecap=\"round\"\n" +
-                // "                              stroke-linejoin=\"round\"></path>\n" +
-                // "                        <path d=\"M6 5.5783V3.52499C6 2.98042 6.21071 2.45815 6.58579 2.07308C6.96086 1.68801 7.46957 1.47168 8 1.47168H12C12.5304 1.47168 13.0391 1.68801 13.4142 2.07308C13.7893 2.45815 14 2.98042 14 3.52499V5.5783M17 5.5783V19.9515C17 20.496 16.7893 21.0183 16.4142 21.4034C16.0391 21.7884 15.5304 22.0048 15 22.0048H5C4.46957 22.0048 3.96086 21.7884 3.58579 21.4034C3.21071 21.0183 3 20.496 3 19.9515V5.5783H17Z\"\n" +
-                // "                              stroke=\"#F1F1F1\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path>\n" +
-                // "                    </svg>\n" +
-                // "                </button>\n" +
                 "            </td>";
             tasks.appendChild(tr);
             updateSelectedItemsCount();
@@ -144,41 +121,6 @@ function showLogs(id) {
     });
 }
 
-function copyTaskGroup(id) {
-    $.ajax({
-        url: '/show_tasks',
-        method: 'get',
-        data: {
-            id: id
-        }
-    }).done(function (data) {
-        let sizes = "";
-        data['list']['sizes'].forEach(i => {
-            sizes += i + " ";
-        })
-        sizes.trim();
-        addTask(data['list']['name'],
-            data['list']['module'],
-            data['list']['itemId'],
-            data['list']['amount'],
-            data['list']['profileGroup'] === null ? null : data['list']['profileGroup']['id'],
-            data['list']['accountGroup'] === null ? null : data['list']['accountGroup']['id'],
-            data['list']['proxyGroup']['id'],
-            data['list']['filter'],
-            sizes);
-    });
-}
-
-function changeButton(id) {
-    let tr = document.getElementById("tasks_" + id);
-    let status = tr.getElementsByClassName("status-task").item(0);
-    if (status.textContent === "In Progress") {
-        stopTask(id);
-    } else {
-        runTask(id);
-    }
-}
-
 create_tasks_button.onclick = () => {
     removeAllWindows();
     let home = document.getElementById("windows-container");
@@ -192,7 +134,6 @@ create_tasks_button.onclick = () => {
         "            </div>\n" +
         "            <div class=\"border-b-line\"></div>\n" +
         "        </div>\n" +
-        "\n" +
         "        <div>\n" +
         "            <div class=\"container profile-container\" id=\"car-container\" hidden>\n" +
         "                <div class=\"middle-container-text\">Выберите машинку:</div>\n" +
@@ -213,7 +154,6 @@ create_tasks_button.onclick = () => {
         "                       style=\"position: absolute;margin-left: 10px;margin-top: 175px; width:220px;\">\n" +
         "                <div class=\"border-b-line\" style=\"width: 250px;top: 200px;\"></div>\n" +
         "            </div>\n" +
-        "\n" +
         "            <div class=\"container profile-container\" id=\"bumper-container\" hidden>\n" +
         "                <div class=\"middle-container-text\">Выберите бампер:</div>\n" +
         "                <div class=\"middle-container-text\" style=\"margin-top: 70px\">Описание:</div>\n" +
@@ -229,7 +169,6 @@ create_tasks_button.onclick = () => {
         "                       style=\"position: absolute;margin-left: 10px;margin-top: 175px; width:220px;\">\n" +
         "                <div class=\"border-b-line\" style=\"width: 250px;top: 200px;\"></div>\n" +
         "            </div>\n" +
-        "\n" +
         "            <div class=\"container profile-container\" id=\"wheels-container\" hidden>\n" +
         "                <div class=\"middle-container-text\">Выберите колеса:</div>\n" +
         "                <div class=\"middle-container-text\" style=\"margin-top: 70px\">Описание:</div>\n" +
@@ -256,37 +195,6 @@ create_tasks_button.onclick = () => {
     updateItemWindow();
 };
 
-function addTask(name, module, pid, amount, profile_group_id, account_group_id, proxy_group_id, filter, sizes) {
-    let data = {
-        name: name,
-        module: module,
-        filter: filter,
-        sizes: sizes,
-        item_id: pid,
-        amount: amount,
-        proxyGroup_id: proxy_group_id,
-    };
-    if (account_group_id !== null && account_group_id !== 'null') {
-        data['accountGroup_id'] = account_group_id;
-    }
-    if (profile_group_id !== null && profile_group_id !== 'null') {
-        data['profileGroup_id'] = profile_group_id;
-    }
-
-    $.ajax({
-        url: '/add_tasks',
-        method: 'post',
-        data: data
-    }).done(function (data) {
-        if (data["status"] === "ok") {
-            tempAlert("Tasks added", 3000);
-            updateTasksTable();
-        } else {
-            tempErrorAlert(data["message"], 3000);
-        }
-    });
-}
-
 function removeItem(id) {
     $.ajax({
         url: '/items/remove',
@@ -301,27 +209,6 @@ function removeItem(id) {
             tempErrorAlert(data["message"], 3000);
         }
         updateItemTable();
-    });
-}
-
-function runTask(id) {
-    $.ajax({
-        url: '/run_tasks',
-        method: 'post',
-        data: {
-            id: id
-        }
-    }).done((data) => {
-        if (data["status"] === "ok") {
-            let tr = document.getElementById("tasks_" + id);
-            let status = tr.getElementsByClassName("status-task").item(0);
-            status.textContent = "In Progress";
-            status.style.color = '#F18730';
-            tempAlert("Tasks started", 3000);
-        } else {
-            tempErrorAlert(data["message"], 3000);
-        }
-        updateStatus();
     });
 }
 
@@ -353,37 +240,6 @@ function selectAllContract() {
             p.item(i).checked = false;
         }
         document.getElementById("items_stats").innerText = "Total: " + tasks_count + "/Select: 0";
-    }
-}
-
-function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-}
-
-function backButton() {
-    let module_list_header = document.getElementById("module-list-header");
-    let create_task_header = document.getElementById("create-task-header");
-    document.getElementById("methods-container").hidden = false;
-    document.getElementById("crete-task-container").hidden = true;
-    window_create_task = "methods";
-    module_list_header.className = "menu-slider-item unselectable active";
-    create_task_header.className = "menu-slider-item unselectable";
-    let create_task_back_button = document.getElementById("create-task-back-button")
-    create_task_back_button.hidden = true;
-}
-
-
-function backProfileButton() {
-    let create_profile_back_button = document.getElementById("create-profile-back-button")
-    if (windows_name === "payment") {
-        windows_name = "delivery";
-        updateItemWindow();
-    } else if (windows_name === "delivery") {
-        windows_name = "general";
-        updateItemWindow();
-        create_profile_back_button.hidden = true;
     }
 }
 
@@ -423,13 +279,11 @@ function createItem() {
     }).done(function (data) {
         if (data["status"] === "ok") {
             tempAlert("Предмет добавлен", 3000);
-            updateItemTable();
         } else {
             tempErrorAlert(data["message"], 3000);
         }
         updateItemTable();
     });
-    updateItemTable();
     document.getElementById("create-item-window").remove();
 }
 
@@ -576,11 +430,12 @@ function tradeItemWindow(id_item) {
         "        </div>\n" +
         "        <span style=\"position: absolute; left: 180px; top: -180px\">" +
         "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
-        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='tradeItem("+id_item+",document.getElementById(\"PriceItemInput\").value);document.getElementById(\"create-profile-window\").remove();'>Save</button>\n" +
+        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='tradeItem(" + id_item + ",document.getElementById(\"PriceItemInput\").value);document.getElementById(\"create-profile-window\").remove();'>Save</button>\n" +
         "        </span>" +
         "    </div>";
     home.appendChild(create_profile_window);
 }
+
 function tradeItem(id, price) {
     $.ajax({
         url: '/trade/create',
@@ -598,4 +453,5 @@ function tradeItem(id, price) {
         updateItemTable();
     });
 }
+
 updateItemTable();
