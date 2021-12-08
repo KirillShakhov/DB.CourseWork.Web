@@ -1,6 +1,6 @@
 let create_tasks_button = document.getElementById("create-task-button");
 let delete_task_selected_button = document.getElementById("delete-task-selected-button");
-let items_count = 0;
+let my_items_count = 0;
 let windows_name = "car";
 
 
@@ -23,7 +23,7 @@ function updateItemTable() {
         while (tasks.firstChild) {
             tasks.removeChild(tasks.firstChild);
         }
-        count = 0;
+        my_items_count = 0;
         data["list"].forEach((i) => {
             let tr = document.createElement("tr");
             tr.id = "item_" + i['id_item'];
@@ -51,7 +51,7 @@ function updateItemTable() {
                 "                        </div>\n" +
                 "                    </label>" +
                 "                    </div></td>" +
-                "<td style='padding-left: 1%'>" + ('000' + ++count).slice(-4) + "</td>\n" +
+                "<td style='padding-left: 1%'>" + ('000' + ++my_items_count).slice(-4) + "</td>\n" +
                 "            <td>" + type + "</td>\n" +
                 "            <td>" + type_name + "</td>\n" +
                 "            <td>" + i['description'] + "</td>\n" +
@@ -220,10 +220,8 @@ function updateSelectedItemsCount() {
             count++;
         }
     }
-    if (count !== items_count) {
-        document.getElementById("checkbox-all-items").checked = false;
-    }
-    document.getElementById("items_stats").innerText = "Total: " + items_count + "/Select: " + count;
+    if (my_items_count !== 0) document.getElementById("checkbox-all-items").checked = count === my_items_count;
+    document.getElementById("items_stats").innerText = "Total: " + my_items_count + "/Select: " + count;
 }
 
 function selectAllContract() {
@@ -233,13 +231,13 @@ function selectAllContract() {
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = true;
         }
-        document.getElementById("items_stats").innerText = "Total: " + items_count + "/Select: " + items_count;
+        document.getElementById("items_stats").innerText = "Total: " + my_items_count + "/Select: " + my_items_count;
     } else {
         let p = document.getElementsByClassName("checkbox-item");
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = false;
         }
-        document.getElementById("items_stats").innerText = "Total: " + items_count + "/Select: 0";
+        document.getElementById("items_stats").innerText = "Total: " + my_items_count + "/Select: 0";
     }
 }
 
@@ -461,13 +459,13 @@ function selectAllItems() {
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = true;
         }
-        document.getElementById("items_stats").innerText = "Total: " + items_count + "/Select: " + items_count;
+        document.getElementById("items_stats").innerText = "Total: " + my_items_count + "/Select: " + my_items_count;
     } else {
         let p = document.getElementsByClassName("checkbox-item");
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = false;
         }
-        document.getElementById("items_stats").innerText = "Total: " + items_count + "/Select: 0";
+        document.getElementById("items_stats").innerText = "Total: " + my_items_count + "/Select: 0";
     }
 }
 

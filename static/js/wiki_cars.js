@@ -308,9 +308,7 @@ function updateSelectedCarsCount() {
             count++;
         }
     }
-    if (count !== cars_count) {
-        document.getElementById("checkbox-all-cars").checked = false;
-    }
+    if (cars_count !== 0) document.getElementById("checkbox-all-cars").checked = count === cars_count;
     document.getElementById("cars_stats").innerText = "Total: " + cars_count + "/Select: " + count;
 }
 

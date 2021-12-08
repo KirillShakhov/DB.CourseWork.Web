@@ -330,9 +330,7 @@ function updateSelectedAuctionCount() {
             count++;
         }
     }
-    if (count !== auction_count) {
-        document.getElementById("checkbox-all-auction").checked = false;
-    }
+    if (auction_count !== 0) document.getElementById("checkbox-all-auction").checked = count === auction_count;
     document.getElementById("auction_stats").innerText = "Total: " + auction_count + "/Select: " + count;
 }
 

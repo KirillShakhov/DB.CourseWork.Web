@@ -142,9 +142,7 @@ function updateSelectedBumpersCount() {
             count++;
         }
     }
-    if (count !== bumpers_count) {
-        document.getElementById("checkbox-all-bumpers").checked = false;
-    }
+    if (bumpers_count !== 0) document.getElementById("checkbox-all-bumpers").checked = count === bumpers_count;
     document.getElementById("bumpers_stats").innerText = "Total: " + bumpers_count + "/Select: " + count;
 }
 

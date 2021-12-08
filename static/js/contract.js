@@ -195,7 +195,7 @@ function updateSelectedCreateContract() {
             count++;
         }
     }
-    if (count !== items_count) {
+    if (count !== my_items_count) {
         document.getElementById("checkbox-all-create-contract").checked = false;
     }
 }
@@ -309,9 +309,7 @@ function updateSelectedContractCount() {
             count++;
         }
     }
-    if (count !== contract_count) {
-        document.getElementById("checkbox-all-contract").checked = false;
-    }
+    if (contract_count !== 0) document.getElementById("checkbox-all-contract").checked = count === contract_count;
     document.getElementById("contract_stats").innerText = "Total: " + contract_count + "/Select: " + count;
 }
 

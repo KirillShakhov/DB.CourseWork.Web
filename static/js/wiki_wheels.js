@@ -142,9 +142,7 @@ function updateSelectedWheelsCount() {
             count++;
         }
     }
-    if (count !== wheels_count) {
-        document.getElementById("checkbox-all-wheels").checked = false;
-    }
+    if (wheels_count !== 0) document.getElementById("checkbox-all-wheels").checked = count === wheels_count;
     document.getElementById("wheels_stats").innerText = "Total: " + wheels_count + "/Select: " + count;
 }
 

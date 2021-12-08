@@ -217,9 +217,7 @@ function updateSelectedArticleCount() {
             count++;
         }
     }
-    if (count !== article_count) {
-        document.getElementById("checkbox-all-article").checked = false;
-    }
+    if (article_count !== 0) document.getElementById("checkbox-all-article").checked = count === article_count;
     document.getElementById("article_stats").innerText = "Total: " + article_count + "/Select: " + count;
 }
 

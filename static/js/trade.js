@@ -89,7 +89,7 @@ function updateSelectedTradeItemsCount() {
             count++;
         }
     }
-    document.getElementById("checkbox-all-trade").checked = count === trade_count;
+    if (trade_count !== 0) document.getElementById("checkbox-all-trade").checked = count === trade_count;
     document.getElementById("trade_stats").innerText = "Total: " + trade_count + "/Select: " + count;
 }
 
