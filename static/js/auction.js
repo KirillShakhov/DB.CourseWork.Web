@@ -38,7 +38,7 @@ create_auction_button.onclick = () => {
         "            <tr>\n" +
         "                <th class=\"unselectable\" style=\"width: 5%; padding-left: 2%\">\n" +
         "                    <label class=\"my-checkbox\">\n" +
-        "                        <input type=\"checkbox\" id=\"checkbox-all-create-auction\" onclick=\"selectAllCreateauction();\">\n" +
+        "                        <input type=\"checkbox\" id=\"checkbox-all-create-auction\" onclick=\"selectAllCreateAuction();\">\n" +
         "                        <div class=\"check-container\">\n" +
         "                            <svg class=\"\" width=\"15\" height=\"10\" viewBox=\"0 0 15 10\" fill=\"none\"\n" +
         "                                 xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -74,14 +74,14 @@ create_auction_button.onclick = () => {
         "        </div>\n" +
         "        <span style=\"position: relative; left: 140px; top: -50px\">" +
         "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
-        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='createauction();'>Save</button>\n" +
+        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='createAuction();'>Save</button>\n" +
         "        </span>" +
         "    </div>";
     home.appendChild(create_profile_window);
-    updateCreateauctionTable();
+    updateCreateAuctionTable();
 }
 
-function createauction() {
+function createAuction() {
     let FromMoneyCreateauctionInput = document.getElementById("FromMoneyCreateauctionInput");
     let ToMoneyCreateauctionInput = document.getElementById("ToMoneyCreateauctionInput");
     let ClosingDateCreateauctionInput = document.getElementById("ClosingDateCreateauctionInput");
@@ -110,7 +110,7 @@ function createauction() {
     }).done(function (data) {
         if (data["status"] === "ok") {
             tempAlert("Контракт добавлен", 3000);
-            updatebumpersTable();
+            updateBumpersTable();
         } else {
             if (data["message"] === "could not execute statement;") {
                 tempErrorAlert("Один из предметов используется в другом контракте", 3000);
@@ -122,7 +122,7 @@ function createauction() {
     removeAllWindows();
 }
 
-function selectAllCreateauction() {
+function selectAllCreateAuction() {
     let checkbox = document.getElementById("checkbox-all-create-auction");
     if (checkbox.checked === true) {
         let p = document.getElementsByClassName("checkbox-create-auction");
@@ -137,7 +137,7 @@ function selectAllCreateauction() {
     }
 }
 
-function updateCreateauctionTable() {
+function updateCreateAuctionTable() {
     let tasks = document.getElementById("tbody-create-auction");
     $.ajax({
         url: '/items',
@@ -146,7 +146,7 @@ function updateCreateauctionTable() {
         while (tasks.firstChild) {
             tasks.removeChild(tasks.firstChild);
         }
-        tasks_count = 0;
+        count = 0;
         data["list"].forEach((i) => {
             let tr = document.createElement("tr");
             tr.id = "item_" + i['id_item'];
@@ -163,7 +163,7 @@ function updateCreateauctionTable() {
             }
             tr.innerHTML = "<td style='padding-left: 2%; width: 5%'>" +
                 "                   <label class=\"my-checkbox\">\n" +
-                "                        <input type=\"checkbox\" class='checkbox-create-auction' value='" + i['id_item'] + "' onclick='updateSelectedCreateauction();'>\n" +
+                "                        <input type=\"checkbox\" class='checkbox-create-auction' value='" + i['id_item'] + "' onclick='updateSelectedCreateAuction();'>\n" +
                 "                        <div class=\"check-container grey\">\n" +
                 "                            <svg class=\"\" width=\"15\" height=\"10\" viewBox=\"0 0 15 10\" fill=\"none\"\n" +
                 "                                 xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -174,7 +174,7 @@ function updateCreateauctionTable() {
                 "                        </div>\n" +
                 "                    </label>" +
                 "                    </div></td>" +
-                "<td style='padding-left: 1%'>" + ('000' + ++tasks_count).slice(-4) + "</td>\n" +
+                "<td style='padding-left: 1%'>" + ('000' + ++count).slice(-4) + "</td>\n" +
                 "            <td>" + type + "</td>\n" +
                 "            <td>" + type_name + "</td>\n";
             tasks.appendChild(tr);
@@ -182,7 +182,7 @@ function updateCreateauctionTable() {
     });
 }
 
-function updateSelectedCreateauction() {
+function updateSelectedCreateAuction() {
     let count = 0;
     let p = document.getElementsByClassName("checkbox-create-auction");
     for (let i = 0; i < p.length; i++) {
@@ -190,21 +190,19 @@ function updateSelectedCreateauction() {
             count++;
         }
     }
-    if (count !== items_count) {
-        document.getElementById("checkbox-all-create-auction").checked = false;
-    }
+    document.getElementById("checkbox-all-create-auction").checked = count === trade_count;
 }
 
 auction_selected_button.onclick = () => {
     let p = document.getElementsByClassName("checkbox-auction");
     for (let i = 0; i < p.length; i++) {
         if (p.item(i).checked === true) {
-            removeauction(p.item(i).value);
+            removeAuction(p.item(i).value);
         }
     }
 }
 
-function removeauction(id) {
+function removeAuction(id) {
     $.ajax({
         url: '/auction/remove',
         method: 'post',
@@ -217,29 +215,11 @@ function removeauction(id) {
         } else {
             tempErrorAlert(data["message"], 3000);
         }
-        updateauctionTable();
+        updateAuctionTable();
     });
 }
 
-
-function confirmauction(id) {
-    $.ajax({
-        url: '/auction/confirm',
-        method: 'post',
-        data: {
-            id: id
-        }
-    }).done(function (data) {
-        if (data["status"] === "ok") {
-            tempAlert("Контракт принят", 3000);
-        } else {
-            tempErrorAlert(data["message"], 3000);
-        }
-        updateauctionTable();
-    });
-}
-
-function updateauctionTable() {
+function updateAuctionTable() {
     let tasks = document.getElementById("tbody-auction");
     $.ajax({
         url: '/auction/get',
@@ -255,11 +235,11 @@ function updateauctionTable() {
             let toUser = "Общедоступный";
             let last_customer = "Нет";
             let last_bet = 0;
-            if(i['last_customer'] != null) last_customer = i['last_customer']['username']
-            if(i['last_bet_size'] != null) last_bet = i['last_bet_size']
+            if (i['last_customer'] != null) last_customer = i['last_customer']['username']
+            if (i['last_bet_size'] != null) last_bet = i['last_bet_size']
             tr.innerHTML = "<td style='padding-left: 2%; width: 5%'>" +
                 "                   <label class=\"my-checkbox\">\n" +
-                "                        <input type=\"checkbox\" class='checkbox-auction' value='" + i['id'] + "' onclick='updateSelectedauctionCount();'>\n" +
+                "                        <input type=\"checkbox\" class='checkbox-auction' value='" + i['id'] + "' onclick='updateSelectedAuctionCount();'>\n" +
                 "                        <div class=\"check-container grey\">\n" +
                 "                            <svg class=\"\" width=\"15\" height=\"10\" viewBox=\"0 0 15 10\" fill=\"none\"\n" +
                 "                                 xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -273,7 +253,7 @@ function updateauctionTable() {
                 "<td style='padding-left: 1%'>" + ('000' + ++auction_count).slice(-4) + "</td>\n" +
                 "            <td>" + i['contract']['from_user']['username'] + "</td>\n" +
                 "            <td>" + i['contract']['closing_date'] + "(" + i['contract']['closing_time'] + ")" + "</td>\n" +
-                "            <td>" + last_customer + "(" + last_bet +  ")" + "</td>\n" +
+                "            <td>" + last_customer + "(" + last_bet + ")" + "</td>\n" +
                 "            <td><p style='color: red;'>" + i['contract']['from_money'] + "</p>/<p style='color: green'>" + i['contract']['to_money'] + "</p></td>\n" +
                 // "            <td>\n" +
                 "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='auctionItemWindow(" + i['id'] + ");'>\n" +
@@ -284,16 +264,16 @@ function updateauctionTable() {
                 "                       </svg>\n" +
                 "                </button>\n" +
                 "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='betAuction(" + i['id'] + ");'>\n" +
-                "                       <svg class='fill' fill=\"#fafafa\" xmlns=\"http://www.w3.org/2000/svg\"  viewBox=\"0 0 30 30\" width=\"20px\" height=\"20px\">    <path d=\"M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M21,16h-5v5 c0,0.553-0.448,1-1,1s-1-0.447-1-1v-5H9c-0.552,0-1-0.447-1-1s0.448-1,1-1h5V9c0-0.553,0.448-1,1-1s1,0.447,1,1v5h5 c0.552,0,1,0.447,1,1S21.552,16,21,16z\"/></svg>"+
+                "                       <svg class='fill' fill=\"#fafafa\" xmlns=\"http://www.w3.org/2000/svg\"  viewBox=\"0 0 30 30\" width=\"20px\" height=\"20px\">    <path d=\"M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M21,16h-5v5 c0,0.553-0.448,1-1,1s-1-0.447-1-1v-5H9c-0.552,0-1-0.447-1-1s0.448-1,1-1h5V9c0-0.553,0.448-1,1-1s1,0.447,1,1v5h5 c0.552,0,1,0.447,1,1S21.552,16,21,16z\"/></svg>" +
                 "                </button>\n" +
                 "";
             tasks.appendChild(tr);
-            updateSelectedauctionCount();
+            updateSelectedAuctionCount();
         });
     });
 }
 
-function betAuction(id_item){
+function betAuction(id_item) {
     removeAllWindows();
     let home = document.getElementById("windows-container");
     let create_profile_window = document.createElement("div");
@@ -318,14 +298,14 @@ function betAuction(id_item){
         "        </div>\n" +
         "        <span style=\"position: absolute; left: 180px; top: -180px\">" +
         "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
-        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='betAuctionConfirm("+id_item+",document.getElementById(\"PriceItemInput\").value);document.getElementById(\"create-profile-window\").remove();'>Save</button>\n" +
+        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='betAuctionConfirm(" + id_item + ",document.getElementById(\"PriceItemInput\").value);document.getElementById(\"create-profile-window\").remove();'>Save</button>\n" +
         "        </span>" +
         "    </div>";
     home.appendChild(create_profile_window);
 }
 
-function betAuctionConfirm(id, price){
-     $.ajax({
+function betAuctionConfirm(id, price) {
+    $.ajax({
         url: '/auction/bet',
         method: 'post',
         data: {
@@ -338,11 +318,11 @@ function betAuctionConfirm(id, price){
         } else {
             tempErrorAlert(data["message"], 3000);
         }
-        updateauctionTable();
+        updateAuctionTable();
     });
 }
 
-function updateSelectedauctionCount() {
+function updateSelectedAuctionCount() {
     let count = 0;
     let p = document.getElementsByClassName("checkbox-auction");
     for (let i = 0; i < p.length; i++) {
@@ -371,124 +351,6 @@ function selectAllAuction() {
         }
         document.getElementById("auction_stats").innerText = "Total: " + auction_count + "/Select: 0";
     }
-}
-
-function updateItemWindow() {
-    let car_container = document.querySelector("#car-container");
-    let bumper_container = document.querySelector("#bumper-container");
-    let wheels_container = document.querySelector("#wheels-container");
-    car_container.hidden = true;
-    bumper_container.hidden = true;
-    wheels_container.hidden = true;
-
-    let profile_general_button = document.getElementById("item-car-button");
-    let profile_delivery_button = document.getElementById("item-bumper-button");
-    let profile_payment_button = document.getElementById("item-wheels-button");
-
-    profile_general_button.className = "menu-slider-item unselectable";
-    profile_delivery_button.className = "menu-slider-item unselectable";
-    profile_payment_button.className = "menu-slider-item unselectable";
-    if (windows_name === "car") {
-        let selector = document.getElementById("create-window-cars-group-selector");
-        selector.innerText = "";
-        $.ajax({
-            url: '/cars/groups',
-            method: 'get',
-        }).done(function (data) {
-            if (data["list"].length !== 0) {
-                let last = -1;
-                data["list"].forEach((i) => {
-                    let option = document.createElement("option");
-                    option.value = i["id_series"];
-                    option.text = i["name"];
-                    selector.appendChild(option);
-                    last++;
-                });
-                // selector.selectedIndex = last;
-                updateCrateWindowCarSelector();
-            } else {
-
-            }
-        });
-
-        profile_general_button.className = "menu-slider-item unselectable active";
-        car_container.hidden = false;
-    } else if (windows_name === "bumper") {
-        let selector = document.getElementById("create-window-bumper-selector");
-        selector.innerText = "";
-        $.ajax({
-            url: '/bumpers',
-            method: 'get',
-        }).done(function (data) {
-            let option = document.createElement("option");
-            option.text = 'Выберите бампер';
-            option.value = 'null';
-            selector.appendChild(option);
-            if (data["status"] === 'ok') {
-                data["list"].forEach((i) => {
-                    let option = document.createElement("option");
-                    option.text = i['name'];
-                    option.value = i['id_bumper'];
-                    selector.appendChild(option);
-                });
-            }
-        });
-
-        profile_delivery_button.className = "menu-slider-item unselectable active";
-        bumper_container.hidden = false;
-    } else if (windows_name === "wheels") {
-        let selector = document.getElementById("create-window-wheels-selector");
-        selector.innerText = "";
-        $.ajax({
-            url: '/wheels',
-            method: 'get',
-        }).done(function (data) {
-            let option = document.createElement("option");
-            option.text = 'Выберите колеса';
-            option.value = 'null';
-            selector.appendChild(option);
-            if (data["status"] === 'ok') {
-                data["list"].forEach((i) => {
-                    let option = document.createElement("option");
-                    option.text = i['name'];
-                    option.value = i['id_wheel'];
-                    selector.appendChild(option);
-                });
-            }
-        });
-
-        profile_payment_button.className = "menu-slider-item unselectable active";
-        wheels_container.hidden = false;
-    }
-}
-
-function updateCrateWindowCarSelector() {
-    let create_window_cars_group_selector = document.getElementById('create-window-cars-group-selector');
-    let id = create_window_cars_group_selector.options[create_window_cars_group_selector.selectedIndex].value;
-    let cars = document.getElementById("create-window-cars-selector");
-    $.ajax({
-        url: '/cars/groups/get',
-        method: 'get',
-        data: {
-            id: id
-        }
-    }).done(function (data) {
-        while (cars.firstChild) {
-            cars.removeChild(cars.firstChild);
-        }
-        // cars.innerText = "";
-
-        cars_count = 0;
-        data["list"]['cars'].forEach((i) => {
-            let last = -1;
-            let option = document.createElement("option");
-            option.value = i["id_car"];
-            option.text = i["name"];
-            cars.appendChild(option);
-            last++;
-            cars.selectedIndex = last;
-        });
-    });
 }
 
 function auctionItemWindow(id_item) {
@@ -571,7 +433,7 @@ function auctionItemWindow(id_item) {
                 "            <td>" + type_name + "</td>\n" +
                 "";
             tasks.appendChild(tr);
-            updateSelectedauctionCount();
+            updateSelectedAuctionCount();
         });
     });
 }
@@ -590,8 +452,8 @@ function auctionItem(id, price) {
         } else {
             tempErrorAlert(data["message"], 3000);
         }
-        updateauctionTable();
+        updateAuctionTable();
     });
 }
 
-updateauctionTable();
+updateAuctionTable();

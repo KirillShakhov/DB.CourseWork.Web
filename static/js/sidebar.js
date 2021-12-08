@@ -32,11 +32,11 @@ function changeMainWindow(page) {
         wiki_cars.hidden = false;
         document.getElementById("sidebar-wiki-cars").children.item(0).className = "svg-container selected";
         setLocation("wiki_cars");
-    }  else if (page === "wiki_bumpers") {
+    } else if (page === "wiki_bumpers") {
         wiki_bumpers.hidden = false;
         document.getElementById("sidebar-wiki-cars").children.item(0).className = "svg-container selected";
         setLocation("wiki_bumpers");
-    }  else if (page === "wiki_wheels") {
+    } else if (page === "wiki_wheels") {
         wiki_wheels.hidden = false;
         document.getElementById("sidebar-wiki-cars").children.item(0).className = "svg-container selected";
         setLocation("wiki_wheels");
@@ -67,7 +67,8 @@ function setLocation(curLoc) {
     try {
         history.pushState(null, null, curLoc);
         return;
-    } catch (e) { }
+    } catch (e) {
+    }
     location.hash = '#' + curLoc;
 }
 
@@ -81,28 +82,3 @@ if (window.location.pathname === "/") {
         }
     });
 }
-
-// let nav = document.getElementById("nav-list");
-// nav.addEventListener("mouseover", func1, false);
-// nav.addEventListener("mouseout", func2, false);
-// let index_save = 0;
-// function func1() {
-//     for (let i = 0; i < aaa.length; i++) {
-//         if (aaa.item(i).className === "selected") {
-//             aaa.item(i).className = "";
-//             index_save = i;
-//         }
-//     }
-// }
-//
-// function func2() {
-//     let is = true;
-//     for (let i = 0; i < aaa.length; i++) {
-//         if (aaa.item(i).className === "selected") {
-//             is = false;
-//         }
-//     }
-//     if (is) {
-//         aaa.item(index_save).className = "selected";
-//     }
-// }

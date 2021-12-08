@@ -4,8 +4,8 @@ let signin_button = document.getElementById("signin-button");
 signup_button.onclick = () => {
     let login = document.getElementById("LoginInput");
     let pass = document.getElementById("PasswordInput");
-    if(login.value === '') alert("Пустой логин");
-    if(pass.value === '') alert("Пустой пароль");
+    if (login.value === '') alert("Пустой логин");
+    if (pass.value === '') alert("Пустой пароль");
 
     $.ajax({
         url: '/reg',
@@ -15,10 +15,9 @@ signup_button.onclick = () => {
             pass: pass.value
         }
     }).done(function (data) {
-        if(data['status'] === 'ok'){
-              window.location.href = '/';
-        }
-        else{
+        if (data['status'] === 'ok') {
+            window.location.href = '/';
+        } else {
             alert(data['message']);
         }
     })

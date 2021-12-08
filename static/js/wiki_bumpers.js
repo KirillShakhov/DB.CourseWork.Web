@@ -46,17 +46,19 @@ create_wiki_bumpers_button.onclick = () => {
     home.appendChild(create_profile_window);
     updateColors();
 }
-function isNumber(n) { return !isNaN(parseFloat(n)) && !isNaN(n - 0) }
+
+function isNumber(n) {
+    return !isNaN(parseFloat(n)) && !isNaN(n - 0)
+}
 
 function createbumpers() {
     let NameInput = document.getElementById("NumberbumpersInput");
     let PhotoInput = document.getElementById("PhotobumpersInput");
     let colors_selector = document.getElementById("colors-selector");
     let color = colors_selector.options[colors_selector.selectedIndex].value;
-    if(!isNumber(color)){
+    if (!isNumber(color)) {
         tempErrorAlert('Цвет неправильный', 3000);
-    }
-    else {
+    } else {
         $.ajax({
             url: '/bumpers/create',
             method: 'post',
@@ -68,7 +70,7 @@ function createbumpers() {
         }).done(function (data) {
             if (data["status"] === "ok") {
                 tempAlert("Бампер добавлен", 3000);
-                updatebumpersTable();
+                updateBumpersTable();
             } else {
                 tempErrorAlert(data["message"], 3000);
             }
@@ -79,7 +81,7 @@ function createbumpers() {
 
 function updateColors() {
     let colors_selector = document.getElementById("colors-selector");
-        colors_selector.innerText = "";
+    colors_selector.innerText = "";
     $.ajax({
         url: '/colors',
         method: 'get',
@@ -95,7 +97,7 @@ function updateColors() {
     });
 }
 
-function updatebumpersTable() {
+function updateBumpersTable() {
     let bumpers = document.getElementById("tbody-wiki-bumpers");
     $.ajax({
         url: '/bumpers',
@@ -110,7 +112,7 @@ function updatebumpersTable() {
             tr.id = "bumpers_" + i["id_bumper"];
             tr.innerHTML = "<td class=\"unselectable\" style='padding-left: 2%; width: 7%'>" +
                 "                        <label class=\"my-checkbox\">\n" +
-                "                        <input type=\"checkbox\" class='checkbox-bumpers' value='" + i['id_bumper'] + "' onclick='updateSelectedbumpersCount();'>\n" +
+                "                        <input type=\"checkbox\" class='checkbox-bumpers' value='" + i['id_bumper'] + "' onclick='updateSelectedBumpersCount();'>\n" +
                 "                        <div class=\"check-container grey\">\n" +
                 "                            <svg class=\"\" width=\"15\" height=\"10\" viewBox=\"0 0 15 10\" fill=\"none\"\n" +
                 "                                 xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -128,11 +130,11 @@ function updatebumpersTable() {
                 "            <td>" + "" + "</td>";
             bumpers.appendChild(tr);
         });
-        updateSelectedbumpersCount();
+        updateSelectedBumpersCount();
     });
 }
 
-function updateSelectedbumpersCount() {
+function updateSelectedBumpersCount() {
     let count = 0;
     let p = document.getElementsByClassName("checkbox-bumpers");
     for (let i = 0; i < p.length; i++) {
@@ -163,4 +165,4 @@ function selectAllBumpers() {
     }
 }
 
-updatebumpersTable();
+updateBumpersTable();

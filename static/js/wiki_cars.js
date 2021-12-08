@@ -246,10 +246,6 @@ create_wiki_cars_button.onclick = () => {
     updateSeriesCreateCars();
 }
 
-function isNumber(n) {
-    return !isNaN(parseFloat(n)) && !isNaN(n - 0)
-}
-
 function createCars() {
     let carsNameInput = document.getElementById("carsNameInput");
 
@@ -318,7 +314,7 @@ function updateSelectedCarsCount() {
     document.getElementById("cars_stats").innerText = "Total: " + cars_count + "/Select: " + count;
 }
 
-function selectAllcars() {
+function selectAllCars() {
     let checkbox = document.getElementById("checkbox-all-cars");
     if (checkbox.checked === true) {
         let p = document.getElementsByClassName("checkbox-cars");

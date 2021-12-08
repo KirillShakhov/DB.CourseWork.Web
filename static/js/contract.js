@@ -115,7 +115,7 @@ function createContract() {
     }).done(function (data) {
         if (data["status"] === "ok") {
             tempAlert("Контракт добавлен", 3000);
-            updatebumpersTable();
+            updateBumpersTable();
         } else {
             if (data["message"] === "could not execute statement;") {
                 tempErrorAlert("Один из предметов используется в другом контракте", 3000);
@@ -151,7 +151,7 @@ function updateCreateContractTable() {
         while (tasks.firstChild) {
             tasks.removeChild(tasks.firstChild);
         }
-        tasks_count = 0;
+        count = 0;
         data["list"].forEach((i) => {
             let tr = document.createElement("tr");
             tr.id = "item_" + i['id_item'];
@@ -179,7 +179,7 @@ function updateCreateContractTable() {
                 "                        </div>\n" +
                 "                    </label>" +
                 "                    </div></td>" +
-                "<td style='padding-left: 1%'>" + ('000' + ++tasks_count).slice(-4) + "</td>\n" +
+                "<td style='padding-left: 1%'>" + ('000' + ++count).slice(-4) + "</td>\n" +
                 "            <td>" + type + "</td>\n" +
                 "            <td>" + type_name + "</td>\n";
             tasks.appendChild(tr);
@@ -330,124 +330,6 @@ function selectAllContract() {
         }
         document.getElementById("contract_stats").innerText = "Total: " + contract_count + "/Select: 0";
     }
-}
-
-function updateItemWindow() {
-    let car_container = document.querySelector("#car-container");
-    let bumper_container = document.querySelector("#bumper-container");
-    let wheels_container = document.querySelector("#wheels-container");
-    car_container.hidden = true;
-    bumper_container.hidden = true;
-    wheels_container.hidden = true;
-
-    let profile_general_button = document.getElementById("item-car-button");
-    let profile_delivery_button = document.getElementById("item-bumper-button");
-    let profile_payment_button = document.getElementById("item-wheels-button");
-
-    profile_general_button.className = "menu-slider-item unselectable";
-    profile_delivery_button.className = "menu-slider-item unselectable";
-    profile_payment_button.className = "menu-slider-item unselectable";
-    if (windows_name === "car") {
-        let selector = document.getElementById("create-window-cars-group-selector");
-        selector.innerText = "";
-        $.ajax({
-            url: '/cars/groups',
-            method: 'get',
-        }).done(function (data) {
-            if (data["list"].length !== 0) {
-                let last = -1;
-                data["list"].forEach((i) => {
-                    let option = document.createElement("option");
-                    option.value = i["id_series"];
-                    option.text = i["name"];
-                    selector.appendChild(option);
-                    last++;
-                });
-                // selector.selectedIndex = last;
-                updateCrateWindowCarSelector();
-            } else {
-
-            }
-        });
-
-        profile_general_button.className = "menu-slider-item unselectable active";
-        car_container.hidden = false;
-    } else if (windows_name === "bumper") {
-        let selector = document.getElementById("create-window-bumper-selector");
-        selector.innerText = "";
-        $.ajax({
-            url: '/bumpers',
-            method: 'get',
-        }).done(function (data) {
-            let option = document.createElement("option");
-            option.text = 'Выберите бампер';
-            option.value = 'null';
-            selector.appendChild(option);
-            if (data["status"] === 'ok') {
-                data["list"].forEach((i) => {
-                    let option = document.createElement("option");
-                    option.text = i['name'];
-                    option.value = i['id_bumper'];
-                    selector.appendChild(option);
-                });
-            }
-        });
-
-        profile_delivery_button.className = "menu-slider-item unselectable active";
-        bumper_container.hidden = false;
-    } else if (windows_name === "wheels") {
-        let selector = document.getElementById("create-window-wheels-selector");
-        selector.innerText = "";
-        $.ajax({
-            url: '/wheels',
-            method: 'get',
-        }).done(function (data) {
-            let option = document.createElement("option");
-            option.text = 'Выберите колеса';
-            option.value = 'null';
-            selector.appendChild(option);
-            if (data["status"] === 'ok') {
-                data["list"].forEach((i) => {
-                    let option = document.createElement("option");
-                    option.text = i['name'];
-                    option.value = i['id_wheel'];
-                    selector.appendChild(option);
-                });
-            }
-        });
-
-        profile_payment_button.className = "menu-slider-item unselectable active";
-        wheels_container.hidden = false;
-    }
-}
-
-function updateCrateWindowCarSelector() {
-    let create_window_cars_group_selector = document.getElementById('create-window-cars-group-selector');
-    let id = create_window_cars_group_selector.options[create_window_cars_group_selector.selectedIndex].value;
-    let cars = document.getElementById("create-window-cars-selector");
-    $.ajax({
-        url: '/cars/groups/get',
-        method: 'get',
-        data: {
-            id: id
-        }
-    }).done(function (data) {
-        while (cars.firstChild) {
-            cars.removeChild(cars.firstChild);
-        }
-        // cars.innerText = "";
-
-        cars_count = 0;
-        data["list"]['cars'].forEach((i) => {
-            let last = -1;
-            let option = document.createElement("option");
-            option.value = i["id_car"];
-            option.text = i["name"];
-            cars.appendChild(option);
-            last++;
-            cars.selectedIndex = last;
-        });
-    });
 }
 
 function contractItemWindow(id_item) {

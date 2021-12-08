@@ -27,9 +27,6 @@ create_wiki_wheels_button.onclick = () => {
         "                <input type=\"text\" id=\"CCWheelsInput\" name=\"CCInput\" placeholder=\"Коэф. сцепления\" value=\"\"\n" +
         "                       style=\"position: absolute;margin-left: 10px;margin-top: 125px; width: 340px;\">\n" +
         "                <div class=\"border-b-line\" style=\"width: 370px;top: 155px;\"></div>\n" +
-        // "                <input type=\"text\" id=\"PaymentYearInput\" name=\"YearInput\" placeholder=\"Year\" value=\"\"\n" +
-        // "                       style=\"position: absolute;margin-left: 210px;margin-top: 145px; width: 145px;\">\n" +
-        // "                <div class=\"border-b-line\" style=\"width: 170px;left: 200px;top: 170px;\"></div>\n" +
         "                <input type=\"text\" id=\"PhotoWheelsInput\" name=\"PhotoInput\" placeholder=\"Photo URL\" value=\"\"\n" +
         "                       style=\"position: absolute;margin-left: 10px;margin-top: 200px; width: 145px;\">\n" +
         "                  <select class=\"group-selector\" id=\"colors-selector\" onchange=\"\"" +
@@ -46,7 +43,10 @@ create_wiki_wheels_button.onclick = () => {
     home.appendChild(create_profile_window);
     updateColors();
 }
-function isNumber(n) { return !isNaN(parseFloat(n)) && !isNaN(n - 0) }
+
+function isNumber(n) {
+    return !isNaN(parseFloat(n)) && !isNaN(n - 0)
+}
 
 function createWheels() {
     let NameInput = document.getElementById("NumberWheelsInput");
@@ -54,10 +54,9 @@ function createWheels() {
     let PhotoInput = document.getElementById("PhotoWheelsInput");
     let colors_selector = document.getElementById("colors-selector");
     let color = colors_selector.options[colors_selector.selectedIndex].value;
-    if(!isNumber(color)){
+    if (!isNumber(color)) {
         tempErrorAlert('Цвет неправильный', 3000);
-    }
-    else {
+    } else {
         $.ajax({
             url: '/wheels/create',
             method: 'post',
@@ -81,7 +80,7 @@ function createWheels() {
 
 function updateColors() {
     let colors_selector = document.getElementById("colors-selector");
-        colors_selector.innerText = "";
+    colors_selector.innerText = "";
     $.ajax({
         url: '/colors',
         method: 'get',

@@ -38,7 +38,7 @@ function updateTradeTable() {
             }
             tr.innerHTML = "<td style='padding-left: 2%; width: 5%'>" +
                 "                   <label class=\"my-checkbox\">\n" +
-                "                        <input type=\"checkbox\" class='checkbox-trade' value='" + i['id'] + "' onclick='updateSelectedItemsCount();'>\n" +
+                "                        <input type=\"checkbox\" class='checkbox-trade' value='" + i['id'] + "' onclick='updateSelectedTradeItemsCount();'>\n" +
                 "                        <div class=\"check-container grey\">\n" +
                 "                            <svg class=\"\" width=\"15\" height=\"10\" viewBox=\"0 0 15 10\" fill=\"none\"\n" +
                 "                                 xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -54,57 +54,11 @@ function updateTradeTable() {
                 "            <td>" + type_name + "</td>\n" +
                 "            <td>" + i['item']['description'] + "</td>\n" +
                 "            <td>" + "<img width='150' src=" + i['item']['real_photo'] + " alt=" + i['item']['real_photo'] + ">" + "</td>\n" +
-                // "            <td>\n" +
-                // "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='tradeItemWindow(" + i['item']['id_item'] + ");'>\n" +
-                // "                      <b style='font-size: 22px;'>$</b>" +
-                // "                </button>\n" +
-                // "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='showLogs(" + i['item']["id_item"] + ");'>\n" +
-                // "                    <svg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" transform=\"scale(0.9) translate(0 -2)\">\n" +
-                // "                       <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M0.781049 0.7988C1.28115 0.287337 1.95942 0 2.66667 0H9.77778C10.0135 0 10.2396 0.0957789 10.4063 0.266267L15.7397 5.72081C15.9064 5.8913 16 6.12253 16 6.36364V17.2727C16 17.996 15.719 18.6897 15.219 19.2012C14.7189 19.7127 14.0406 20 13.3333 20H2.66667C1.95942 20 1.28115 19.7127 0.781049 19.2012C0.280952 18.6897 0 17.996 0 17.2727V2.72727C0 2.00396 0.280951 1.31026 0.781049 0.7988ZM2.66667 1.81818C2.43092 1.81818 2.20483 1.91396 2.03813 2.08445C1.87143 2.25494 1.77778 2.48617 1.77778 2.72727V17.2727C1.77778 17.5138 1.87143 17.7451 2.03813 17.9156C2.20483 18.086 2.43092 18.1818 2.66667 18.1818H13.3333C13.5691 18.1818 13.7952 18.086 13.9619 17.9156C14.1286 17.7451 14.2222 17.5138 14.2222 17.2727V6.74019L9.40959 1.81818H2.66667Z\" fill=\"#F1F1F1\"/>\n" +
-                // "                       <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M9.7778 0C10.2687 0 10.6667 0.407014 10.6667 0.909091V5.45455H15.1111C15.6021 5.45455 16 5.86156 16 6.36364C16 6.86571 15.6021 7.27273 15.1111 7.27273H9.7778C9.28689 7.27273 8.88892 6.86571 8.88892 6.36364V0.909091C8.88892 0.407014 9.28689 0 9.7778 0Z\" fill=\"#F1F1F1\"/>\n" +
-                // "                       <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M3.55566 10.9091C3.55566 10.407 3.95363 10 4.44455 10H11.5557C12.0466 10 12.4446 10.407 12.4446 10.9091C12.4446 11.4112 12.0466 11.8182 11.5557 11.8182H4.44455C3.95363 11.8182 3.55566 11.4112 3.55566 10.9091Z\" fill=\"#F1F1F1\"/>\n" +
-                // "                       <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M3.55566 14.5454C3.55566 14.0434 3.95363 13.6364 4.44455 13.6364H11.5557C12.0466 13.6364 12.4446 14.0434 12.4446 14.5454C12.4446 15.0475 12.0466 15.4545 11.5557 15.4545H4.44455C3.95363 15.4545 3.55566 15.0475 3.55566 14.5454Z\" fill=\"#F1F1F1\"/>\n" +
-                // "                       <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M3.55566 7.27274C3.55566 6.77066 3.95363 6.36365 4.44455 6.36365H6.22233C6.71325 6.36365 7.11122 6.77066 7.11122 7.27274C7.11122 7.77482 6.71325 8.18183 6.22233 8.18183H4.44455C3.95363 8.18183 3.55566 7.77482 3.55566 7.27274Z\" fill=\"#F1F1F1\"/>\n" +
-                // "                   </svg>\n" +
-                // "                </button>\n" +
-                // "            </td>";
                 "            <td style='color: #FFD800; font-size: 22px;'>" + i['price'] + "</td>";
 
             tasks.appendChild(tr);
-            updateSelectedItemsCount();
+            updateSelectedTradeItemsCount();
         });
-    });
-}
-
-
-function addTask(name, module, pid, amount, profile_group_id, account_group_id, proxy_group_id, filter, sizes) {
-    let data = {
-        name: name,
-        module: module,
-        filter: filter,
-        sizes: sizes,
-        item_id: pid,
-        amount: amount,
-        proxyGroup_id: proxy_group_id,
-    };
-    if (account_group_id !== null && account_group_id !== 'null') {
-        data['accountGroup_id'] = account_group_id;
-    }
-    if (profile_group_id !== null && profile_group_id !== 'null') {
-        data['profileGroup_id'] = profile_group_id;
-    }
-
-    $.ajax({
-        url: '/add_tasks',
-        method: 'post',
-        data: data
-    }).done(function (data) {
-        if (data["status"] === "ok") {
-            tempAlert("Tasks added", 3000);
-            updateTasksTable();
-        } else {
-            tempErrorAlert(data["message"], 3000);
-        }
     });
 }
 
@@ -127,7 +81,7 @@ function buyItem(id) {
     });
 }
 
-function updateSelectedItemsCount() {
+function updateSelectedTradeItemsCount() {
     let count = 0;
     let p = document.getElementsByClassName("checkbox-trade");
     for (let i = 0; i < p.length; i++) {
@@ -135,9 +89,7 @@ function updateSelectedItemsCount() {
             count++;
         }
     }
-    if (count !== trade_count) {
-        document.getElementById("checkbox-all-items").checked = false;
-    }
+    document.getElementById("checkbox-all-trade").checked = count === trade_count;
     document.getElementById("trade_stats").innerText = "Total: " + trade_count + "/Select: " + count;
 }
 
@@ -158,65 +110,6 @@ function selectAllTrade() {
     }
 }
 
-function updateCrateWindowCarSelector() {
-    let create_window_cars_group_selector = document.getElementById('create-window-cars-group-selector');
-    let id = create_window_cars_group_selector.options[create_window_cars_group_selector.selectedIndex].value;
-    let cars = document.getElementById("create-window-cars-selector");
-    $.ajax({
-        url: '/cars/groups/get',
-        method: 'get',
-        data: {
-            id: id
-        }
-    }).done(function (data) {
-        while (cars.firstChild) {
-            cars.removeChild(cars.firstChild);
-        }
-        // cars.innerText = "";
-
-        cars_count = 0;
-        data["list"]['cars'].forEach((i) => {
-            let last = -1;
-            let option = document.createElement("option");
-            option.value = i["id_car"];
-            option.text = i["name"];
-            cars.appendChild(option);
-            last++;
-            cars.selectedIndex = last;
-        });
-    });
-}
-
-function tradeItemWindow(id_item) {
-    removeAllWindows();
-    let home = document.getElementById("windows-container");
-    let create_profile_window = document.createElement("div");
-    create_profile_window.innerHTML = "<div class=\"blur-window create-profile\" id=\"create-profile-window\" style='height: 300px'>\n" +
-        "        <div class=\"container top-container\">\n" +
-        "            <div class=\"menu-slider unselectable\">\n" +
-        "                <div class=\"menu-slider-item active unselectable\" id=\"profile-general-button\">Продажа предмета</div>\n" +
-        "            </div>\n" +
-        "            <div class=\"border-b-line\"></div>\n" +
-        "        </div>\n" +
-        "        <div>\n" +
-        "            <div class=\"container profile-container\" id=\"general-container\" hidden>\n" +
-        "            </div>\n" +
-        "            <div class=\"container profile-container\" id=\"delivery-container\" hidden>\n" +
-        "            </div>\n" +
-        "            <div class=\"container profile-container\" id=\"payment-container\">\n" +
-        "                <div class=\"middle-container-text\">Введите цену:</div>\n" +
-        "                <input type=\"text\" id=\"PriceItemInput\" name=\"NameInput\" placeholder=\"100\" value=\"\"\n" +
-        "                       style=\"position: absolute;margin-left: 10px;margin-top: 50px; width: 340px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 370px;top: 75px;\"></div>\n" +
-        "            </div>\n" +
-        "        </div>\n" +
-        "        <span style=\"position: absolute; left: 180px; top: -180px\">" +
-        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
-        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='tradeItem("+id_item+",document.getElementById(\"PriceItemInput\").value);document.getElementById(\"create-profile-window\").remove();'>Save</button>\n" +
-        "        </span>" +
-        "    </div>";
-    home.appendChild(create_profile_window);
-}
 function tradeItem(id, price) {
     $.ajax({
         url: '/trade/create',
@@ -234,4 +127,5 @@ function tradeItem(id, price) {
         updateTradeTable();
     });
 }
+
 updateTradeTable();

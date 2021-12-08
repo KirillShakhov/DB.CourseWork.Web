@@ -23,7 +23,7 @@ function updateItemTable() {
         while (tasks.firstChild) {
             tasks.removeChild(tasks.firstChild);
         }
-        tasks_count = 0;
+        count = 0;
         data["list"].forEach((i) => {
             let tr = document.createElement("tr");
             tr.id = "item_" + i['id_item'];
@@ -51,7 +51,7 @@ function updateItemTable() {
                 "                        </div>\n" +
                 "                    </label>" +
                 "                    </div></td>" +
-                "<td style='padding-left: 1%'>" + ('000' + ++tasks_count).slice(-4) + "</td>\n" +
+                "<td style='padding-left: 1%'>" + ('000' + ++count).slice(-4) + "</td>\n" +
                 "            <td>" + type + "</td>\n" +
                 "            <td>" + type_name + "</td>\n" +
                 "            <td>" + i['description'] + "</td>\n" +
@@ -223,7 +223,7 @@ function updateSelectedItemsCount() {
     if (count !== items_count) {
         document.getElementById("checkbox-all-items").checked = false;
     }
-    document.getElementById("items_stats").innerText = "Total: " + tasks_count + "/Select: " + count;
+    document.getElementById("items_stats").innerText = "Total: " + items_count + "/Select: " + count;
 }
 
 function selectAllContract() {
@@ -233,13 +233,13 @@ function selectAllContract() {
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = true;
         }
-        document.getElementById("items_stats").innerText = "Total: " + tasks_count + "/Select: " + tasks_count;
+        document.getElementById("items_stats").innerText = "Total: " + items_count + "/Select: " + items_count;
     } else {
         let p = document.getElementsByClassName("checkbox-item");
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = false;
         }
-        document.getElementById("items_stats").innerText = "Total: " + tasks_count + "/Select: 0";
+        document.getElementById("items_stats").innerText = "Total: " + items_count + "/Select: 0";
     }
 }
 
@@ -392,7 +392,7 @@ function updateCrateWindowCarSelector() {
         }
         // cars.innerText = "";
 
-        cars_count = 0;
+        // cars_count = 0;
         data["list"]['cars'].forEach((i) => {
             let last = -1;
             let option = document.createElement("option");
@@ -452,6 +452,23 @@ function tradeItem(id, price) {
         }
         updateItemTable();
     });
+}
+
+function selectAllItems() {
+    let checkbox = document.getElementById("checkbox-all-items");
+    if (checkbox.checked === true) {
+        let p = document.getElementsByClassName("checkbox-item");
+        for (let i = 0; i < p.length; i++) {
+            p.item(i).checked = true;
+        }
+        document.getElementById("items_stats").innerText = "Total: " + items_count + "/Select: " + items_count;
+    } else {
+        let p = document.getElementsByClassName("checkbox-item");
+        for (let i = 0; i < p.length; i++) {
+            p.item(i).checked = false;
+        }
+        document.getElementById("items_stats").innerText = "Total: " + items_count + "/Select: 0";
+    }
 }
 
 updateItemTable();
