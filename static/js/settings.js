@@ -28,7 +28,7 @@ function updateInfo() {
             }
 
 
-            if (data["list"]["creator"] === null) {
+            if (data["list"]["creator_user"] === null) {
                 CreatorSettingsInput.checked = false;
 
                 document.getElementById("create-wiki-bumpers-button").hidden = true;
