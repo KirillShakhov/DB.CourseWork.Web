@@ -4,7 +4,7 @@ from api.api_worker import reg, auth, myinfo, edit_myinfo, colors, wheels_create
     cars_groups, cars_groups_create, cars_groups_remove, cars_create, cars_groups_get, item_create, items_get, \
     item_remove, trade_remove, trade_get, trade_create, trade_buy, contract_remove, contract_get, contract_create, \
     contract_items, contract_confirm, auction_get, auction_items, auction_remove, auction_create, article_remove, \
-    article_create, article_get, auction_bet, bumpers_remove, wheels_remove
+    article_create, article_get, auction_bet, bumpers_remove, wheels_remove, cars_remove
 from app import app
 
 
@@ -87,6 +87,14 @@ def bumpers_remove_():
                    request.cookies.get('pass')
     _id = request.values.get('id')
     return bumpers_remove(login, _pass, _id)
+
+
+@app.route('/cars/remove', methods=['POST'])
+def cars_remove_():
+    login, _pass = request.cookies.get('login'), \
+                   request.cookies.get('pass')
+    _id = request.values.get('id')
+    return cars_remove(login, _pass, _id)
 
 
 @app.route('/bumpers', methods=['GET'])

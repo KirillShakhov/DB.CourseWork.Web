@@ -144,19 +144,19 @@ function updateWheelsTable() {
 
 function removeWheels(id) {
     $.ajax({
-            url: '/wheels/remove',
-            method: 'post',
-            data: {
-                id: id
-            }
-        }).done(function (data) {
-            if (data["status"] === "ok") {
-                tempAlert("Бампер удален", 3000);
-                updateWheelsTable();
-            } else {
-                tempErrorAlert(data["message"], 3000);
-            }
-        });
+        url: '/wheels/remove',
+        method: 'post',
+        data: {
+            id: id
+        }
+    }).done(function (data) {
+        if (data["status"] === "ok") {
+            tempAlert("Колеса удалены", 3000);
+            updateWheelsTable();
+        } else {
+            tempErrorAlert(data["message"], 3000);
+        }
+    });
 }
 
 function updateSelectedWheelsCount() {
