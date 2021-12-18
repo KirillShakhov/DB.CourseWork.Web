@@ -21,21 +21,21 @@ create_article_button.onclick = () => {
         "            <div class=\"container profile-container\" id=\"payment-container\">\n" +
         "                <input type=\"text\" id=\"titleArticleInput\" name=\"NameInput\" placeholder=\"Название статьи\" value=\"\"\n" +
         "                        style=\"position: absolute;margin-left: 10px;margin-top: 0px; width: 350px;\">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 350px;top: 25px;\">" +
+        "                <div class=\"border-b-line\" style=\"width: 370px;top: 25px;\">" +
         "        <select class=\"group-selector\" id=\"create-window-cars-group-selector\" onchange=\"updateCrateWindowArticleCarSelector();\"" +
         "              style=\"position: absolute;margin-left: 10px;margin-top: 20px; width:160px;\">\n" +
         "              <option value='null'>Выберите серию...</option>" +
         "        </select>" +
         "        <select class=\"group-selector\" id=\"create-window-cars-selector\" onchange=\"\"" +
-        "                style=\"position: absolute;margin-left: 190px;margin-top: 20px; width:180px;\">\n" +
+        "                style=\"position: absolute;margin-left: 190px;margin-top: 20px; width:170px;\">\n" +
         "             <option value='null'><--</option>" +
         "        </select>" +
 
-        "               <textarea placeholder='Текст' id='textArticleInput' style='background: #1F1F25; margin-top: 80px; margin-left: 10px; color: #fafafa; width: 330px; height: 250px;'></textarea>\n" +
+        "               <textarea placeholder='Текст' id='textArticleInput' style='background: #1F1F25; margin-top: 80px; margin-left: 10px; color: #fafafa; width: 350px; height: 260px;'></textarea>\n" +
         "               </div>\n" +
         "            </div>\n" +
         "        </div>\n" +
-        "        <span style=\"position: relative; left: 140px; top: 80px\">" +
+        "        <span style=\"position: relative; left: 170px; top: 100px\">" +
         "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
         "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='createArticle();'>Save</button>\n" +
         "        </span>" +
@@ -56,21 +56,16 @@ function articleTextItemWindow(title, text) {
         "            <div class=\"border-b-line\"></div>\n" +
         "        </div>\n" +
         "        <div>\n" +
-        "            <div class=\"container profile-container\" id=\"general-container\" hidden>\n" +
-        "            </div>\n" +
-        "            <div class=\"container profile-container\" id=\"delivery-container\" hidden>\n" +
-        "            </div>\n" +
         "            <div class=\"container profile-container\" id=\"payment-container\">\n" +
-        "                <input type=\"" + title + "\" id=\"titleArticleInput\" name=\"NameInput\" placeholder=\"Название статьи\" value=\"\" disabled\n" +
-        "                        style=\"position: absolute;margin-left: 10px;margin-top: 0px; width: 350px; \">\n" +
-        "                <div class=\"border-b-line\" style=\"width: 350px;top: 25px;\">" +
-        "               <textarea placeholder='Текст' id='textArticleInput' style='background: #1F1F25; margin-top: 80px; margin-left: 10px; color: #fafafa; width: 330px; height: 250px;' disabled>" + text + "</textarea>\n" +
+        "                <input type=\"text\" value='"+title+"' id=\"titleArticleInput\" name=\"NameInput\" placeholder=\"Название статьи\" value=\"\" disabled\n" +
+        "                        style=\"position: absolute;margin-left: 10px;width: 340px;background-color: transparent \">\n" +
+        "                <div class=\"border-b-line\" style=\"width: 370px;top: 25px;\">" +
+        "               <textarea placeholder='Текст' id='textArticleInput' style='background: #1F1F25; margin-top: 20px; margin-left: 10px; color: #fafafa; width: 350px; height: 330px;' disabled>" + text + "</textarea>\n" +
         "               </div>\n" +
         "            </div>\n" +
         "        </div>\n" +
-        "        <span style=\"position: relative; left: 140px; top: 80px\">" +
+        "        <span style=\"position: relative; left: 260px; top: 100px\">" +
         "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
-        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='createArticle();'>Save</button>\n" +
         "        </span>" +
         "    </div>";
     home.appendChild(create_profile_window);

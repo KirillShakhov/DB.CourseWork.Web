@@ -36,7 +36,6 @@ function updateInfo() {
                 document.getElementById("create-cars-group-button").hidden = true;
                 document.getElementById("remove-cars-group-button").hidden = true;
                 document.getElementById("create-wiki-wheels-button").hidden = true;
-                document.getElementById("remove-wiki-cars-button").hidden = true;
             } else {
                 CreatorSettingsInput.checked = true;
                 CreatorSettingsInput.disabled = true;
@@ -46,7 +45,6 @@ function updateInfo() {
                 document.getElementById("create-cars-group-button").hidden = false;
                 document.getElementById("remove-cars-group-button").hidden = false;
                 document.getElementById("create-wiki-wheels-button").hidden = false;
-                document.getElementById("remove-wiki-cars-button").hidden = false;
             }
         }
     });
