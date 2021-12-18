@@ -8,10 +8,6 @@ def create_req(command, d, list=(), list_name='name'):
         [i + '=' + d[i] for i in d.keys()]) + '&' + '&'.join(
         [list_name + '=' + i for i in list])
 
-    print([i + '=' + d[i] for i in d.keys()])
-    print([list_name + '=' + i for i in list])
-
-    print(requ)
 
     req = get(requ)
     return req.json()

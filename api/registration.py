@@ -229,7 +229,6 @@ def contract_create_():
     closing_date = request.values.get('closing_date')
     closing_time = request.values.get('closing_time')
     items = request.values.getlist('items[]')
-    print(items)
     return contract_create(login, _pass, to_user, from_money, to_money, closing_date, closing_time, items)
 
 

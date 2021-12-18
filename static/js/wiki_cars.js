@@ -377,6 +377,11 @@ function updateCarsTable() {
         }
         cars_count = 0;
         data["list"]['cars'].forEach((i) => {
+            let color1 = i["first_color"] === null ? "null" : "<div style='color:" + i["first_color"]["hex"] + ";'>" + i["first_color"]["hex"] + "</div>";
+            let color2 = i["second_color"] === null ? "null" : "<div style='color:" + i["second_color"]["hex"] + ";'>" + i["second_color"]["hex"] + "</div>";
+            let bumper = i["bumper"] === null ? "null" : i["bumper"]["name"];
+            let wheels = i["wheels"] === null ? "null" : i["wheels"]["name"];
+
             let tr = document.createElement("tr");
             tr.id = "cars_" + i["id_car"];
             tr.innerHTML = "<td class=\"unselectable\" style='padding-left: 2%; width: 7%'>" +
@@ -393,9 +398,9 @@ function updateCarsTable() {
                 "                    </label></td>" +
                 " <td style='padding-left: 2%'>" + ('000' + ++cars_count).slice(-4) + "</td>\n" +
                 "            <td>" + i["name"] + "</td>\n" +
-                "            <td>" + i["first_color"] + ":" + i["second_color"] + "</td>\n" +
-                "            <td>" + i["wheels"] + "</td>\n" +
-                "            <td>" + i["bumper"] + "</td>\n" +
+                "            <td>" + color1 + ":" + color2 + "</td>\n" +
+                "            <td>" + wheels + "</td>\n" +
+                "            <td>" + bumper + "</td>\n" +
                 "            <td>" + i["creator"]['creator_user']['username'] + "</td>\n" +
                 "            <td>" + "" + "</td>";
             cars.appendChild(tr);
