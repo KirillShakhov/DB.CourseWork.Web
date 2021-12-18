@@ -110,7 +110,7 @@ function createAuction() {
     }).done(function (data) {
         if (data["status"] === "ok") {
             tempAlert("Контракт добавлен", 3000);
-            updateBumpersTable();
+            updateAuctionTable();
         } else {
             if (data["message"] === "could not execute statement;") {
                 tempErrorAlert("Один из предметов используется в другом контракте", 3000);

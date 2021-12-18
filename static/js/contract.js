@@ -115,7 +115,6 @@ function createContract() {
     }).done(function (data) {
         if (data["status"] === "ok") {
             tempAlert("Контракт добавлен", 3000);
-            updateBumpersTable();
         } else {
             if (data["message"] === "could not execute statement;") {
                 tempErrorAlert("Один из предметов используется в другом контракте", 3000);
@@ -123,6 +122,7 @@ function createContract() {
                 tempErrorAlert(data["message"], 3000);
             }
         }
+        updateContractTable();
     });
     removeAllWindows();
 }
@@ -226,24 +226,6 @@ function removeContract(id) {
     });
 }
 
-
-function confirmContract(id) {
-    $.ajax({
-        url: '/contract/confirm',
-        method: 'post',
-        data: {
-            id: id
-        }
-    }).done(function (data) {
-        if (data["status"] === "ok") {
-            tempAlert("Контракт принят", 3000);
-        } else {
-            tempErrorAlert(data["message"], 3000);
-        }
-        updateContractTable();
-    });
-}
-
 function updateContractTable() {
     let tasks = document.getElementById("tbody-contract");
     $.ajax({
@@ -278,7 +260,7 @@ function updateContractTable() {
                 "            <td>" + toUser + "</td>\n" +
                 "            <td>" + i['closing_date'] + "(" + i['closing_time'] + ")" + "</td>\n" +
                 "            <td><p style='color: red;'>" + i['from_money'] + "</p>/<p style='color: green'>" + i['to_money'] + "</p></td>\n" +
-                // "            <td>\n" +
+                "            <td>\n" +
                 "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='contractItemWindow(" + i['id_contract'] + ");'>\n" +
                 "                       <svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" viewBox=\"0 0 96 96\" width=\"20px\" height=\"20px\">\n" +
                 "                           <g id=\"surface35259549\">\n" +
@@ -293,10 +275,27 @@ function updateContractTable() {
                 "                           </g>\n" +
                 "                       </svg>\n" +
                 "                </button>\n" +
-                "";
+                "           </td>";
             tasks.appendChild(tr);
             updateSelectedContractCount();
         });
+    });
+}
+
+function confirmContract(id) {
+    $.ajax({
+        url: '/contract/confirm',
+        method: 'post',
+        data: {
+            id: id
+        }
+    }).done(function (data) {
+        if (data["status"] === "ok") {
+            tempAlert("Контракт принят", 3000);
+        } else {
+            tempErrorAlert(data["message"], 3000);
+        }
+        updateContractTable();
     });
 }
 
