@@ -283,6 +283,20 @@ def bumpers_create(login, _pass, name, photo, color):
                                          })
 
 
+def bumpers_remove(login, _pass, _id):
+    return create_req("bumpers/remove", {"login": login,
+                                         "pass": _pass,
+                                         "id": _id
+                                         })
+
+
+def wheels_remove(login, _pass, _id):
+    return create_req("wheels/remove", {"login": login,
+                                         "pass": _pass,
+                                         "id": _id
+                                         })
+
+
 def bumpers(login, _pass):
     return create_req("bumpers", {
         "login": login,

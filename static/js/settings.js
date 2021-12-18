@@ -6,7 +6,7 @@ let BiographySettingsInput = document.getElementById("BiographySettingsInput");
 let RDateSettingsInput = document.getElementById("RDateSettingsInput");
 let SaveSettingButton = document.getElementById("SaveSettingButton");
 let CreatorSettingsInput = document.getElementById("CreatorSettingsInput");
-
+let myname;
 
 function updateInfo() {
     $.ajax({
@@ -20,7 +20,7 @@ function updateInfo() {
             EmailSettingsInput.value = data["list"]["email"];
             BiographySettingsInput.value = data["list"]["biography"];
             RDateSettingsInput.value = data["list"]["registration_date"];
-
+            myname = data["list"]["username"];
 
             let balance = document.getElementsByClassName("my-balance");
             for (let i = 0; i < balance.length; i++) {
@@ -67,6 +67,7 @@ SaveSettingButton.onclick = () => {
     }).done(function (data) {
         if (data["status"] === "ok") {
             tempAlert("Профиль обновлен", 3000);
+            myname = UsernameSettingsInput.value;
             document.cookie = "login=" + UsernameSettingsInput.value;
             updateInfo();
         } else {
