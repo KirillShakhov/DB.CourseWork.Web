@@ -107,11 +107,19 @@ function updateWheelsTable() {
         }
         wheels_count = 0;
         data["list"].forEach((i) => {
+            let removeButton = i['creator']['creator_user']['username'] === myname ? "<button class=\"btn-none\" style=\"margin-left: 10px;\" onclick='removeWheels(" + i["id_wheel"] + ")'>\n" +
+                "                    <svg width=\"14\" height=\"24\" viewBox=\"0 0 20 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                "                        <path d=\"M1 5.5791H3H19\" stroke=\"#F1F1F1\" stroke-width=\"2\" stroke-linecap=\"round\"\n" +
+                "                              stroke-linejoin=\"round\"></path>\n" +
+                "                        <path d=\"M6 5.5783V3.52499C6 2.98042 6.21071 2.45815 6.58579 2.07308C6.96086 1.68801 7.46957 1.47168 8 1.47168H12C12.5304 1.47168 13.0391 1.68801 13.4142 2.07308C13.7893 2.45815 14 2.98042 14 3.52499V5.5783M17 5.5783V19.9515C17 20.496 16.7893 21.0183 16.4142 21.4034C16.0391 21.7884 15.5304 22.0048 15 22.0048H5C4.46957 22.0048 3.96086 21.7884 3.58579 21.4034C3.21071 21.0183 3 20.496 3 19.9515V5.5783H17Z\"\n" +
+                "                              stroke=\"#F1F1F1\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path>\n" +
+                "                    </svg>\n" +
+                "                </button>\n" : "";
             let tr = document.createElement("tr");
-            tr.id = "wheels_" + i["id"];
+            tr.id = "wheels_" + i["id_wheel"];
             tr.innerHTML = "<td class=\"unselectable\" style='padding-left: 2%; width: 7%'>" +
                 "                        <label class=\"my-checkbox\">\n" +
-                "                        <input type=\"checkbox\" class='checkbox-wheels' value='" + i['id'] + "' onclick='updateSelectedWheelsCount();'>\n" +
+                "                        <input type=\"checkbox\" class='checkbox-wheels' value='" + i['id_wheel'] + "' onclick='updateSelectedWheelsCount();'>\n" +
                 "                        <div class=\"check-container grey\">\n" +
                 "                            <svg class=\"\" width=\"15\" height=\"10\" viewBox=\"0 0 15 10\" fill=\"none\"\n" +
                 "                                 xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -127,11 +135,28 @@ function updateWheelsTable() {
                 "            <td>" + i["disk_color"]['name'] + "</td>\n" +
                 "            <td>" + "<img width='150' src=" + i['photo'] + " alt=" + i['photo'] + ">" + "</td>\n" +
                 "            <td>" + i['creator']['creator_user']['username'] + "</td>\n" +
-                "            <td>" + "" + "</td>";
+                "            <td>" + removeButton + "</td>";
             wheels.appendChild(tr);
         });
         updateSelectedWheelsCount();
     });
+}
+
+function removeWheels(id) {
+    $.ajax({
+            url: '/wheels/remove',
+            method: 'post',
+            data: {
+                id: id
+            }
+        }).done(function (data) {
+            if (data["status"] === "ok") {
+                tempAlert("Бампер удален", 3000);
+                updateWheelsTable();
+            } else {
+                tempErrorAlert(data["message"], 3000);
+            }
+        });
 }
 
 function updateSelectedWheelsCount() {
