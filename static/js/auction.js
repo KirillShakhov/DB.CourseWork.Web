@@ -211,7 +211,7 @@ function removeAuction(id) {
         }
     }).done(function (data) {
         if (data["status"] === "ok") {
-            tempAlert("Контракт удален", 3000);
+            tempAlert("Аукцион удален", 3000);
         } else {
             tempErrorAlert(data["message"], 3000);
         }
@@ -393,9 +393,9 @@ function auctionItemWindow(id_item) {
         "    </div>" +
         "            </div>\n" +
         "        </div>\n" +
-        "        <span style=\"position: absolute; left: 180px; top: 40px\">" +
+        "        <span style=\"position: absolute; left: 260px; top: 40px\">" +
         "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>закрыть</button>\n" +
-        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='auctionItem(" + id_item + ",document.getElementById(\"PriceItemInput\").value);document.getElementById(\"create-profile-window\").remove();'>Сохранить</button>\n" +
+        // "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='auctionItem(" + id_item + ",document.getElementById(\"PriceItemInput\").value);document.getElementById(\"create-profile-window\").remove();'>Сохранить</button>\n" +
         "        </span>" +
         "    </div>";
     home.appendChild(create_profile_window);

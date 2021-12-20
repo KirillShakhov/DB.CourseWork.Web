@@ -278,11 +278,7 @@ function updateContractTable() {
                 "                       </svg>\n" +
                 "                </button>\n" +
                 "                <button class=\"btn-none\" style=\"margin-left: 15px;\" onclick='confirmContract(" + i['id_contract'] + ");'>\n" +
-                "                       <svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" viewBox=\"0 0 96 96\" width=\"20px\" height=\"20px\">\n" +
-                "                           <g id=\"surface35259549\">\n" +
-                "                           <path style=\" stroke:none;fill-rule:nonzero;fill:rgb(100%,100%,100%);fill-opacity:1;\" d=\"M 20.703125 12 L 12 26.921875 L 12 84 L 84 84 L 84 26.921875 L 75.296875 12 Z M 25.296875 20 L 70.703125 20 L 75.367188 28 L 20.632812 28 Z M 36 36 L 60 36 L 60 44 L 36 44 Z M 36 36 \"/>\n" +
-                "                           </g>\n" +
-                "                       </svg>\n" +
+                "                       <b style='font-size: 22px;'>$</b>\n" +
                 "                </button>\n" +
                  removeButton +
                 "           </td>";
@@ -346,7 +342,7 @@ function contractItemWindow(id_item) {
     create_profile_window.innerHTML = "<div class=\"blur-window create-profile\" id=\"create-profile-window\" style='height: 500px'>\n" +
         "        <div class=\"container top-container\">\n" +
         "            <div class=\"menu-slider unselectable\">\n" +
-        "                <div class=\"menu-slider-item active unselectable\" id=\"profile-general-button\">Предметы входящие в контракт</div>\n" +
+        "                <div class=\"menu-slider-item active unselectable\" id=\"profile-general-button\">Предметы в контракте</div>\n" +
         "            </div>\n" +
         "            <div class=\"border-b-line\"></div>\n" +
         "        </div>\n" +

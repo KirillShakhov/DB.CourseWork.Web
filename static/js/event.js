@@ -10,4 +10,4 @@ function updateSite()
     updateArticleTable();
 }
 
-setInterval(updateSite, 3000);
+setInterval(updateSite, 30000);
