@@ -170,7 +170,7 @@ function updateArticleTable() {
         data["list"].forEach((i) => {
             let tr = document.createElement("tr");
             tr.id = "article_" + i['id_articles'];
-
+            let carName = i['car'] != null ? i['car']['name'] : 'null';
             tr.innerHTML = "<td style='padding-left: 2%; width: 5%'>" +
                 "                   <label class=\"my-checkbox\">\n" +
                 "                        <input type=\"checkbox\" class='checkbox-article' value='" + i['id_articles'] + "' onclick='updateSelectedArticleCount();'>\n" +
@@ -187,7 +187,7 @@ function updateArticleTable() {
                 "<td style='padding-left: 1%'>" + ('000' + ++article_count).slice(-4) + "</td>\n" +
                 "            <td>" + i['title'] + "</td>\n" +
                 "            <td>" + i['author']['username'] + "</td>\n" +
-                "            <td>" + "Машинка" + "</td>\n" +
+                "            <td>" + carName + "</td>\n" +
                 "            <td>" + i['create_date'] + "</td>\n" +
                 // "            <td>\n" +
                 "                <button class=\"btn-none\" style=\"margin-left: 30px;\" onclick='articleTextItemWindow(" + i['title'] + "," + i['text'] + ");'>\n" +

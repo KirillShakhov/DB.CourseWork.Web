@@ -7,6 +7,7 @@ function updateSite()
     updateTradeTable();
     updateBumpersTable();
     updateWheelsTable();
+    updateArticleTable();
 }
 
 setInterval(updateSite, 3000);
