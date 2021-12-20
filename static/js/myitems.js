@@ -206,7 +206,11 @@ function removeItem(id) {
         if (data["status"] === "ok") {
             tempAlert("Предмет удален", 3000);
         } else {
-            tempErrorAlert(data["message"], 3000);
+            if(data["message"].includes('org.hibernate.exception.ConstraintViolationException')){
+                tempErrorAlert("Предмет уже где-то используется", 3000);
+            }else{
+                tempErrorAlert(data["message"], 3000);
+            }
         }
         updateItemTable();
     });
