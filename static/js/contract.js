@@ -153,36 +153,38 @@ function updateCreateContractTable() {
         }
         count = 0;
         data["list"].forEach((i) => {
-            let tr = document.createElement("tr");
-            tr.id = "item_" + i['id_item'];
-            let type, type_name;
-            if (i['car'] != null) {
-                type = "Машина";
-                type_name = i['car']['name']
-            } else if (i['bumper'] != null) {
-                type = "Бампер";
-                type_name = i['bumper']['name']
-            } else if (i['wheels'] != null) {
-                type = "Колеса";
-                type_name = i['wheels']['name']
+            if (i['purchase_items'] == null) {
+                let tr = document.createElement("tr");
+                tr.id = "item_" + i['id_item'];
+                let type, type_name;
+                if (i['car'] != null) {
+                    type = "Машина";
+                    type_name = i['car']['name']
+                } else if (i['bumper'] != null) {
+                    type = "Бампер";
+                    type_name = i['bumper']['name']
+                } else if (i['wheels'] != null) {
+                    type = "Колеса";
+                    type_name = i['wheels']['name']
+                }
+                tr.innerHTML = "<td style='padding-left: 2%; width: 5%'>" +
+                    "                   <label class=\"my-checkbox\">\n" +
+                    "                        <input type=\"checkbox\" class='checkbox-create-contract' value='" + i['id_item'] + "' onclick='updateSelectedCreateContract();'>\n" +
+                    "                        <div class=\"check-container grey\">\n" +
+                    "                            <svg class=\"\" width=\"15\" height=\"10\" viewBox=\"0 0 15 10\" fill=\"none\"\n" +
+                    "                                 xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                    "                                <path d=\"M13 2L5.4375 9L2 5.81818\" stroke=\"#F1F1F1\" stroke-width=\"2\"\n" +
+                    "                                      stroke-linecap=\"square\"\n" +
+                    "                                      stroke-linejoin=\"round\"></path>\n" +
+                    "                            </svg>\n" +
+                    "                        </div>\n" +
+                    "                    </label>" +
+                    "                    </div></td>" +
+                    "<td style='padding-left: 1%'>" + ('000' + ++count).slice(-4) + "</td>\n" +
+                    "            <td>" + type + "</td>\n" +
+                    "            <td>" + type_name + "</td>\n";
+                tasks.appendChild(tr);
             }
-            tr.innerHTML = "<td style='padding-left: 2%; width: 5%'>" +
-                "                   <label class=\"my-checkbox\">\n" +
-                "                        <input type=\"checkbox\" class='checkbox-create-contract' value='" + i['id_item'] + "' onclick='updateSelectedCreateContract();'>\n" +
-                "                        <div class=\"check-container grey\">\n" +
-                "                            <svg class=\"\" width=\"15\" height=\"10\" viewBox=\"0 0 15 10\" fill=\"none\"\n" +
-                "                                 xmlns=\"http://www.w3.org/2000/svg\">\n" +
-                "                                <path d=\"M13 2L5.4375 9L2 5.81818\" stroke=\"#F1F1F1\" stroke-width=\"2\"\n" +
-                "                                      stroke-linecap=\"square\"\n" +
-                "                                      stroke-linejoin=\"round\"></path>\n" +
-                "                            </svg>\n" +
-                "                        </div>\n" +
-                "                    </label>" +
-                "                    </div></td>" +
-                "<td style='padding-left: 1%'>" + ('000' + ++count).slice(-4) + "</td>\n" +
-                "            <td>" + type + "</td>\n" +
-                "            <td>" + type_name + "</td>\n";
-            tasks.appendChild(tr);
         });
     });
 }
