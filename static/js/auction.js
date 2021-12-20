@@ -73,8 +73,8 @@ create_auction_button.onclick = () => {
         "            </div>\n" +
         "        </div>\n" +
         "        <span style=\"position: relative; left: 140px; top: -50px\">" +
-        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
-        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='createAuction();'>Save</button>\n" +
+        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>закрыть</button>\n" +
+        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='createAuction();'>Сохранить</button>\n" +
         "        </span>" +
         "    </div>";
     home.appendChild(create_profile_window);
@@ -297,8 +297,8 @@ function betAuction(id_item) {
         "            </div>\n" +
         "        </div>\n" +
         "        <span style=\"position: absolute; left: 180px; top: -180px\">" +
-        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
-        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='betAuctionConfirm(" + id_item + ",document.getElementById(\"PriceItemInput\").value);document.getElementById(\"create-profile-window\").remove();'>Save</button>\n" +
+        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>закрыть</button>\n" +
+        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='betAuctionConfirm(" + id_item + ",document.getElementById(\"PriceItemInput\").value);document.getElementById(\"create-profile-window\").remove();'>Сохранить</button>\n" +
         "        </span>" +
         "    </div>";
     home.appendChild(create_profile_window);
@@ -331,7 +331,7 @@ function updateSelectedAuctionCount() {
         }
     }
     if (auction_count !== 0) document.getElementById("checkbox-all-auction").checked = count === auction_count;
-    document.getElementById("auction_stats").innerText = "Total: " + auction_count + "/Select: " + count;
+    document.getElementById("auction_stats").innerText = "Всего: " + auction_count + "/Выбрано: " + count;
 }
 
 function selectAllAuction() {
@@ -341,13 +341,13 @@ function selectAllAuction() {
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = true;
         }
-        document.getElementById("auction_stats").innerText = "Total: " + auction_count + "/Select: " + auction_count;
+        document.getElementById("auction_stats").innerText = "Всего: " + auction_count + "/Выбрано: " + auction_count;
     } else {
         let p = document.getElementsByClassName("checkbox-auction");
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = false;
         }
-        document.getElementById("auction_stats").innerText = "Total: " + auction_count + "/Select: 0";
+        document.getElementById("auction_stats").innerText = "Всего: " + auction_count + "/Выбрано: 0";
     }
 }
 
@@ -358,7 +358,7 @@ function auctionItemWindow(id_item) {
     create_profile_window.innerHTML = "<div class=\"blur-window create-profile\" id=\"create-profile-window\" style='height: 500px'>\n" +
         "        <div class=\"container top-container\">\n" +
         "            <div class=\"menu-slider unselectable\">\n" +
-        "                <div class=\"menu-slider-item active unselectable\" id=\"profile-general-button\">Предметы</div>\n" +
+        "                <div class=\"menu-slider-item active unselectable\" id=\"profile-general-button\">Предметы входящие в  лот</div>\n" +
         "            </div>\n" +
         "            <div class=\"border-b-line\"></div>\n" +
         "        </div>\n" +
@@ -394,8 +394,8 @@ function auctionItemWindow(id_item) {
         "            </div>\n" +
         "        </div>\n" +
         "        <span style=\"position: absolute; left: 180px; top: 40px\">" +
-        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
-        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='auctionItem(" + id_item + ",document.getElementById(\"PriceItemInput\").value);document.getElementById(\"create-profile-window\").remove();'>Save</button>\n" +
+        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>закрыть</button>\n" +
+        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='auctionItem(" + id_item + ",document.getElementById(\"PriceItemInput\").value);document.getElementById(\"create-profile-window\").remove();'>Сохранить</button>\n" +
         "        </span>" +
         "    </div>";
     home.appendChild(create_profile_window);

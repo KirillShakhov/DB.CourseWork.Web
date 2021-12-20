@@ -1,15 +1,15 @@
 <section class="home-section" id="wiki-cars-section" hidden>
     <div class="new-header">
         <div class="new-menu-slider" style="width: 210px">
-            <div class="text menu-slider-item active unselectable"><b>Cars</b></div>
+            <div class="text menu-slider-item active unselectable"><b>Машины</b></div>
             <div class="text menu-slider-item unselectable" onclick="changeMainWindow('wiki_bumpers');"
-                 style="margin-left: 30px"><b>Bumpers</b></div>
+                 style="margin-left: 30px"><b>Бампера</b></div>
             <div class="text menu-slider-item unselectable" onclick="changeMainWindow('wiki_wheels');"
-                 style="margin-left: 30px"><b>Wheels</b></div>
+                 style="margin-left: 30px"><b>Колеса</b></div>
         </div>
         <div class="header">
             <div class="header">
-                <span class="text" id="cars_stats">Total: 6/Select: 4</span>
+                <span class="text" id="cars_stats">Всего: 6/Выбрано: 4</span>
             </div>
             <span>
                 <select class="group-selector" id="cars-group-selector" onchange="updateCarsTable();">
@@ -47,16 +47,16 @@
                               stroke-linecap="round"
                               stroke-linejoin="round"></path>
                     </svg>
-                    Create
+                    Создать
                 </button>
-{#                <button class="grey-border-button" id="remove-wiki-cars-button" style="margin-left: 20px">#}
-{#                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"#}
-{#                         style="margin-right: 8px; position: relative;" transform="scale(1.2) translate(0 1)">#}
-{#                        <path d="M4.018 4.00735L7.18932 7.19995M10.3606 10.3926L7.18932 7.19995M7.18932 7.19995L4.018 10.3926L10.3606 4.00735"#}
-{#                              stroke="#CB2D3E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>#}
-{#                    </svg>#}
-{#                    Delete#}
-{#                </button>#}
+               <button class="grey-border-button" id="remove-wiki-cars-button" style="margin-left: 20px" hidden>
+                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        style="margin-right: 8px; position: relative;" transform="scale(1.2) translate(0 1)">
+                        <path d="M4.018 4.00735L7.18932 7.19995M10.3606 10.3926L7.18932 7.19995M7.18932 7.19995L4.018 10.3926L10.3606 4.00735"
+                              stroke="#CB2D3E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                    Удалить
+                </button>
             </div>
         </div>
     </div>

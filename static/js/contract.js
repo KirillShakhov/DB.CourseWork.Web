@@ -76,8 +76,8 @@ create_contract_button.onclick = () => {
         "            </div>\n" +
         "        </div>\n" +
         "        <span style=\"position: relative; left: 140px; top: -50px\">" +
-        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
-        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='createContract();'>Save</button>\n" +
+        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>закрыть</button>\n" +
+        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='createContract();'>Сохранить</button>\n" +
         "        </span>" +
         "    </div>";
     home.appendChild(create_profile_window);
@@ -309,7 +309,7 @@ function updateSelectedContractCount() {
         }
     }
     if (contract_count !== 0) document.getElementById("checkbox-all-contract").checked = count === contract_count;
-    document.getElementById("contract_stats").innerText = "Total: " + contract_count + "/Select: " + count;
+    document.getElementById("contract_stats").innerText = "Всего: " + contract_count + "/Выбрано: " + count;
 }
 
 function selectAllContract() {
@@ -319,13 +319,13 @@ function selectAllContract() {
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = true;
         }
-        document.getElementById("contract_stats").innerText = "Total: " + contract_count + "/Select: " + contract_count;
+        document.getElementById("contract_stats").innerText = "Всего: " + contract_count + "/Выбрано: " + contract_count;
     } else {
         let p = document.getElementsByClassName("checkbox-contract");
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = false;
         }
-        document.getElementById("contract_stats").innerText = "Total: " + contract_count + "/Select: 0";
+        document.getElementById("contract_stats").innerText = "Всего: " + contract_count + "/Выбрано: 0";
     }
 }
 
@@ -336,7 +336,7 @@ function contractItemWindow(id_item) {
     create_profile_window.innerHTML = "<div class=\"blur-window create-profile\" id=\"create-profile-window\" style='height: 500px'>\n" +
         "        <div class=\"container top-container\">\n" +
         "            <div class=\"menu-slider unselectable\">\n" +
-        "                <div class=\"menu-slider-item active unselectable\" id=\"profile-general-button\">Предметы</div>\n" +
+        "                <div class=\"menu-slider-item active unselectable\" id=\"profile-general-button\">Предметы входящие в контракт</div>\n" +
         "            </div>\n" +
         "            <div class=\"border-b-line\"></div>\n" +
         "        </div>\n" +
@@ -372,8 +372,8 @@ function contractItemWindow(id_item) {
         "            </div>\n" +
         "        </div>\n" +
         "        <span style=\"position: absolute; left: 180px; top: 40px\">" +
-        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
-        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='contractItem(" + id_item + ",document.getElementById(\"PriceItemInput\").value);document.getElementById(\"create-profile-window\").remove();'>Save</button>\n" +
+        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>закрыть</button>\n" +
+        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='contractItem(" + id_item + ",document.getElementById(\"PriceItemInput\").value);document.getElementById(\"create-profile-window\").remove();'>Сохранить</button>\n" +
         "        </span>" +
         "    </div>";
     home.appendChild(create_profile_window);

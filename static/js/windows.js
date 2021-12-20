@@ -77,8 +77,8 @@ function confirmWindow(message1, message2, func) {
         "            " + message1 + "\n" +
         "            <p><b>" + message2 + "</b></p>\n" +
         "        </div>\n" +
-        "        <button class=\"button-active\" onclick='document.getElementById(\"confirm-window\").remove();'>Cancel</button>\n" +
-        "        <button class=\"red-button\" onclick='" + func + "document.getElementById(\"confirm-window\").remove();'>Save\n" +
+        "        <button class=\"button-active\" onclick='document.getElementById(\"confirm-window\").remove();'>закрыть</button>\n" +
+        "        <button class=\"red-button\" onclick='" + func + "document.getElementById(\"confirm-window\").remove();'>Сохранить\n" +
         "        </button>\n" +
         "    </div>";
     home.appendChild(confirm_window);
@@ -103,7 +103,7 @@ function newConfirmWindow(msg1, msg2, func) {
         "        <div class=\"middle-container-text\" style=\"top: 175px; left: 40px; font-size: 14px; text-align: center\">\n" +
         "            " + msg1 + "\n" +
         "            <br>" + msg2 + "<br></div>\n" +
-        "        <button class=\"button-active\" onclick='document.getElementById(\"confirm-window\").remove();'>Cancel</button>\n" +
+        "        <button class=\"button-active\" onclick='document.getElementById(\"confirm-window\").remove();'>закрыть</button>\n" +
         "        <button class=\"red-button\" onclick='" + func + "document.getElementById(\"confirm-window\").remove();' style=\"margin-top: 255px; margin-left: 60px; width: 85px\">Delete</button>";
     home.appendChild(confirm_window);
 }

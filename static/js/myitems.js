@@ -94,7 +94,7 @@ function showLogs(id) {
             "            </div>\n" +
             "        </div>\n" +
             "        <div style=\"position: relative; margin-top: 430px; margin-left: 360px\">\n" +
-            "            <button class=\"button-active\" onclick='document.getElementById(\"logs-window\").remove();'>Cancel</button>\n" +
+            "            <button class=\"button-active\" onclick='document.getElementById(\"logs-window\").remove();'>закрыть</button>\n" +
             "        </div>";
         home.appendChild(create_task_window);
         let textarea = document.getElementById('logs-area');
@@ -221,7 +221,7 @@ function updateSelectedItemsCount() {
         }
     }
     if (my_items_count !== 0) document.getElementById("checkbox-all-items").checked = count === my_items_count;
-    document.getElementById("items_stats").innerText = "Total: " + my_items_count + "/Select: " + count;
+    document.getElementById("items_stats").innerText = "Всего: " + my_items_count + "/Выбрано: " + count;
 }
 
 function selectAllContract() {
@@ -231,13 +231,13 @@ function selectAllContract() {
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = true;
         }
-        document.getElementById("items_stats").innerText = "Total: " + my_items_count + "/Select: " + my_items_count;
+        document.getElementById("items_stats").innerText = "Всего: " + my_items_count + "/Выбрано: " + my_items_count;
     } else {
         let p = document.getElementsByClassName("checkbox-item");
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = false;
         }
-        document.getElementById("items_stats").innerText = "Total: " + my_items_count + "/Select: 0";
+        document.getElementById("items_stats").innerText = "Всего: " + my_items_count + "/Выбрано: 0";
     }
 }
 
@@ -427,8 +427,8 @@ function tradeItemWindow(id_item) {
         "            </div>\n" +
         "        </div>\n" +
         "        <span style=\"position: absolute; left: 180px; top: -180px\">" +
-        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
-        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='tradeItem(" + id_item + ",document.getElementById(\"PriceItemInput\").value);document.getElementById(\"create-profile-window\").remove();'>Save</button>\n" +
+        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>закрыть</button>\n" +
+        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='tradeItem(" + id_item + ",document.getElementById(\"PriceItemInput\").value);document.getElementById(\"create-profile-window\").remove();'>Сохранить</button>\n" +
         "        </span>" +
         "    </div>";
     home.appendChild(create_profile_window);
@@ -459,13 +459,13 @@ function selectAllItems() {
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = true;
         }
-        document.getElementById("items_stats").innerText = "Total: " + my_items_count + "/Select: " + my_items_count;
+        document.getElementById("items_stats").innerText = "Всего: " + my_items_count + "/Выбрано: " + my_items_count;
     } else {
         let p = document.getElementsByClassName("checkbox-item");
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = false;
         }
-        document.getElementById("items_stats").innerText = "Total: " + my_items_count + "/Select: 0";
+        document.getElementById("items_stats").innerText = "Всего: " + my_items_count + "/Выбрано: 0";
     }
 }
 

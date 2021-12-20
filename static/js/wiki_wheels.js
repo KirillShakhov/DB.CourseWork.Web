@@ -36,8 +36,8 @@ create_wiki_wheels_button.onclick = () => {
         "            </div>\n" +
         "        </div>\n" +
         "        <span style=\"position: absolute; left: 180px;\">" +
-        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
-        "           <button type=\"submit\" class=\"red-button\" id='create-wheels-button' onclick='createWheels();'>Save</button>\n" +
+        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>закрыть</button>\n" +
+        "           <button type=\"submit\" class=\"red-button\" id='create-wheels-button' onclick='createWheels();'>Сохранить</button>\n" +
         "        </span>" +
         "    </div>";
     home.appendChild(create_profile_window);
@@ -168,7 +168,7 @@ function updateSelectedWheelsCount() {
         }
     }
     if (wheels_count !== 0) document.getElementById("checkbox-all-wheels").checked = count === wheels_count;
-    document.getElementById("wheels_stats").innerText = "Total: " + wheels_count + "/Select: " + count;
+    document.getElementById("wheels_stats").innerText = "Всего: " + wheels_count + "/Выбрано: " + count;
 }
 
 function selectAllWheels() {
@@ -178,13 +178,13 @@ function selectAllWheels() {
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = true;
         }
-        document.getElementById("wheels_stats").innerText = "Total: " + wheels_count + "/Select: " + wheels_count;
+        document.getElementById("wheels_stats").innerText = "Всего: " + wheels_count + "/Выбрано: " + wheels_count;
     } else {
         let p = document.getElementsByClassName("checkbox-wheels");
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = false;
         }
-        document.getElementById("wheels_stats").innerText = "Total: " + wheels_count + "/Select: 0";
+        document.getElementById("wheels_stats").innerText = "Всего: " + wheels_count + "/Выбрано: 0";
     }
 }
 

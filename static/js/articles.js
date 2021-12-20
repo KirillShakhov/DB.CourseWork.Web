@@ -36,8 +36,8 @@ create_article_button.onclick = () => {
         "            </div>\n" +
         "        </div>\n" +
         "        <span style=\"position: relative; left: 170px; top: 100px\">" +
-        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
-        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='createArticle();'>Save</button>\n" +
+        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>закрыть</button>\n" +
+        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='createArticle();'>Сохранить</button>\n" +
         "        </span>" +
         "    </div>";
     home.appendChild(create_profile_window);
@@ -65,7 +65,7 @@ function articleTextItemWindow(title, text) {
         "            </div>\n" +
         "        </div>\n" +
         "        <span style=\"position: relative; left: 260px; top: 100px\">" +
-        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
+        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>закрыть</button>\n" +
         "        </span>" +
         "    </div>";
     home.appendChild(create_profile_window);
@@ -214,7 +214,7 @@ function updateSelectedArticleCount() {
         }
     }
     if (article_count !== 0) document.getElementById("checkbox-all-article").checked = count === article_count;
-    document.getElementById("article_stats").innerText = "Total: " + article_count + "/Select: " + count;
+    document.getElementById("article_stats").innerText = "Всего: " + article_count + "/Выбрано: " + count;
 }
 
 function updateCrateWindowArticleCarSelector() {
@@ -274,13 +274,13 @@ function selectAllArticle() {
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = true;
         }
-        document.getElementById("article_stats").innerText = "Total: " + article_count + "/Select: " + article_count;
+        document.getElementById("article_stats").innerText = "Всего: " + article_count + "/Выбрано: " + article_count;
     } else {
         let p = document.getElementsByClassName("checkbox-article");
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = false;
         }
-        document.getElementById("article_stats").innerText = "Total: " + article_count + "/Select: 0";
+        document.getElementById("article_stats").innerText = "Всего: " + article_count + "/Выбрано: 0";
     }
 }
 

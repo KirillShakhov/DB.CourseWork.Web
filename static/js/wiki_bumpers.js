@@ -39,8 +39,8 @@ create_wiki_bumpers_button.onclick = () => {
         "            </div>\n" +
         "        </div>\n" +
         "        <span style=\"position: absolute; left: 180px;\">" +
-        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
-        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='createbumpers();'>Save</button>\n" +
+        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>закрыть</button>\n" +
+        "           <button type=\"submit\" class=\"red-button\" id='create-bumpers-button' onclick='createbumpers();'>Сохранить</button>\n" +
         "        </span>" +
         "    </div>";
     home.appendChild(create_profile_window);
@@ -169,7 +169,7 @@ function updateSelectedBumpersCount() {
         }
     }
     if (bumpers_count !== 0) document.getElementById("checkbox-all-bumpers").checked = count === bumpers_count;
-    document.getElementById("bumpers_stats").innerText = "Total: " + bumpers_count + "/Select: " + count;
+    document.getElementById("bumpers_stats").innerText = "Всего: " + bumpers_count + "/Выбрано: " + count;
 }
 
 function selectAllBumpers() {
@@ -179,13 +179,13 @@ function selectAllBumpers() {
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = true;
         }
-        document.getElementById("bumpers_stats").innerText = "Total: " + bumpers_count + "/Select: " + bumpers_count;
+        document.getElementById("bumpers_stats").innerText = "Всего: " + bumpers_count + "/Выбрано: " + bumpers_count;
     } else {
         let p = document.getElementsByClassName("checkbox-bumpers");
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = false;
         }
-        document.getElementById("bumpers_stats").innerText = "Total: " + bumpers_count + "/Select: 0";
+        document.getElementById("bumpers_stats").innerText = "Всего: " + bumpers_count + "/Выбрано: 0";
     }
 }
 

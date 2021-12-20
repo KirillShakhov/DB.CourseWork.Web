@@ -90,7 +90,7 @@ function updateSelectedTradeItemsCount() {
         }
     }
     if (trade_count !== 0) document.getElementById("checkbox-all-trade").checked = count === trade_count;
-    document.getElementById("trade_stats").innerText = "Total: " + trade_count + "/Select: " + count;
+    document.getElementById("trade_stats").innerText = "Всего: " + trade_count + "/Выбрано: " + count;
 }
 
 function selectAllTrade() {
@@ -100,13 +100,13 @@ function selectAllTrade() {
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = true;
         }
-        document.getElementById("trade_stats").innerText = "Total: " + trade_count + "/Select: " + trade_count;
+        document.getElementById("trade_stats").innerText = "Всего: " + trade_count + "/Выбрано: " + trade_count;
     } else {
         let p = document.getElementsByClassName("checkbox-trade");
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = false;
         }
-        document.getElementById("trade_stats").innerText = "Total: " + trade_count + "/Select: 0";
+        document.getElementById("trade_stats").innerText = "Всего: " + trade_count + "/Выбрано: 0";
     }
 }
 

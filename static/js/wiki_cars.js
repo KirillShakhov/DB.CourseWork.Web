@@ -39,8 +39,8 @@ create_cars_group_button.onclick = () => {
         "            </div>\n" +
         "        </div>\n" +
         "        <span style=\"position: absolute; left: 180px;\">" +
-        "           <button class=\"button-active\" onclick='document.getElementById(\"create-cars-group-window\").remove();'>Cancel</button>\n" +
-        "           <button type=\"submit\" class=\"red-button\" id='create-cars-group-button' onclick='createCarsGroup();'>Save</button>\n" +
+        "           <button class=\"button-active\" onclick='document.getElementById(\"create-cars-group-window\").remove();'>закрыть</button>\n" +
+        "           <button type=\"submit\" class=\"red-button\" id='create-cars-group-button' onclick='createCarsGroup();'>Сохранить</button>\n" +
         "        </span>" +
         "    </div>";
     home.appendChild(create_profile_window);
@@ -235,8 +235,8 @@ create_wiki_cars_button.onclick = () => {
         "            </div>\n" +
         "        </div>\n" +
         "        <span style=\"position: absolute; left: 180px;\">" +
-        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>Cancel</button>\n" +
-        "           <button type=\"submit\" class=\"red-button\" id='create-cars-button' onclick='createCars();'>Save</button>\n" +
+        "           <button class=\"button-active\" onclick='document.getElementById(\"create-profile-window\").remove();'>закрыть</button>\n" +
+        "           <button type=\"submit\" class=\"red-button\" id='create-cars-button' onclick='createCars();'>Сохранить</button>\n" +
         "        </span>" +
         "    </div>";
     home.appendChild(create_profile_window);
@@ -309,7 +309,7 @@ function updateSelectedCarsCount() {
         }
     }
     if (cars_count !== 0) document.getElementById("checkbox-all-cars").checked = count === cars_count;
-    document.getElementById("cars_stats").innerText = "Total: " + cars_count + "/Select: " + count;
+    document.getElementById("cars_stats").innerText = "Всего: " + cars_count + "/Выбрано: " + count;
 }
 
 function selectAllCars() {
@@ -319,13 +319,13 @@ function selectAllCars() {
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = true;
         }
-        document.getElementById("cars_stats").innerText = "Total: " + cars_count + "/Select: " + cars_count;
+        document.getElementById("cars_stats").innerText = "Всего: " + cars_count + "/Выбрано: " + cars_count;
     } else {
         let p = document.getElementsByClassName("checkbox-cars");
         for (let i = 0; i < p.length; i++) {
             p.item(i).checked = false;
         }
-        document.getElementById("cars_stats").innerText = "Total: " + cars_count + "/Select: 0";
+        document.getElementById("cars_stats").innerText = "Всего: " + cars_count + "/Выбрано: 0";
     }
 }
 
