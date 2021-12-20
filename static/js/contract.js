@@ -157,13 +157,13 @@ function updateCreateContractTable() {
             tr.id = "item_" + i['id_item'];
             let type, type_name;
             if (i['car'] != null) {
-                type = "Car";
+                type = "Машина";
                 type_name = i['car']['name']
             } else if (i['bumper'] != null) {
-                type = "Bumper";
+                type = "Бампер";
                 type_name = i['bumper']['name']
             } else if (i['wheels'] != null) {
-                type = "Wheels";
+                type = "Колеса";
                 type_name = i['wheels']['name']
             }
             tr.innerHTML = "<td style='padding-left: 2%; width: 5%'>" +
@@ -393,13 +393,13 @@ function contractItemWindow(id_item) {
         data["list"].forEach((i) => {
             let type, type_name;
             if (i['car'] != null) {
-                type = "Car";
+                type = "Машина";
                 type_name = i['car']['name']
             } else if (i['bumper'] != null) {
-                type = "Bumper";
+                type = "Бампер";
                 type_name = i['bumper']['name']
             } else if (i['wheels'] != null) {
-                type = "Wheels";
+                type = "Колеса";
                 type_name = i['wheels']['name']
             }
             let tr = document.createElement("tr");
