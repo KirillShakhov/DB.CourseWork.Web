@@ -12,7 +12,7 @@ from api.registration import *
 
 
 @app.route('/favicon.ico')
-def favicon():
+def favicon_ico():
     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico',
                                mimetype='image/vnd.microsoft.icon')
 
@@ -60,4 +60,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='localhost', port=9874)

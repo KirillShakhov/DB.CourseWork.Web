@@ -28,7 +28,7 @@ create_auction_button.onclick = () => {
         "                <input type=\"text\" id=\"ClosingDateCreateauctionInput\" name=\"NameInput\" placeholder=\"Дата окончания. 2021-12-12\" value=\"\"\n" +
         "                        style=\"position: absolute;margin-left: 10px;margin-top: 10px; width: 350px;\">\n" +
         "                <div class=\"border-b-line\" style=\"width: 350px;top: 35px;\">" +
-        "        <input type=\"text\" id=\"ClosingTimeCreateauctionInput\" name=\"NameInput\" placeholder=\"Время окончания. Необязательно\" value=\"\"\n" +
+        "        <input type=\"text\" id=\"ClosingTimeCreateauctionInput\" name=\"NameInput\" placeholder=\"Время окончания. 00:00 Необязательно\" value=\"\"\n" +
         "                        style=\"position: absolute;margin-left: 10px;margin-top: 10px; width: 350px;\">\n" +
         "                <div class=\"border-b-line\" style=\"width: 350px;top: 35px;\">" +
         "            </div>\n" +
